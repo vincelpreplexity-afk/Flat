@@ -18,8 +18,8 @@ var CONFIG = {
   ROOM: {
     /* Plan: the window wall is the top wall, the sofa wall the left one, the kitchen to the right. Inner wall faces, clockwise from the top-left corner.
        The notch (145,0)-(145,73)-(150,73)-(150,0) is the 5″ wall between the main room and the kitchen: the TV hangs on its left face.
-       The recess (183,157)-(183,187)-(145,187) is the fridge niche, to the right of the kitchen entrance and in front of the units. */
-    outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 157], [183, 157], [183, 187], [145, 187], [145, 165], [0, 165]],
+       The recess (177,157)-(177,161)-(207,161)-(207,157) is the fridge niche: the fridge stands in line with the units along the south wall, at their end nearest the entrance. */
+    outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 157], [207, 157], [207, 161], [177, 161], [177, 157], [145, 157], [145, 165], [0, 165]],
     height: 98, wall: 5,
     walls: 0xd8d2c6, floor: 0xd3b184, trim: 0xd9c7ab,
     boards: 7, boardsDir: 'y',
@@ -39,8 +39,8 @@ var CONFIG = {
       'Kitchen about 130″ × 157″ (3.3 × 4.0 m): read from photos with no camera solve, ±15 %. Its far wall at x 280″ is the least certain number here',
       'Main room window 60″ wide, glazed balcony door 30″ beside it (hinges on the right seen from the room, opens inward; drawn closed)',
       'Kitchen window 30″ and glazed balcony door 28″: the balcony is shared with the main room, so they sit on the same wall (guess)',
-      'Kitchen units along the far wall: tower with oven and microwave 24″, base run 64″, return 56″ × 26″, fridge 28″ × 28″ × 76″ in a niche to the right of the entrance (38″ × 30″, size guessed; position as described by the owner), corner unit with the sink 26″ × 24″, wall cabinets 90″ × 14″ hung at 54″',
-      'The wall between the counter and the wall cabinets is mirrored: drawn as a plain silvered mirror 90″ × 18″, without the smoked-bronze tint and diamond pattern. Counter top, hob, handles and the cat are not drawn; the dark floor band is a flat brown patch',
+      'Kitchen units form an L (checked against the owner’s corrections and three photos, ±10″): along the east wall an oven and microwave tower 24″ and base units 107″; a 26″ corner unit with the sink in the south-east corner; a 49″ run along the south wall; wall cabinets 107″ and 49″ hung at 54″. The 28″ × 28″ × 76″ fridge stands in line with the south run, on its end nearest the entrance, facing north, in a 4″ recess in the wall',
+      'The wall between the counter and the wall cabinets is mirrored: drawn as plain silvered mirrors 18″ high, without the smoked-bronze tint and diamond pattern. Counter top, hob, handles and the cat are not drawn; the dark floor band is a flat brown patch',
       'Left out in the main room: ceiling spot lights, the wardrobe at the left edge of photo 1, bags, laptop, sheer curtain. Curtains and radiators are plain boxes',
       'Wall colour is one textured-wallpaper beige for both rooms; the kitchen’s black-flecked cork wallpaper is not modelled'
     ]
@@ -53,14 +53,16 @@ var CONFIG = {
     curL:   {name: 'Curtain left', type: 'box', w: 30, d: 3, h: 96, color: 0x2a9bb0},
     curR:   {name: 'Curtain right', type: 'box', w: 30, d: 3, h: 96, color: 0x2a9bb0},
     rad:    {name: 'Radiator', type: 'box', w: 50, d: 4, h: 21, color: 0xf4f1ea},
-    floorK: {name: 'Dark floor patch', type: 'rug', w: 54, d: 125, color: 0x5b3b2a, color2: 0x5b3b2a},
+    floorK: {name: 'Dark floor patch', type: 'rug', w: 54, d: 131, color: 0x5b3b2a, color2: 0x5b3b2a},
     tower:  {name: 'Oven tower', type: 'box', w: 24, d: 24, h: 84, color: 0xe4e4e2},
-    base:   {name: 'Base units', type: 'box', w: 64, d: 24, h: 36, color: 0x16161a},
-    ret:    {name: 'Return unit', type: 'box', w: 56, d: 26, h: 36, color: 0x16161a},
-    corner: {name: 'Corner unit', type: 'box', w: 26, d: 24, h: 36, color: 0x16161a},
+    base:   {name: 'Base units', type: 'box', w: 107, d: 24, h: 36, color: 0x16161a},
+    leg2:   {name: 'South run', type: 'box', w: 49, d: 26, h: 36, color: 0x16161a},
+    corner: {name: 'Corner unit', type: 'box', w: 26, d: 26, h: 36, color: 0x16161a},
     sink:   {name: 'Sink', type: 'box', w: 18, d: 14, h: 1.5, mount: 36, color: 0x9aa0a6},
-    wall:   {name: 'Wall cabinets', type: 'box', w: 90, d: 14, h: 30, mount: 54, color: 0xf2f2f0},
-    mirror: {name: 'Mirror splash-back', type: 'art', w: 90, d: 1.5, h: 18, mount: 36, print: 'mirror', color: 0x2b2b2b},
+    wall:   {name: 'Wall cabinets east', type: 'box', w: 107, d: 14, h: 30, mount: 54, color: 0xf2f2f0},
+    wall2:  {name: 'Wall cabinets south', type: 'box', w: 49, d: 14, h: 30, mount: 54, color: 0xf2f2f0},
+    mirror: {name: 'Mirror splash-back east', type: 'art', w: 107, d: 1.5, h: 18, mount: 36, print: 'mirror', color: 0x2b2b2b},
+    mirror2: {name: 'Mirror splash-back south', type: 'art', w: 49, d: 1.5, h: 18, mount: 36, print: 'mirror', color: 0x2b2b2b},
     fridge: {name: 'Fridge', type: 'box', w: 28, d: 28, h: 76, color: 0x16161a},
     table:  {name: 'Round table', type: 'table', w: 40, d: 40, h: 29, round: true, color: 0x1b1b1d, color2: 0x1b1b1d},
     ch1:    {name: 'Chair 1', type: 'chair', w: 18, d: 18, h: 34, color: 0x1b1b1d},
@@ -72,11 +74,11 @@ var CONFIG = {
   LAYOUTS: [
     {name: 'As photographed', note: 'The flat as it is: sofa along the left wall facing the TV, a pouf in front of the window, the kitchen beyond the 84″ opening.',
      place: {sofa: [19, 62, 270], pouf: [75, 36, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
-             floorK: [227, 62.5, 0], tower: [268, 12, 90], base: [268, 56, 90], ret: [228, 101, 0], wall: [273, 69, 90], mirror: [279.25, 69, 90], corner: [268, 101, 90], sink: [273, 101, 90], fridge: [164, 173, 180],
+             floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 77.5, 90], wall2: [229.5, 150, 180], mirror: [279.25, 77.5, 90], mirror2: [229.5, 156.25, 180], sink: [273, 144, 90], fridge: [191, 145, 180],
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0]}},
     {name: 'Sofa under the window', note: 'The sofa moves to the window wall and the pouf becomes a coffee table. It opens the left wall, but the sofa back covers the radiator.',
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
-             floorK: [227, 62.5, 0], tower: [268, 12, 90], base: [268, 56, 90], ret: [228, 101, 0], wall: [273, 69, 90], mirror: [279.25, 69, 90], corner: [268, 101, 90], sink: [273, 101, 90], fridge: [164, 173, 180],
+             floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 77.5, 90], wall2: [229.5, 150, 180], mirror: [279.25, 77.5, 90], mirror2: [229.5, 156.25, 180], sink: [273, 144, 90], fridge: [191, 145, 180],
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0]}}
   ],
   PHOTOS: [
