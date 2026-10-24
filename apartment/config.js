@@ -69,11 +69,11 @@ var CONFIG = {
     {name: 'As photographed', note: 'The flat as it is: sofa along the left wall facing the TV, a pouf in front of the window, the kitchen beyond the 84″ opening.',
      place: {sofa: [19, 62, 270], pouf: [75, 36, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
              floorK: [227, 62.5, 0], tower: [268, 12, 90], base: [268, 56, 90], ret: [228, 101, 0], wall: [273, 68, 90], fridge: [266, 143, 90],
-             table: [190, 62, 0], ch1: [170, 44, 311], ch2: [218, 64, 90], ch3: [190, 90, 180], ch4: [162, 64, 270], radK: [190, 2.5, 0]}},
+             table: [190, 62, 0], ch1: [166, 41, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0]}},
     {name: 'Sofa under the window', note: 'The sofa moves to the window wall and the pouf becomes a coffee table. It opens the left wall, but the sofa back covers the radiator.',
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
              floorK: [227, 62.5, 0], tower: [268, 12, 90], base: [268, 56, 90], ret: [228, 101, 0], wall: [273, 68, 90], fridge: [266, 143, 90],
-             table: [190, 62, 0], ch1: [170, 44, 311], ch2: [218, 64, 90], ch3: [190, 90, 180], ch4: [162, 64, 270], radK: [190, 2.5, 0]}}
+             table: [190, 62, 0], ch1: [166, 41, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0]}}
   ],
   PHOTOS: [
     {src: 'photos/p1.jpg', label: 'Main room · toward the window', at: [141, 127], h: 64, yaw: 318.6, pitch: -8, roll: 0, fov: 102.7},
