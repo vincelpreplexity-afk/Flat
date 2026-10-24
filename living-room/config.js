@@ -22,7 +22,8 @@ var CONFIG = {
     walls: 0xd8d2c6, floor: 0xd3b184, trim: 0xd9c7ab,
     boards: 7, boardsDir: 'y',
     openings: [
-      {type: 'window', c: [75, 0], width: 74, sill: 30, head: 88, panes: 3},
+      {type: 'window', c: [69, 0], width: 62, sill: 30, head: 88, panes: 2},
+      {type: 'door', c: [116, 0], width: 30, hinge: 'right', swing: 'in'},
       {type: 'opening', c: [145, 115], width: 84, head: 96, clear: 24, label: 'Kitchen'}
     ],
     fixed: [],
@@ -31,7 +32,7 @@ var CONFIG = {
       'Room width 145″ (3.7 m): solved from both photos, ±6″',
       'Room depth 165″ (4.2 m): the near wall is in neither photo, so this is a placeholder',
       'TV wall 73″ long, then the opening to the kitchen: from the pier edge in photo 2',
-      'Window 74″ wide from x 38″, sill 30″, head 88″: from photo 1 with the solved camera',
+      'Window 62″ wide from x 38″, sill 30″, head 88″, balcony door to its right 30″ wide: from photo 1, the door’s width and hinge side are guesses (it is partly behind the curtain)',
       'Sofa 88″ × 38″, pouf 44″ × 30″, TV 50″ on a 52″ console: read off the photos, ±10 %',
       'Curtains 30″ panels and the radiator drawn as plain boxes',
       'Left out: ceiling spot lights, the wardrobe at the left edge of photo 1, bags, laptop, sheer curtain'
