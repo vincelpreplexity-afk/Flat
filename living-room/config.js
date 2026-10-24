@@ -1,5 +1,5 @@
 var CONFIG = {
-  title: 'Living room',
+  title: 'Main room',
   subtitle: 'Built from two phone photos · sizes estimated, see “Estimates”',
   storageKey: 'room-living-room-v1',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
@@ -53,7 +53,7 @@ var CONFIG = {
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0]}}
   ],
   PHOTOS: [
-    {src: 'photos/p1.jpg', label: 'Photo 1 · toward the window', at: [214, 117], h: 57, yaw: 302, pitch: -4, roll: 0, fov: 90},
+    {src: 'photos/p1.jpg', label: 'Photo 1 · toward the window', at: [141, 127], h: 64, yaw: 318.6, pitch: -8, roll: 0, fov: 102.7},
     {src: 'photos/p2.jpg', label: 'Photo 2 · from the sofa', at: [5, 147], h: 30, yaw: 28, pitch: -10, roll: 0, fov: 90}
   ]
 };
