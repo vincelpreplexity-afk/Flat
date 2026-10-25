@@ -198,7 +198,7 @@ var CONFIG = {
       'Main room window 60″ wide, glazed balcony door 30″ beside it (hinges on the right seen from the room, opens inward; drawn closed)',
       'Kitchen window 30″ and glazed balcony door 28″: the balcony is shared with the main room, so they sit on the same wall (guess)',
       'Kitchen units form an L (checked against the owner’s corrections and three photos, ±10″): along the east wall an oven and microwave tower 24″ and base units 107″; a 26″ corner unit with the sink in the south-east corner; a 49″ run along the south wall; wall cabinets 133″ (east wall, round the corner) and 61″ (south wall) hung at 54″, mirror splash-backs along both walls, round the corner. The 28″ × 28″ × 76″ fridge stands in line with the south run, on its end nearest the entrance, facing north, in a 4″ recess in the wall',
-      'The wall between the counter and the wall cabinets is mirrored: drawn as plain silvered mirrors 18″ high, without the smoked-bronze tint and diamond pattern. Counter top, hob, handles and the cat are not drawn; the dark floor band is a flat brown patch',
+      'The wall between the counter and the wall cabinets is mirrored: drawn as plain silvered mirrors 18″ high, without the smoked-bronze tint and diamond pattern. Counter top, hob, sink, handles and the appliances are drawn simply; the dark floor band is a flat brown patch',
       'Left out in the main room: ceiling spot lights, the wardrobe at the left edge of photo 1, bags, laptop, sheer curtain. Curtains and radiators are plain boxes',
       'Hall (from five photos, no camera solve, ±15 %): 47″ clear width between x 125″ and 172″, about 10 ft from the gap between the rooms to the front door. Its length and the position of the interior door at y 225″ are guesses; which room that door leads to is unknown',
       'Hall furniture: sliding wardrobe 100″ × 24″ × 94″ with three doors, the one nearest the front door a mirror (the bronze mirror bands on the other two are not drawn), and the curved open shelves at its near end drawn as a square 24″ × 16″ unit; front door 36″ and interior door 28″ drawn as closed flat panels; the shoe rack. The mirror inserts, ceiling lights and the intercom are not modelled',
@@ -213,21 +213,19 @@ var CONFIG = {
     pouf:   {name: 'Pouf', type: 'ottoman', w: 44, d: 30, h: 17, color: 0x9fb0ac, color2: 0xd8bb93},
     stand:  {name: 'TV console', type: 'media', w: 52, d: 17, h: 19, color: 0x1b1b1d},
     tv:     {name: 'TV 50″', type: 'media', w: 44, d: 3, h: 25, tv: 50, mount: 28, color: 0x1b1b1d},
-    curL:   {name: 'Curtain left', type: 'box', w: 30, d: 3, h: 96, color: 0x2a9bb0},
-    curR:   {name: 'Curtain right', type: 'box', w: 30, d: 3, h: 96, color: 0x2a9bb0},
-    rad:    {name: 'Radiator', type: 'box', w: 50, d: 4, h: 21, color: 0xf4f1ea},
+    curL:   {name: 'Curtain left', type: 'curtain', w: 30, d: 3, h: 96, color: 0x2a9bb0},
+    curR:   {name: 'Curtain right', type: 'curtain', w: 30, d: 3, h: 96, color: 0x2a9bb0},
+    rad:    {name: 'Radiator', type: 'radiator', w: 50, d: 4, h: 21, mount: 3, color: 0xf4f1ea},
     floorK: {name: 'Dark floor patch', type: 'rug', w: 54, d: 131, color: 0x5b3b2a, color2: 0x5b3b2a},
-    tower:  {name: 'Oven tower', type: 'box', w: 24, d: 24, h: 84, color: 0xe4e4e2},
-    base:   {name: 'Base units', type: 'box', w: 107, d: 24, h: 36, color: 0x16161a},
-    leg2:   {name: 'South run', type: 'box', w: 49, d: 26, h: 36, color: 0x16161a},
-    corner: {name: 'Corner unit', type: 'box', w: 26, d: 26, h: 36, color: 0x16161a},
-    sink:   {name: 'Sink', type: 'box', w: 20, d: 16, h: 4, mount: 34, color: 0x7b8086},
-    tap:    {name: 'Tap', type: 'box', w: 2, d: 2, h: 12, mount: 36, color: 0x1b1b1b},
-    wall:   {name: 'Wall cabinets east', type: 'box', w: 133, d: 14, h: 30, mount: 54, color: 0xf2f2f0},
-    wall2:  {name: 'Wall cabinets south', type: 'box', w: 61, d: 14, h: 30, mount: 54, color: 0xf2f2f0},
+    tower:  {name: 'Oven tower', type: 'ovenTower', w: 24, d: 24, h: 84, color: 0xe4e4e2},
+    base:   {name: 'Base units', type: 'cabinet', w: 107, d: 24, h: 36, cols: 5, hob: {at: 0}, color: 0x16161a},
+    leg2:   {name: 'South run', type: 'cabinet', w: 49, d: 26, h: 36, cols: 2, color: 0x16161a},
+    corner: {name: 'Corner unit and sink', type: 'cabinet', w: 26, d: 26, h: 36, cols: 1, sink: {at: 0}, color: 0x16161a},
+    wall:   {name: 'Wall cabinets east', type: 'cabinet', w: 133, d: 14, h: 30, mount: 54, cols: 6, color: 0xf2f2f0},
+    wall2:  {name: 'Wall cabinets south', type: 'cabinet', w: 61, d: 14, h: 30, mount: 54, cols: 3, color: 0xf2f2f0},
     mirror: {name: 'Mirror splash-back east', type: 'art', w: 133, d: 1.5, h: 18, mount: 36, print: 'mirror', color: 0x2b2b2b},
     mirror2: {name: 'Mirror splash-back south', type: 'art', w: 75, d: 1.5, h: 18, mount: 36, print: 'mirror', color: 0x2b2b2b},
-    fridge: {name: 'Fridge', type: 'box', w: 28, d: 28, h: 76, color: 0x16161a},
+    fridge: {name: 'Fridge', type: 'fridge', w: 28, d: 28, h: 76, color: 0x16161a},
     table:  {name: 'Round table', type: 'table', w: 40, d: 40, h: 29, round: true, color: 0x1b1b1d, color2: 0x1b1b1d},
     ch1:    {name: 'Chair 1', type: 'chair', w: 18, d: 18, h: 34, color: 0x1b1b1d},
     ch2:    {name: 'Chair 2', type: 'chair', w: 18, d: 18, h: 34, color: 0x1b1b1d},
@@ -243,22 +241,22 @@ var CONFIG = {
     bathFloor: {name: 'Bathroom floor tiles', type: 'rug', w: 98, d: 93, color: 0x4a3328, color2: 0x4a3328},
     bathRug:   {name: 'Bath rug', type: 'rug', w: 40, d: 22, color: 0x9a8274, color2: 0x8a7264},
     narrowCab: {name: 'Narrow cabinet', type: 'box', w: 10, d: 14, h: 34, color: 0xf2f2f0},
-    vanity:    {name: 'Sink vanity', type: 'dresser', w: 33, d: 18, h: 34, front: 0, color: 0x16161a},
+    vanity:    {name: 'Sink vanity', type: 'sinkUnit', w: 33, d: 18, h: 34, color: 0xf6f6f6, color2: 0xb8bcc0},
     mirrorBody: {name: 'Mirror cabinet', type: 'box', w: 32, d: 6, h: 27, mount: 48, color: 0x16161a},
     mirrorL:   {name: 'Cabinet mirror door left', type: 'art', w: 15.5, d: 1, h: 23, mount: 50, print: 'mirror', color: 0x16161a},
     mirrorR:   {name: 'Cabinet mirror door right', type: 'art', w: 15.5, d: 1, h: 23, mount: 50, print: 'mirror', color: 0x16161a},
     lampBar:   {name: 'Cabinet lamp', type: 'box', w: 20, d: 3, h: 1.5, mount: 76, color: 0xb8bcc0},
-    toilet:    {name: 'Wall-hung toilet', type: 'box', w: 15, d: 21, h: 16, color: 0xf4f4f4},
-    towelRail: {name: 'Towel rail', type: 'box', w: 20, d: 3, h: 24, mount: 40, color: 0xb8bcc0},
-    bathtub:   {name: 'Corner bath', type: 'box', w: 58, d: 42, h: 22, color: 0xf6f6f6},
-    washer:    {name: 'Washing machine', type: 'box', w: 24, d: 17, h: 34, color: 0xf6f6f6},
-    basket:    {name: 'Laundry basket', type: 'box', w: 15, d: 17, h: 24, color: 0xe9dfcc},
-    radK:   {name: 'Kitchen radiator', type: 'box', w: 24, d: 4, h: 24, color: 0xf4f1ea}
+    toilet:    {name: 'Wall-hung toilet', type: 'toilet', w: 14, d: 21, h: 16, color: 0xf6f6f6},
+    towelRail: {name: 'Towel rail', type: 'towelRail', w: 20, d: 3, h: 26, mount: 38, color: 0xb8bcc0, color2: 0xa8a49c},
+    bathtub:   {name: 'Corner bath', type: 'bathtub', w: 58, d: 42, h: 22, color: 0xf6f6f6},
+    washer:    {name: 'Washing machine', type: 'washer', w: 24, d: 17, h: 34, color: 0xf6f6f6, color2: 0xd9dcdf},
+    basket:    {name: 'Laundry basket', type: 'basket', w: 15, d: 17, h: 24, color: 0xe9dfcc},
+    radK:   {name: 'Kitchen radiator', type: 'radiator', w: 24, d: 4, h: 24, mount: 3, color: 0xf4f1ea}
   },
   LAYOUTS: [
     {name: 'As photographed', note: 'The flat as it is: sofa along the left wall facing the TV, a pouf in front of the window, the kitchen beyond the 84″ opening.',
      place: {sofa: [19, 62, 270], pouf: [75, 36, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
-             floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 90.5, 90], wall2: [235.5, 150, 180], mirror: [279.25, 90.5, 90], mirror2: [242.5, 156.25, 180], sink: [270, 144, 90], tap: [276, 144, 90], fridge: [191, 145, 180],
+             floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 90.5, 90], wall2: [235.5, 150, 180], mirror: [279.25, 90.5, 90], mirror2: [242.5, 156.25, 180], fridge: [191, 145, 180],
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
              hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
              endcap: [113, 173, 180], doorFront: [150, 284, 180], shoes: [172, 268, 90],
@@ -266,7 +264,7 @@ var CONFIG = {
              towelRail: [278.5, 234, 90], bathtub: [251, 262, 180], washer: [209, 274.5, 180], basket: [189.5, 274.5, 180]}},
     {name: 'Sofa under the window', note: 'The sofa moves to the window wall and the pouf becomes a coffee table. It opens the left wall, but the sofa back covers the radiator.',
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
-             floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 90.5, 90], wall2: [235.5, 150, 180], mirror: [279.25, 90.5, 90], mirror2: [242.5, 156.25, 180], sink: [270, 144, 90], tap: [276, 144, 90], fridge: [191, 145, 180],
+             floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 90.5, 90], wall2: [235.5, 150, 180], mirror: [279.25, 90.5, 90], mirror2: [242.5, 156.25, 180], fridge: [191, 145, 180],
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
              hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
              endcap: [113, 173, 180], doorFront: [150, 284, 180], shoes: [172, 268, 90],
@@ -357,7 +355,7 @@ var FIXED = (R.fixed || []).map(function(f, i){ var r = f.rot || 0; return {f: f
 
 /* ---------- items and options ---------- */
 var TYPES = {bed: {side: 20}, crib: {side: 0}, dresser: {front: 36}, wardrobe: {front: 36}, desk: {front: 30}, bookshelf: {front: 24},
-  sofa: {front: 14}, armchair: {front: 16}, lounge: {front: 16}, floorlamp: {}, floorplant: {}, art: {}, nightstand: {}, chair: {}, table: {}, rug: {}, box: {}, media: {}, ottoman: {}, stands: {}, petbed: {}, fireplace: {}};
+  sofa: {front: 14}, armchair: {front: 16}, lounge: {front: 16}, floorlamp: {}, floorplant: {}, art: {}, nightstand: {}, chair: {}, table: {}, rug: {}, box: {}, media: {}, ottoman: {}, stands: {}, petbed: {}, fireplace: {}, bathtub: {}, washer: {}, toilet: {}, sinkUnit: {}, towelRail: {}, fridge: {}, cabinet: {}, ovenTower: {}, radiator: {}, curtain: {}, basket: {}};
 /* a piece's variants swap its size or type per option (the configurator's "style"); the first is the piece as given */
 var BASEIT = C.ITEMS;
 function specOf(k, L){ var l = L || LAYOUTS && LAYOUTS[cur]; return BASEIT[k] || (l && l.added || {})[k]; }   /* a piece's spec: configured, or added from the library in that option */
@@ -387,12 +385,14 @@ function nameOf(k){ return ITEMS[k].name; }
 /* ---------- colour: per-option finishes over the room's and items' own, over these defaults ---------- */
 var TYPE_COLORS = {bed: [0xf2efe8, 0xa9b9c9], crib: [0xf2efe8, 0xece5d8], dresser: [0xcfae86], nightstand: [0xcfae86], wardrobe: [0xf2efe8],
   desk: [0xf2efe8, 0xcfae86], table: [0xcfae86], chair: [0xcfae86], bookshelf: [0xcfae86], sofa: [0xb9b3a7, 0xcac4b8], armchair: [0xb9b3a7, 0xcac4b8], rug: [0xe6dccb], box: [0xdedede],
-  media: [0xa86a3c], lounge: [0xdcc09a, 0xd2a050], floorlamp: [0x8a6443, 0xf3f0ea], floorplant: [0xb8704a], art: [0x2b2d31, 0x6f7f96], ottoman: [0xd8d0c2, 0x8a6443], stands: [0xf2efe8, 0xc07a4f], petbed: [0x9a9ea3, 0xc9ccd0], fireplace: [0xc08a55, 0x2a2a2a]};
-var SECOND = {lounge: 'Cushion', floorlamp: 'Shade', art: 'Print', bed: 'Bedding', crib: 'Mattress', desk: 'Legs', table: 'Legs', sofa: 'Cushions', armchair: 'Cushion', rug: 'Border', ottoman: 'Legs', stands: 'Pots', petbed: 'Cushion', fireplace: 'Firebox face'};
+  media: [0xa86a3c], lounge: [0xdcc09a, 0xd2a050], floorlamp: [0x8a6443, 0xf3f0ea], floorplant: [0xb8704a], art: [0x2b2d31, 0x6f7f96], ottoman: [0xd8d0c2, 0x8a6443], stands: [0xf2efe8, 0xc07a4f], petbed: [0x9a9ea3, 0xc9ccd0], fireplace: [0xc08a55, 0x2a2a2a],
+  bathtub: [0xf6f6f6], washer: [0xf6f6f6, 0xd9dcdf], toilet: [0xf6f6f6, 0xb8bcc0], sinkUnit: [0xf6f6f6, 0xb8bcc0], towelRail: [0xb8bcc0, 0xa8a49c], fridge: [0x16161a, 0xb8bcc0], cabinet: [0xf2f2f0, 0xb8bcc0], ovenTower: [0xe4e4e2, 0xb8bcc0], radiator: [0xf4f1ea], curtain: [0x2a9bb0], basket: [0xe9dfcc, 0xe9dfcc]};
+var SECOND = {lounge: 'Cushion', floorlamp: 'Shade', art: 'Print', bed: 'Bedding', crib: 'Mattress', desk: 'Legs', table: 'Legs', sofa: 'Cushions', armchair: 'Cushion', rug: 'Border', ottoman: 'Legs', stands: 'Pots', petbed: 'Cushion', fireplace: 'Firebox face', washer: 'Door rim', toilet: 'Fittings', sinkUnit: 'Handles and tap', towelRail: 'Towel', fridge: 'Handles', cabinet: 'Handles', ovenTower: 'Appliance frames', basket: 'Lid'};
 /* which swatch groups each finish offers when PALETTE is split into groups (paint, wood, fabric, ...) */
 var KINDS = {lounge: [['wood', 'paint'], ['fabric']], floorlamp: [['wood', 'paint'], ['fabric']], floorplant: [['clay', 'paint']], art: [['wood', 'paint'], ['fabric', 'paint']], sofa: [['fabric'], ['fabric']], armchair: [['fabric'], ['fabric']], ottoman: [['fabric'], ['wood', 'paint']], petbed: [['fabric'], ['fabric']], rug: [['fabric'], ['fabric']],
   bed: [['wood', 'paint'], ['fabric']], crib: [['wood', 'paint'], ['fabric']], stands: [['paint', 'wood'], ['clay', 'paint']], fireplace: [['wood', 'paint'], ['paint']],
-  walls: [['paint']], trim: [['paint']], floor: [['wood']], paneling: [['wood', 'paint']]};
+  walls: [['paint']], trim: [['paint']], floor: [['wood']], paneling: [['wood', 'paint']],
+  bathtub: [['paint']], washer: [['paint'], ['paint']], toilet: [['paint'], ['paint']], sinkUnit: [['paint'], ['paint']], towelRail: [['paint'], ['fabric']], fridge: [['paint', 'wood'], ['paint']], cabinet: [['paint', 'wood'], ['paint']], ovenTower: [['paint'], ['paint']], radiator: [['paint']], curtain: [['fabric']], basket: [['paint', 'fabric'], ['paint', 'fabric']]};
 var SOFT = 0xf3f0ea, DARK = 0x1d1d1f, LEGC = 0x5a3f2c, BOOKS = [0x9db2c4, 0xc9a24f, 0x7f8c63, 0xe8cfc4, 0x3e3f3d, 0xece5d8, 0x8a6443, 0xd6aa98];
 function colorsOf(id, it){ var v = LAYOUTS[cur].colors[id], d = TYPE_COLORS[it.type] || TYPE_COLORS.box, a = Array.isArray(v) ? v : [v], c1 = pick(a[0], it.color, d[0]);
   return [c1, pick(a[1], it.color2, d[1], c1)]; }
@@ -481,6 +481,8 @@ var GLYPH = {   /* plan symbols, local inches, front = +y */
   chair: function(g, w, d){ g.moveTo(-w / 2, -d / 2 + 3); g.lineTo(w / 2, -d / 2 + 3); },
   media: function(g, w, d, it){ var tw = (it.tv || 0) * 0.872; if (tw) g.rect(-tw / 2, -d / 2 + 3, tw, 1.5); },
   petbed: function(g, w, d){ g.rect(-w / 2 + 4, -d / 2 + 4, w - 8, d - 6); },
+  bathtub: function(g, w, d){ g.moveTo(w / 2, -d / 2); g.bezierCurveTo(w / 2, -d / 2 + d * 0.62, -w / 2 + w * 0.42, d / 2, -w / 2, d / 2); },
+  washer: function(g, w, d){ g.arc(0, 1, Math.min(w, d) * 0.32, 0, 6.2832); },
   stands: function(g, w, d){ var n = Math.max(2, Math.round(w / 30)); for (var i = 0; i < n; i++) g.rect(-w / 2 + (i + 0.5) * w / n - 5.5, -5.5, 11, 11); }
 };
 function drawItem(k, p, st){ var it = ITEMS[k], w = it.w, d = it.d, s = PV.s, u = 1 / s, c = P2([p[0], p[1]]);
@@ -712,7 +714,8 @@ if (HASH.test) addEventListener('load', function(){ /* test.py: the page's load 
 /* materials by finish kind; a swatch tints them */
 var SURF = {lounge: ['wood', 'fabric'], floorlamp: ['wood', 'shade'], floorplant: ['clay'], art: ['wood', 'print'], sofa: ['fabric', 'fabric'], armchair: ['fabric', 'fabric'], ottoman: ['fabric', 'wood'], petbed: ['fabric', 'fabric'], bed: ['wood', 'fabric'], crib: ['paint', 'fabric'],
   dresser: ['wood'], nightstand: ['wood'], wardrobe: ['paint'], desk: ['wood', 'wood'], table: ['wood', 'wood'], chair: ['wood'], bookshelf: ['wood'], media: ['wood'],
-  stands: ['metal', 'clay'], fireplace: ['wood', 'brick'], box: ['paint']};
+  stands: ['metal', 'clay'], fireplace: ['wood', 'brick'], box: ['paint'],
+  bathtub: ['stone'], washer: ['stone', 'stone'], toilet: ['stone', 'metal'], sinkUnit: ['stone', 'metal'], towelRail: ['metal', 'fabric'], fridge: ['dark', 'metal'], cabinet: ['stone', 'metal'], ovenTower: ['stone', 'metal'], radiator: ['paint'], curtain: ['fabric'], basket: ['paint', 'paint']};
 function inPal(group, h){ return !!(PALG[group] || []).some(function(p){ return hex(p[1]) === h; }); }
 function kindFor(type, role, h, over){ if (over) return over;
   var k = {3: 'soft', 4: 'books', 5: 'dark', 6: 'wood', 7: 'leaf', 8: 'brass', 9: 'soil'}[role] || (SURF[type] || ['paint', 'paint'])[role - 1] || 'paint';
@@ -1000,6 +1003,69 @@ function mergeBooks(g){ /* a bookshelf's books become one mesh with a colour per
   var list = [], r = rnd(3); g.traverse(function(n){ if (n.isMesh && n.userData.role === 4) list.push(n); }); if (list.length < 2) return;
   g.updateMatrixWorld(true); var geos = list.map(function(n){ var q = n.geometry.clone().applyMatrix4(n.matrixWorld); n.parent.remove(n); n.geometry.dispose(); return colorGeo(q, BOOKS[n.userData.bi % BOOKS.length], 0.8 + r() * 0.3); });
   var m = new T.Mesh(mergeGeometries(geos), WM); m.userData.role = 4; m.castShadow = m.receiveShadow = true; m.add(edgesOf(m.geometry, 0.3)); g.add(m); geos.forEach(function(q){ q.dispose(); }); }
+
+/* ---- realism builders: bathroom and kitchen pieces. Local inches, origin at the footprint centre on the floor, front = +z, back = -z. ---- */
+function disc(g, r, t, x, yc, z, role, o){ var m = cyl(g, r, r, t, x, yc - t / 2, z, role, o); m.rotation.x = Math.PI / 2; return m; }   /* a flat disc facing +z, centred at height yc */
+function rod(g, r, len, x, y, z, role, o){ var m = cyl(g, r, r, len, x, y - len / 2, z, role, o); m.rotation.z = Math.PI / 2; return m; }   /* a bar along x, centred at height y */
+function tubOutline(x0, x1, zb, zf){ var s = new T.Shape();   /* a corner bath: straight along the back wall (z = zb) and the left wall (x = x0), the front a long curve; shape y is -z */
+  s.moveTo(x0, -zb); s.lineTo(x1, -zb); s.bezierCurveTo(x1, -(zb + (zf - zb) * 0.62), x0 + (x1 - x0) * 0.42, -zf, x0, -zf); s.lineTo(x0, -zb); return s; }
+function tubMesh(shape, depth, y){ var m = new T.Mesh(new T.ExtrudeGeometry(shape, {depth: depth, bevelEnabled: false, curveSegments: 28}), WM);
+  m.rotation.x = -Math.PI / 2; m.position.y = y; m.castShadow = m.receiveShadow = true; m.userData.role = 1; m.userData.noAO = false; return m; }
+BUILD.bathtub = function(g, it){ var w = it.w, d = it.d, h = it.h || 22, x0 = -w / 2, x1 = w / 2, zb = -d / 2, zf = d / 2, wall = 3, depth = 14, rim = tubOutline(x0, x1, zb, zf);
+  rim.holes.push(tubOutline(x0 + wall, x1 - wall, zb + wall, zf - wall)); g.add(tubMesh(rim, h, 0));          /* the shell and its rim: a ring from floor to top */
+  g.add(tubMesh(tubOutline(x0 + wall, x1 - wall, zb + wall, zf - wall), 1, h - depth));                          /* the basin's floor */
+  disc(g, 1.1, 0.3, x1 - 12, h - depth + 1.2, zb + 12, 2, {kind: 'metal', noShadow: true}).rotation.x = 0;   /* the drain, lying flat */
+  rod(g, 0.5, 4, x0 + 6, h + 3.2, zb + 1.6, 2, {kind: 'metal'}); cyl(g, 0.6, 0.6, 6, x0 + 6, h - 0.5, zb + 1.6, 2, {kind: 'metal'}); };   /* a tap on the rim at the corner */
+BUILD.washer = function(g, it){ var w = it.w, d = it.d, h = it.h || 34, z = d / 2, rc = Math.min(w, h) * 0.34, yc = h * 0.42;
+  part(g, w, h, d, 0, 0, 0, 1, {r: 0.9});
+  part(g, w - 2.4, 5, 0.5, 0, h - 6.6, z + 0.1, 2, {edge: false});                                    /* the control strip */
+  part(g, 6.5, 1.8, 0.4, -w * 0.28, h - 5.5, z + 0.4, 5, {edge: false}); part(g, 5, 1, 0.4, -w * 0.28, h - 3.4, z + 0.4, 5, {edge: false});   /* detergent drawer and display */
+  disc(g, 2.1, 1.2, w * 0.27, h - 5.8, z + 0.5, 2, {edge: false}); disc(g, 1.1, 1.4, w * 0.1, h - 5.8, z + 0.5, 2, {edge: false});   /* the dial and a button */
+  disc(g, rc + 1.8, 1.0, 0, yc, z + 0.35, 2, {edge: false}); disc(g, rc, 1.1, 0, yc, z + 0.55, 5, {edge: false});   /* the door's rim and its glass */
+  disc(g, rc * 0.55, 0.3, 0, yc, z + 1.15, 5, {edge: false}); g.add(detail([V(-w / 2 + 0.3, 3, z + 0.02), V(w / 2 - 0.3, 3, z + 0.02)], 0.3)); };
+BUILD.toilet = function(g, it){ var w = it.w, d = it.d, h = it.h || 16;   /* wall-hung: a bowl, a seat and a lid, clear of the floor */
+  part(g, w - 1.8, 6.5, d - 3, 0, 6.5, 0.9, 1, {r: 3.2}); part(g, w - 3.5, 3.5, d - 7, 0, 5, -0.5, 1, {r: 2});
+  part(g, w, 1.5, d - 0.5, 0, h - 1.7, 0.2, 1, {r: 4.4}); part(g, w - 1.4, 0.9, d - 4, 0, h - 0.2, -0.3, 1, {r: 4.5});
+  part(g, w - 5, 0.3, d - 9, 0, h - 0.18, 1.4, 5, {r: 3, edge: false});                                          /* the seat's dark opening, seen through the lid line */
+  part(g, 9, 6, 0.5, 0, h + 14, -d / 2 + 0.25, 2, {r: 0.6}); };                                                  /* the flush plate on the wall */
+BUILD.sinkUnit = function(g, it){ var w = it.w, d = it.d, h = it.h || 34, z = d / 2, tt = 3, bh = h - tt - 4, pts = [], rows = 3;
+  part(g, w - 1, bh, d - 1, 0, 4, -0.5, 5);                                                                       /* gloss carcass */
+  [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function(s){ part(g, 1.2, 4, 1.2, s[0] * (w / 2 - 2), 0, s[1] * (d / 2 - 2.5), 2, {kind: 'metal', edge: false}); });
+  part(g, w + 0.6, tt, d + 0.6, 0, h - tt, 0, 1, {r: 0.6});                                                       /* the white top, basin moulded in */
+  var bs = cyl(g, 1, 1, 0.2, 0, h - 0.1, 1.2, 2, {seg: 32, edge: false}); bs.scale.set(w * 0.34, 1, d * 0.27);   /* the basin, a shade darker than the top */
+  cyl(g, 0.8, 0.8, 0.3, 0, h + 0.05, 1.2, 5, {edge: false}); cyl(g, 0.8, 0.8, 5, 0, h, -d / 2 + 2.6, 2, {kind: 'metal', edge: false}); part(g, 1, 1, 3.8, 0, h + 4, -d / 2 + 4.4, 2, {kind: 'metal', edge: false});   /* drain, tap and spout */
+  for (var i = 1; i < rows; i++){ var y = 4 + bh * i / rows; pts.push(V(-w / 2 + 0.5, y, z), V(w / 2 - 0.5, y, z)); } g.add(detail(pts, 0.4));
+  for (var j = 0; j < rows; j++) part(g, w * 0.62, 0.8, 0.9, 0, 4 + bh * (j + 0.8) / rows - 0.5, z + 0.35, 2, {kind: 'metal', edge: false}); };   /* a chrome bar on each drawer */
+BUILD.towelRail = function(g, it){ var w = it.w, h = it.h || 26, y0 = it.mount || 0, d = it.d || 3, z = -d / 2 + 1.6, n = Math.max(3, Math.round(h / 5));   /* a heated ladder rail with a towel over it */
+  [-1, 1].forEach(function(s){ cyl(g, 0.75, 0.75, h, s * (w / 2 - 0.75), y0, z, 1, {kind: 'metal', edge: false}); });
+  for (var i = 0; i < n; i++) rod(g, 0.55, w - 1.5, 0, y0 + 1.3 + (h - 2.6) * i / (n - 1), z, 1, {kind: 'metal', edge: false});
+  part(g, w * 0.78, h * 0.66, 2.3, 0, y0 + h * 0.3, z + 1.1, 2, {r: 0.6, edge: false}); };
+BUILD.fridge = function(g, it){ var w = it.w, d = it.d, h = it.h || 76, z = d / 2, split = h * 0.35;
+  part(g, w, h, d, 0, 0, 0, 1, {r: 0.9}); g.add(detail([V(-w / 2, split, z + 0.03), V(w / 2, split, z + 0.03)], 0.5));
+  part(g, 0.9, h * 0.3, 1.2, -w / 2 + 3, split + 5, z + 0.5, 2, {kind: 'metal', edge: false}); part(g, w * 0.55, 0.9, 1.2, 0, split - 5, z + 0.5, 2, {kind: 'metal', edge: false}); };
+BUILD.cabinet = function(g, it){ var w = it.w, d = it.d, h = it.h || 36, z = d / 2, up = !!it.mount, y0 = up ? it.mount : 0, cols = it.cols || Math.max(1, Math.round(w / 21)), cw = w / cols,
+    top = up ? 0 : 1.5, kick = up ? 0 : 4, bodyH = h - top - kick, pts = [], i;   /* a run of base or wall units: seams, bar handles, a dark top, and optionally a sink and a hob */
+  part(g, w, bodyH, d, 0, y0 + kick, 0, 1, {r: up ? 0.5 : 0.3}); if (!up){ part(g, w - 1, kick, d - 3, 0, 0, -0.6, 5, {edge: false}); part(g, w + 0.2, top, d + 1.2, 0, h - top, 0.6, 5, {edge: false}); }
+  for (i = 1; i < cols; i++) pts.push(V(-w / 2 + cw * i, y0 + kick + 0.3, z + 0.03), V(-w / 2 + cw * i, y0 + kick + bodyH - 0.3, z + 0.03));
+  if (!up && it.drawers) for (i = 1; i < it.drawers; i++){ var yy = kick + bodyH * i / it.drawers; pts.push(V(-w / 2 + 0.3, yy, z + 0.03), V(w / 2 - 0.3, yy, z + 0.03)); }
+  if (pts.length) g.add(detail(pts, 0.45));
+  for (i = 0; i < cols; i++){ var xc = -w / 2 + cw * (i + 0.5);
+    if (up) part(g, 0.7, Math.min(8, bodyH * 0.4), 0.9, xc + (i % 2 ? 1 : -1) * cw * 0.32, y0 + 2.2, z + 0.4, 2, {kind: 'metal', edge: false});
+    else part(g, Math.min(cw * 0.5, 14), 0.7, 0.9, xc, h - top - 3.4, z + 0.4, 2, {kind: 'metal', edge: false}); }
+  if (it.sink){ var sx = it.sink.at || 0; cyl(g, 7.4, 7.4, 0.5, sx, h + 0.0, 0.5, 2, {seg: 32, kind: 'metal', edge: false}); cyl(g, 0.8, 0.8, 11, sx, h, -d / 2 + 3, 2, {kind: 'metal', edge: false}); part(g, 1, 1, 7, sx, h + 10, -d / 2 + 6.5, 2, {kind: 'metal', edge: false}); }
+  if (it.hob){ var hx = it.hob.at || 0; part(g, 22, 0.35, 16, hx, h, 0.5, 5, {edge: 0.3}); [[-5.2, -3.6], [5.2, -3.6], [-5.2, 3.8], [5.2, 3.8]].forEach(function(c){ disc(g, 3.1, 0.2, hx + c[0], h + 0.4, 0.5 + c[1], 2, {kind: 'metal', edge: false}).rotation.x = 0; }); } };
+BUILD.ovenTower = function(g, it){ var w = it.w, d = it.d, h = it.h || 84, z = d / 2;   /* black base door, steel oven and microwave, a white wall unit on top */
+  part(g, w, h, d, 0, 0, 0, 1); part(g, w - 1, 30, 0.6, 0, 0.5, z + 0.05, 5, {edge: false});
+  part(g, w - 2, 18, 0.8, 0, 31, z + 0.1, 2, {kind: 'metal', edge: 0.4}); part(g, w - 5, 11.5, 0.5, 0, 33.5, z + 0.6, 5, {edge: false}); part(g, w - 6, 0.9, 1.1, 0, 46.6, z + 0.8, 2, {kind: 'metal', edge: false});
+  part(g, w - 2, 15, 0.8, 0, 50, z + 0.1, 2, {kind: 'metal', edge: 0.4}); part(g, w - 10, 9.5, 0.5, -2.2, 52.8, z + 0.6, 5, {edge: false}); part(g, 3.6, 9.5, 0.5, w / 2 - 4.6, 52.8, z + 0.6, 2, {kind: 'metal', edge: false});
+  g.add(detail([V(-w / 2, 65, z + 0.03), V(w / 2, 65, z + 0.03)], 0.5)); part(g, w * 0.5, 0.8, 0.9, 0, 66.6, z + 0.4, 2, {kind: 'metal', edge: false}); };
+BUILD.radiator = function(g, it){ var w = it.w, d = it.d || 4, h = it.h || 24, y0 = it.mount || 0, n = Math.max(3, Math.round(w / 3.1)), sw = w / n;
+  for (var i = 0; i < n; i++) part(g, sw - 0.5, h, d, -w / 2 + sw * (i + 0.5), y0, 0, 1, {edge: 0.3});
+  part(g, w, 1.2, d * 0.5, 0, y0 + h - 1.2, 0, 1, {edge: false}); };
+BUILD.curtain = function(g, it){ var w = it.w, d = it.d || 3, h = it.h || 96, n = Math.max(4, Math.round(w / 2.6)), sw = w / n;   /* a panel in folds, hung from a heading */
+  for (var i = 0; i < n; i++){ var back = i % 2 ? 0 : 1.1; part(g, sw + 0.08, h - 1.4, 1.6, -w / 2 + sw * (i + 0.5), 0, -d / 2 + 0.8 + back, 1, {edge: false}); }
+  part(g, w, 1.4, d * 0.7, 0, h - 1.4, 0, 1, {edge: false}); };
+BUILD.basket = function(g, it){ var w = it.w, d = it.d, h = it.h || 24; part(g, w, h - 2, d, 0, 0, 0, 1, {r: 3}); part(g, w + 0.5, 2, d + 0.5, 0, h - 2, 0, 2, {r: 3}); };
 function build(it){ var g = new T.Group(); (BUILD[it.type] || BUILD.box)(g, it); mergeBooks(g); g.userData.it = it; return g; }
 function frameFor(it){ /* the selection outline on the floor, drawn in colour mode where a blue fill would hide the finishes */
   var g = new T.Group(), m = new T.MeshBasicMaterial({color: ACCENT, toneMapped: false}), o = 2.5, w = it.w + 2 * o, d = it.d + 2 * o;
@@ -1264,7 +1330,7 @@ function swatchesFor(kinds){ if (PALG.all) return PALG.all; var out = [];
   (kinds || []).forEach(function(g){ (PALG[g] || []).forEach(function(p){ if (!out.some(function(q){ return hex(q[1]) === hex(p[1]); })) out.push(p); }); }); return out.length ? out : ALLPAL; }
 function kindsOf(type, i){ var k = KINDS[type]; return k ? k[Math.min(i, k.length - 1)] : ['wood', 'paint']; }
 function colorName(h){ var n = null; ALLPAL.some(function(p){ if (hex(p[1]) === h){ n = p[0]; return true; } return false; }); return n || css(h); }
-var MAIN = {lounge: 'Frame', floorlamp: 'Stand', floorplant: 'Pot', art: 'Frame', bed: 'Frame', crib: 'Frame', sofa: 'Upholstery', armchair: 'Upholstery', ottoman: 'Upholstery', petbed: 'Fabric', rug: 'Field', desk: 'Top', table: 'Top', stands: 'Stands', fireplace: 'Surround', media: 'Wood'};
+var MAIN = {lounge: 'Frame', floorlamp: 'Stand', floorplant: 'Pot', art: 'Frame', bed: 'Frame', crib: 'Frame', sofa: 'Upholstery', armchair: 'Upholstery', ottoman: 'Upholstery', petbed: 'Fabric', rug: 'Field', desk: 'Top', table: 'Top', stands: 'Stands', fireplace: 'Surround', media: 'Wood', bathtub: 'Porcelain', washer: 'Body', toilet: 'Porcelain', sinkUnit: 'Basin and top', towelRail: 'Chrome', fridge: 'Body', cabinet: 'Fronts', ovenTower: 'Cabinet', radiator: 'Paint', curtain: 'Fabric', basket: 'Basket'};
 function swatchRow(label, cur0, list, apply){ var row = el('div', 'sw'), head = el('div', 'swh'), fv = el('span', 'fv', colorName(cur0)), box = el('div', 'swl'), known = false;
   head.appendChild(el('span', '', label)); head.appendChild(fv); row.appendChild(head); row.appendChild(box);
   list.forEach(function(p){ var h = hex(p[1]), b = el('button', 'swc' + (h === cur0 ? ' on' : '')); if (h === cur0) known = true;
