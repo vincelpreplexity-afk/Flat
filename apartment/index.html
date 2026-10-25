@@ -94,8 +94,11 @@ header .sub{font-size:12.5px;color:var(--ink-2)}
 dialog{border:1px solid var(--rule);border-radius:2px;padding:14px;max-width:min(560px,92vw)}
 dialog::backdrop{background:rgba(20,20,20,.25)}
 dialog textarea{width:min(520px,84vw);height:200px;font:12px var(--mono);border:1px solid var(--rule);padding:8px}
-.lib{width:min(680px,94vw);max-width:none;max-height:86vh;padding:0;overflow:auto;overscroll-behavior:contain}
-.libh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:1}
+.lib{width:min(860px,96vw);max-width:none;max-height:88vh;padding:0;overflow:auto;overscroll-behavior:contain}
+.libh{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 12px 8px 16px;border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--paper);z-index:1}
+.libh h2{margin-right:auto}.libh input{width:min(220px,40vw);height:30px;border:1px solid var(--rule);border-radius:2px;padding:0 8px;background:var(--paper);color:var(--ink)}.libh input:focus{outline:none;border-color:var(--accent)}
+.libc{flex:0 0 100%;display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}.libc button{height:26px;padding:0 9px;white-space:nowrap;display:inline-flex;gap:6px;align-items:center}.libc button small{font-family:var(--mono);font-size:10px;color:var(--ink-3)}.libc button.on small{color:#c9c9c9}
+.libm{flex:0 0 100%;font-size:12px;color:var(--ink-2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}.libm b{color:var(--ink);font-weight:600}.libm button{height:24px;padding:0 8px;font-size:11.5px}
 .libh h2{font-size:15px;font-weight:600;margin:0;letter-spacing:-.01em}
 .lib .grp{padding:4px 16px 14px}
 .lib h3{font-size:11px;font-family:var(--mono);font-weight:400;color:var(--ink-3);margin:8px 0 6px}
@@ -145,7 +148,7 @@ dialog textarea{width:min(520px,84vw);height:200px;font:12px var(--mono);border:
 </div>
 <div class="toast" id="toast"></div>
 <dialog id="dlg"><p>Copy this and paste it back to Claude:</p><textarea id="dlgT" readonly></textarea><div class="row"><button id="dlgX">Close</button></div></dialog>
-<dialog id="lib" class="lib" aria-label="Add a piece"><div class="libh"><h2>Add a piece</h2><button id="libX">Close</button></div><div id="libBody"></div></dialog>
+<dialog id="lib" class="lib" aria-label="Catalog"><div class="libh"><h2>Catalog</h2><input id="libQ" type="search" placeholder="Search" autocomplete="off" aria-label="Search the catalog"><button id="libX">Close</button><div id="libCats" class="libc"></div><div id="libMode" class="libm"></div></div><div id="libBody"></div></dialog>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.162.0/+esm';
 import {RoomEnvironment} from 'https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/environments/RoomEnvironment.js/+esm';
@@ -165,7 +168,7 @@ import {RectAreaLightUniformsLib} from 'https://cdn.jsdelivr.net/npm/three@0.162
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v11',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v12',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -328,6 +331,38 @@ var CONFIG = {
     spotBd3:   {name: 'Ceiling light', type: 'spot', w: 4.5, d: 4.5, h: 1, mount: 97, color: 0xcfd2d4},
     radK:   {name: 'Kitchen radiator', type: 'radiator', w: 24, d: 4, h: 24, mount: 3, color: 0xf4f1ea}
   },
+  /* The catalog: pieces built for this flat, offered first in each category (sizes in inches; variants are the sizes you can pick after adding). */
+  LIBRARY: [
+    {id: 'sofa-sage', group: 'seating', name: 'Sofa', type: 'sofa', w: 78, d: 35, h: 29, color: 0x8f9f8a, color2: 0xe6dfcf, variants: [{label: 'Three-seat'}, {label: 'Two-seat', w: 60}, {label: 'Four-seat', w: 96}]},
+    {id: 'corner-long', group: 'seating', name: 'Corner sofa, long part', type: 'sofaSection', w: 94, d: 37, h: 29, arms: [0, 1], sideBack: -1, color: 0xa6a29a, color2: 0x6e6b66},
+    {id: 'corner-chaise', group: 'seating', name: 'Corner sofa, chaise part', type: 'sofaSection', w: 29, d: 37, h: 29, arms: [1, 0], color: 0xa6a29a, color2: 0x6e6b66},
+    {id: 'sofa-bed', group: 'seating', name: 'Fold-out sofa (tap to unfold)', type: 'sofaBed', w: 79, d: 55, h: 32, toggle: true, color: 0xb9b1a5, color2: 0x9d9488, variants: [{label: 'Folded', open: false}, {label: 'Unfolded', open: true}]},
+    {id: 'chair-wood', group: 'seating', name: 'Wooden chair', type: 'windsor', w: 18, d: 18, h: 34, color: 0x7a5638},
+    {id: 'chair-fold', group: 'seating', name: 'Folding chair', type: 'foldChair', w: 15, d: 15, h: 31, color: 0xe8dcc6, color2: 0xb8bcc0},
+    {id: 'stool', group: 'seating', name: 'Stool', type: 'ottoman', w: 15, d: 15, h: 16, color: 0xc2775a, color2: 0x7a5638},
+    {id: 'bench-hall', group: 'seating', name: 'Bench with baskets', type: 'bench', w: 32, d: 12, h: 18, color: 0x7a5638, color2: 0x8f9f8a, variants: [{label: '32″'}, {label: '40″', w: 40}, {label: '48″', w: 48}]},
+    {id: 'table-coffee', group: 'tables', name: 'Round coffee table', type: 'table', w: 30, d: 30, h: 16, round: true, color: 0x7a5638, color2: 0x1b1b1d, variants: [{label: '30″'}, {label: '36″', w: 36, d: 36}]},
+    {id: 'table-dining', group: 'tables', name: 'Work and dining table', type: 'table', w: 47, d: 28, h: 29.5, color: 0x7a5638, color2: 0x1b1b1d, variants: [{label: '47 × 28'}, {label: '55 × 30', w: 55, d: 30}, {label: '63 × 32', w: 63, d: 32}]},
+    {id: 'table-round', group: 'tables', name: 'Round dining table', type: 'table', w: 40, d: 40, h: 29, round: true, color: 0x1b1b1d, color2: 0x1b1b1d, variants: [{label: '40″'}, {label: '48″', w: 48, d: 48}]},
+    {id: 'desk-drawers', group: 'desks', name: 'Desk with drawers', type: 'writingDesk', w: 41.3, d: 19.7, h: 29.5, color: 0x7a5638, variants: [{label: '41″'}, {label: '55″', w: 55, d: 20}, {label: '63″', w: 63, d: 24}]},
+    {id: 'bed-plain', group: 'beds', name: 'Bed, plain headboard', type: 'upBed', w: 55, d: 82, h: 22, hb: 38, headStyle: 'panel', color: 0xcfc3ad, color2: 0x9aab97, variants: [{label: 'Double 140', w: 55}, {label: 'Single 90', w: 36, d: 80}, {label: 'Queen 160', w: 63}]},
+    {id: 'bed-tufted', group: 'beds', name: 'Bed, tufted headboard', type: 'upBed', w: 55, d: 82, h: 24, hb: 41, color: 0xb08c9b, color2: 0xe3dccf, variants: [{label: 'Double 140', w: 55}, {label: 'Single 90', w: 36, d: 80}, {label: 'Queen 160', w: 63}]},
+    {id: 'tv-float', group: 'storage', name: 'Floating TV unit', type: 'cabinet', w: 66, d: 14, h: 14, mount: 10, cols: 3, color: 0x7a5638, color2: 0x2b2b2b, variants: [{label: '66″'}, {label: '55″', w: 55, cols: 2}, {label: '79″', w: 79, cols: 4}]},
+    {id: 'tv-glass', group: 'storage', name: 'TV unit, black glass', type: 'tvStand', w: 52, d: 17, h: 19, color: 0x1b1b1d, color2: 0xb8bcc0},
+    {id: 'bookcase', group: 'storage', name: 'Tall bookcase', type: 'bookshelf', w: 20, d: 11, h: 72, color: 0x7a5638, variants: [{label: '20″'}, {label: '30″', w: 30}, {label: '36″', w: 36}]},
+    {id: 'shelf-wall', group: 'storage', name: 'Wall shelf', type: 'box', w: 47, d: 8, h: 1.6, mount: 54, color: 0x7a5638, variants: [{label: '47″'}, {label: '36″', w: 36}, {label: '60″', w: 60}]},
+    {id: 'shelf-bedside', group: 'storage', name: 'Bedside shelf', type: 'box', w: 14, d: 9, h: 3, mount: 21, color: 0x7a5638},
+    {id: 'shoe-rack', group: 'storage', name: 'Shoe rack', type: 'shoeRack', w: 14, d: 10, h: 26, color: 0x4a2f22},
+    {id: 'basket', group: 'storage', name: 'Basket', type: 'basket', w: 15, d: 17, h: 24, color: 0xe9dfcc},
+    {id: 'pendant', group: 'lighting', name: 'Pendant lamp', type: 'pendant', w: 16, d: 16, h: 10, mount: 63, color: 0x2b2b2b, color2: 0xf3efe6},
+    {id: 'lamp-tulip', group: 'lighting', name: 'Floor lamp, two shades', type: 'torchiere', w: 12, d: 12, h: 66, color: 0x1b1b1b, color2: 0xf4f4f0},
+    {id: 'rug-140', group: 'rugs', name: 'Rug 140 × 200 cm', type: 'rug', w: 55, d: 79, color: 0xe6dccb, color2: 0xb9a98e},
+    {id: 'rug-200', group: 'rugs', name: 'Rug 200 × 300 cm', type: 'rug', w: 79, d: 118, color: 0xe6dccb, color2: 0xb9a98e},
+    {id: 'runner', group: 'rugs', name: 'Runner 60 × 160 cm', type: 'rug', w: 24, d: 63, color: 0xd9ccb4, color2: 0xb9a98e},
+    {id: 'curtain-panel', group: 'walls', name: 'Curtain panel', type: 'curtain', w: 30, d: 3, h: 96, color: 0xd9ccb4},
+    {id: 'mirror-tall', group: 'walls', name: 'Tall wall mirror', type: 'art', w: 20, d: 1.5, h: 60, mount: 10, print: 'mirror', color: 0x7a5638},
+    {id: 'frame-sage', group: 'walls', name: 'Framed print', type: 'art', w: 20, d: 1.5, h: 28, mount: 42, print: 'abstract', color: 0x7a5638, color2: 0x93a39e, variants: [{label: '20 × 28'}, {label: '28 × 36', w: 28, h: 36}]}
+  ],
   LAYOUTS: [
     {name: 'As photographed', note: 'The flat as it is: sofa along the left wall facing the TV, a pouf in front of the window, the kitchen beyond the 84″ opening.',
      place: {sofa: [18, 56, 270], pouf: [73, 38, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
@@ -1456,7 +1491,8 @@ mc.addEventListener('wheel', function(e){ if (mode === 'photo') return; e.preven
 $('#zin').onclick = function(){ zoomAt(null, 0.8); }; $('#zout').onclick = function(){ zoomAt(null, 1.25); }; $('#fit').onclick = function(){ goView(curView || C.view || 'se'); };
 function renderViews(){ var box = $('#views'); box.textContent = ''; [['se', 'SE'], ['sw', 'SW'], ['nw', 'NW'], ['ne', 'NE'], ['top', 'Top']].forEach(function(v){
   var b = el('button', v[0] === curView ? 'on' : '', v[1]); b.title = v[0] === 'top' ? 'From above' : 'Look from the ' + v[1] + ' corner'; b.onclick = function(){ goView(v[0]); }; box.appendChild(b); });
-  var wb = el('button', '', 'Walk'); wb.title = 'Walk through the flat in first person'; wb.onclick = function(){ enterWalk(); }; box.appendChild(wb); }
+  var wb = el('button', '', 'Walk'); wb.title = 'Walk through the flat in first person'; wb.onclick = function(){ enterWalk(); }; box.appendChild(wb);
+  var cb = el('button', '', 'Catalog'); cb.title = 'Browse furniture by category, add or replace pieces'; cb.onclick = function(){ openLib(); }; box.appendChild(cb); }
 
 /* photo match: a perspective camera where the phone stood, the photo laid over the model */
 var PH = C.PHOTOS || [], TUNE = [['x', 'at', 0], ['y', 'at', 1], ['h', 'h'], ['yaw', 'yaw'], ['pitch', 'pitch'], ['roll', 'roll'], ['fov', 'fov']];
@@ -1582,13 +1618,14 @@ function refreshPanel(){ var L = LAYOUTS[cur], ev = EVAL[cur]; $('#optH').textCo
   $('#metric').textContent = 'Open floor ' + Math.round(ev.open.area) + ' sq ft · biggest clear square ' + fmt(ev.open.size);
   var tray = $('#tray'), ks = Object.keys(ITEMS); tray.textContent = '';
   ks.filter(function(k){ return L.place[k]; }).forEach(function(k){ var b = el('button', k === sel ? 'on' : '', ITEMS[k].name); b.onclick = function(){ select(k === sel ? null : k); }; tray.appendChild(b); });
-  var ab = el('button', 'add', '+ Add a piece'); ab.onclick = openLib; tray.appendChild(ab);   /* the library: the catalogue, and this option's pieces taken out */
+  var ab = el('button', 'add', 'Catalog…'); ab.onclick = function(){ openLib(); }; tray.appendChild(ab);   /* the library: the catalogue, and this option's pieces taken out */
   renderTabs(); updateGaps(); }
 var GAPF = [['left', 'From left wall'], ['right', 'From right wall'], ['top', 'From top wall'], ['bottom', 'From bottom wall']];
 function renderInsp(){ var box = $('#insp'); box.textContent = '';
   if (!sel || !place()[sel]){ box.appendChild(el('h2', '', 'Move things')); box.appendChild(el('p', 'hint', 'Drag furniture in the plan or the model. Pick a piece in the model for arrows that slide it and a ring that turns it. R or double-click turns it too; arrow keys nudge an inch, shift-arrows a foot; Alt drags without snapping to walls.')); return; }
   var it = ITEMS[sel], q = place()[sel], h = el('div', 'nm', it.name); if (it.new) h.appendChild(el('span', 'new', 'new'));
   box.appendChild(el('h2', '', 'Selected')); box.appendChild(h); box.appendChild(el('div', 'sz', fmt(it.w) + ' wide × ' + fmt(it.d) + ' deep' + (it.floor ? '' : ' × ' + fmt(Math.max(it.h, it.hb || 0)) + ' high')));
+  var rpl = el('div', 'row'), rbn = el('button', '', 'Replace…'); rbn.title = 'Swap this piece for another from the catalog'; var selK = sel; rbn.onclick = function(){ openLib(selK); }; rpl.appendChild(rbn); box.appendChild(rpl);
   var b0 = specOf(sel), vs = b0.variants, k0 = sel; if (vs){ box.appendChild(el('h3', '', 'Style')); var vb = el('div', 'vars'), vi = vIndex(sel, LAYOUTS[cur].variants[sel]);
     vs.forEach(function(v, i){ var w = v.w || b0.w, d = v.d || b0.d, b = el('button', i === vi ? 'on' : '', v.label); b.appendChild(el('small', '', fmt(w) + ' × ' + fmt(d))); b.onclick = function(){ setVariant(k0, i); }; vb.appendChild(b); }); box.appendChild(vb); }
   box.appendChild(el('h3', '', 'Colour')); var cs = itemColors(sel);
@@ -1655,7 +1692,7 @@ $('#reset').onclick = function(){ if (cur < BASE.length){ LAYOUTS[cur].place = c
 $('#paneToggle').onclick = function(e){ var p = e.target.dataset.p; if (!p) return; document.body.className = 'm-' + p; [].forEach.call(this.children, function(b){ b.classList.toggle('on', b.dataset.p === p); }); };
 
 /* ---------- the library: a catalogue of pieces in common sizes, plus the room's own; each thumbnail is the engine's own render of the builder ---------- */
-var LIB_GROUPS = [['room', 'In this room'], ['here', 'For this room'], ['seating', 'Seating'], ['tables', 'Tables'], ['storage', 'Storage'], ['beds', 'Beds'], ['lighting', 'Lighting'], ['plants', 'Plants'], ['rugs', 'Rugs'], ['walls', 'Walls and decor']];
+var LIB_GROUPS = [['room', 'In this room'], ['here', 'For this room'], ['seating', 'Seating'], ['tables', 'Tables'], ['desks', 'Desks'], ['storage', 'Storage'], ['beds', 'Beds'], ['lighting', 'Lighting'], ['plants', 'Plants'], ['rugs', 'Rugs'], ['walls', 'Walls and decor']];
 var LIB_BASE = [
   {id: 'sofa3', group: 'seating', name: 'Three-seat sofa', type: 'sofa', w: 84, d: 36, h: 33}, {id: 'loveseat', group: 'seating', name: 'Loveseat', type: 'sofa', w: 60, d: 34, h: 33},
   {id: 'armchair', group: 'seating', name: 'Armchair', type: 'armchair', w: 32, d: 34, h: 32}, {id: 'lounge', group: 'seating', name: 'Lounge chair', type: 'lounge', w: 27, d: 32, h: 39},
@@ -1664,7 +1701,7 @@ var LIB_BASE = [
   {id: 'coffee-glass', group: 'tables', name: 'Glass coffee table', type: 'table', w: 44, d: 24, h: 18, glass: true, shelf: true}, {id: 'side', group: 'tables', name: 'Side table', type: 'table', w: 20, d: 20, h: 24},
   {id: 'media', group: 'storage', name: 'Media console', type: 'media', w: 60, d: 18, h: 24, tv: 55}, {id: 'bookshelf', group: 'storage', name: 'Bookshelf', type: 'bookshelf', w: 36, d: 12, h: 72},
   {id: 'dresser', group: 'storage', name: 'Dresser', type: 'dresser', w: 60, d: 20, h: 34}, {id: 'nightstand', group: 'storage', name: 'Nightstand', type: 'nightstand', w: 20, d: 18, h: 24},
-  {id: 'wardrobe', group: 'storage', name: 'Wardrobe', type: 'wardrobe', w: 40, d: 24, h: 72}, {id: 'desk', group: 'storage', name: 'Desk', type: 'desk', w: 48, d: 24, h: 29},
+  {id: 'wardrobe', group: 'storage', name: 'Wardrobe', type: 'wardrobe', w: 40, d: 24, h: 72}, {id: 'desk', group: 'desks', name: 'Desk with a chair', type: 'desk', w: 48, d: 24, h: 29},
   {id: 'twin', group: 'beds', name: 'Twin bed', type: 'bed', w: 38, d: 75, h: 22, hb: 40}, {id: 'full', group: 'beds', name: 'Full bed', type: 'bed', w: 54, d: 75, h: 22, hb: 42},
   {id: 'queen', group: 'beds', name: 'Queen bed', type: 'bed', w: 60, d: 80, h: 22, hb: 44}, {id: 'king', group: 'beds', name: 'King bed', type: 'bed', w: 76, d: 80, h: 22, hb: 46},
   {id: 'crib', group: 'beds', name: 'Crib', type: 'crib', w: 28, d: 52, h: 40},
@@ -1680,16 +1717,41 @@ var LIB = (function(){ var c = C.LIBRARY, own = Array.isArray(c) ? c : c && c.en
   return own.map(function(e){ var o = {}; for (var k in e) o[k] = e[k]; if (!o.group) o.group = 'here'; if (!o.id) o.id = o.type; return o; }).concat(c && c.base === false ? [] : LIB_BASE); })();
 function libEntries(){ var L = LAYOUTS[cur]; return Object.keys(BASEIT).filter(function(k){ return !L.place[k]; }).map(function(k){ return {id: k, group: 'room', room: true}; }).concat(LIB); }   /* the option's pieces taken out, then the catalogue */
 function libSize(it){ var a = it.mount ? [it.w, it.h] : [it.w, it.d]; return fmt(a[0]) + ' × ' + fmt(a[1]); }
-function renderLib(){ var box = $('#libBody'), ents = libEntries(); box.textContent = '';
-  LIB_GROUPS.forEach(function(gr){ var list = ents.filter(function(e){ return e.group === gr[0]; }); if (!list.length) return;
+var LIBF = {q: '', g: 'all'}, REPL = null;   /* the search text, the category chip, and the piece the catalogue is replacing (null = adding) */
+var LIB_CAT = {sofa: 'seating', armchair: 'seating', lounge: 'seating', chair: 'seating', windsor: 'seating', foldChair: 'seating', ottoman: 'seating', sofaSection: 'seating', sofaBed: 'seating', bench: 'seating',
+  table: 'tables', desk: 'desks', writingDesk: 'desks', bed: 'beds', upBed: 'beds', crib: 'beds', bookshelf: 'storage', dresser: 'storage', wardrobe: 'storage', cabinet: 'storage', media: 'storage', nightstand: 'storage', tvStand: 'storage', shoeRack: 'storage', basket: 'storage', box: 'storage',
+  floorlamp: 'lighting', pendant: 'lighting', torchiere: 'lighting', floorplant: 'plants', rug: 'rugs', art: 'walls', petbed: 'walls', curtain: 'walls', radiator: 'walls'};
+function libName(e){ return e.room ? (ITEMS[e.id] || {}).name || e.id : e.name || e.id; }
+function replaceWith(e){ /* the new piece takes the old one's place and turn, back to the same wall; same kind of piece keeps its colours */
+  var k0 = REPL, L = LAYOUTS[cur]; REPL = null; if (!k0 || !L.place[k0]) return e.room ? addItem(e.id) : addPiece(e);
+  var o = ITEMS[k0], q = L.place[k0].slice(), oc = itemColors(k0), od = o.d, ot = o.type, k;
+  remove(k0); if (e.room){ addItem(e.id); k = e.id; } else k = addPiece(e);
+  var n = ITEMS[k], th = (q[2] || 0) * Math.PI / 180, sh = (n.d - od) / 2;
+  L.place[k] = [Math.round((q[0] - Math.sin(th) * sh) * 10) / 10, Math.round((q[1] + Math.cos(th) * sh) * 10) / 10, q[2] || 0];
+  if (!e.room && n.type === ot) L.colors[k] = oc.slice();
+  changed(k); select(k); renderInsp(); return k; }
+function renderLib(){ var box = $('#libBody'), ents = libEntries(), q = (LIBF.q || '').trim().toLowerCase(), cats = $('#libCats'), mode = $('#libMode');
+  var shown = ents.filter(function(e){ return !q || libName(e).toLowerCase().indexOf(q) >= 0; });
+  if (LIBF.g !== 'all' && !shown.some(function(e){ return e.group === LIBF.g; }) && !q) LIBF.g = 'all';
+  cats.textContent = ''; var chip = function(id, label, n){ var b = el('button', LIBF.g === id ? 'on' : '', label); b.appendChild(el('small', '', String(n))); b.onclick = function(){ LIBF.g = id; renderLib(); $('#lib').scrollTop = 0; }; cats.appendChild(b); };
+  chip('all', 'All', shown.length); LIB_GROUPS.forEach(function(gr){ var n = shown.filter(function(e){ return e.group === gr[0]; }).length; if (n) chip(gr[0], gr[1], n); });
+  mode.textContent = '';
+  if (REPL && ITEMS[REPL] && place()[REPL]){ mode.appendChild(el('span', '', 'Replacing ')); mode.appendChild(el('b', '', ITEMS[REPL].name)); mode.appendChild(el('span', '', ': the new piece keeps its place and turn.'));
+    var ab = el('button', '', 'Add instead'); ab.onclick = function(){ REPL = null; renderLib(); }; mode.appendChild(ab); }
+  else { REPL = null; mode.appendChild(el('span', '', 'Click a piece to add it to this option.' + (sel && place()[sel] ? ' ' : ' Select a piece first to swap it.')));
+    if (sel && place()[sel]){ var rb = el('button', '', 'Replace ' + ITEMS[sel].name + ' instead'); rb.onclick = function(){ REPL = sel; renderLib(); }; mode.appendChild(rb); } }
+  box.textContent = ''; var any = false;
+  LIB_GROUPS.forEach(function(gr){ if (LIBF.g !== 'all' && LIBF.g !== gr[0]) return; var list = shown.filter(function(e){ return e.group === gr[0]; }); if (!list.length) return; any = true;
     var sec = el('div', 'grp'), grid = el('div', 'ents'); sec.appendChild(el('h3', '', gr[1]));
     list.forEach(function(e){ var it = e.room ? ITEMS[e.id] : quietSpec(normItem(e.id, e, null)), cs = e.room ? itemColors(e.id) : colorsOf('', it), b = el('button'), im = el('img'); im.alt = '';
-      b.appendChild(im); b.appendChild(el('span', '', it.name)); b.appendChild(el('small', '', libSize(it)));
+      b.appendChild(im); b.appendChild(el('span', '', it.name)); b.appendChild(el('small', '', libSize(it) + (e.variants && e.variants.length > 1 ? ' · ' + e.variants.length + ' sizes' : '')));
       b.title = it.name + ': ' + fmt(it.w) + ' wide × ' + fmt(it.d) + ' deep' + (it.floor && !it.mount ? '' : ' × ' + fmt(Math.max(it.h, it.hb || 0)) + ' high');
-      b.onclick = function(){ closeLib(); if (e.room) addItem(e.id); else addPiece(e); };
+      b.onclick = function(){ closeLib(); if (REPL) replaceWith(e); else if (e.room) addItem(e.id); else addPiece(e); };
       thumb(it, cs, function(url){ im.src = url; }); grid.appendChild(b); });
-    sec.appendChild(grid); box.appendChild(sec); }); }
-function openLib(){ renderLib(); $('#lib').showModal(); }
+    sec.appendChild(grid); box.appendChild(sec); });
+  if (!any) box.appendChild(el('div', 'grp', 'Nothing matches “' + LIBF.q + '”.')); }
+function openLib(replaceKey){ REPL = replaceKey && place()[replaceKey] ? replaceKey : null; LIBF.q = ''; $('#libQ').value = ''; LIBF.g = REPL ? (LIB_CAT[ITEMS[REPL].type] || 'all') : 'all'; renderLib(); $('#lib').showModal(); $('#lib').scrollTop = 0; }
+$('#libQ').addEventListener('input', function(){ LIBF.q = this.value; renderLib(); });
 function closeLib(){ if ($('#lib').open) $('#lib').close(); THUMB.q.length = 0; }
 $('#libX').onclick = closeLib; $('#lib').addEventListener('close', function(){ THUMB.q.length = 0; });
 /* thumbnails: the piece built and painted as it would land, rendered small by a second renderer (a render target would skip tone mapping), cached as an image */
