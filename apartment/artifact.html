@@ -160,14 +160,14 @@ import {RectAreaLightUniformsLib} from 'https://cdn.jsdelivr.net/npm/three@0.162
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v10',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v11',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
   PALETTE: {
     paint: [['Textured wallpaper', 0xf7f3ea], ['Warm white', 0xf4f1ea], ['Pale sage', 0xdfe4d8], ['Dusty blue', 0x9db2c4], ['Charcoal', 0x3e3f3d], ['Gloss white', 0xf2f2f0], ['Gloss black', 0x16161a]],
-    wood: [['Light oak laminate', 0xd3b184], ['Dark brown laminate', 0x5b3b2a], ['Pale oak', 0xd8bb93], ['Walnut', 0x8a6443], ['Black gloss', 0x1b1b1d]],
-    fabric: [['Sage grey', 0x93a39e], ['Charcoal waffle', 0x4a4c55], ['Teal', 0x2a9bb0], ['Linen', 0xe9dfcc], ['Terracotta', 0xd6aa98]]
+    wood: [['Light oak laminate', 0xd3b184], ['Dark walnut', 0x7a5638], ['Dark brown laminate', 0x5b3b2a], ['Pale oak', 0xd8bb93], ['Walnut', 0x8a6443], ['Black gloss', 0x1b1b1d]],
+    fabric: [['Sage', 0x8f9f8a], ['Oat linen', 0xd9ccb4], ['Clay', 0xc2775a], ['Sand', 0xe6dccb], ['Sage grey', 0x93a39e], ['Charcoal waffle', 0x4a4c55], ['Teal', 0x2a9bb0], ['Linen', 0xe9dfcc], ['Terracotta', 0xd6aa98]]
   },
   LOOKS: [
     {name: 'As photographed', colors: {}},
@@ -285,6 +285,30 @@ var CONFIG = {
     cornerW:   {name: 'Corner sofa, chaise', type: 'sofaSection', w: 29, d: 37, h: 29, arms: [1, 0], color: 0xa6a29a, color2: 0x6e6b66},
     sofaBed:   {name: 'Fold-out sofa (tap to fold or unfold)', type: 'sofaBed', w: 79, d: 55, h: 32, toggle: true, color: 0xb9b1a5, color2: 0x9d9488,
                 variants: [{label: 'Folded', open: false}, {label: 'Unfolded', open: true}]},
+    dSofa:     {name: 'Sofa', type: 'sofa', w: 78, d: 35, h: 29, color: 0x8f9f8a, color2: 0xe6dfcf},
+    dRug:      {name: 'Living room rug', type: 'rug', w: 55, d: 82, color: 0xe6dccb, color2: 0xb9a98e},
+    dCoffee:   {name: 'Coffee table', type: 'table', w: 30, d: 30, h: 16, round: true, color: 0x7a5638, color2: 0x1b1b1d},
+    dStool1:   {name: 'Stool', type: 'ottoman', w: 15, d: 15, h: 16, color: 0xc2775a, color2: 0x7a5638},
+    dStool2:   {name: 'Stool', type: 'ottoman', w: 15, d: 15, h: 16, color: 0xd9ccb4, color2: 0x7a5638},
+    dTvUnit:   {name: 'Floating TV unit', type: 'cabinet', w: 66, d: 14, h: 14, mount: 10, cols: 3, color: 0x7a5638, color2: 0x2b2b2b},
+    dPlant:    {name: 'Plant', type: 'floorplant', w: 14, h: 52, heads: 3, color: 0xc2775a},
+    dArt1:     {name: 'Print 1', type: 'art', w: 20, d: 1.5, h: 28, mount: 42, print: 'abstract', color: 0x7a5638, color2: 0x93a39e},
+    dArt2:     {name: 'Print 2', type: 'art', w: 20, d: 1.5, h: 28, mount: 42, print: 'poster', color: 0x7a5638, color2: 0xc2775a},
+    dArt3:     {name: 'Print 3', type: 'art', w: 20, d: 1.5, h: 28, mount: 42, print: 'landscape', color: 0x7a5638, color2: 0xb9a98e},
+    dTable:    {name: 'Work and dining table', type: 'table', w: 47, d: 28, h: 29.5, color: 0x7a5638, color2: 0x1b1b1d},
+    dChair1:   {name: 'Chair', type: 'windsor', w: 18, d: 18, h: 34, color: 0x7a5638},
+    dChair2:   {name: 'Chair', type: 'windsor', w: 18, d: 18, h: 34, color: 0x7a5638},
+    dPendant:  {name: 'Pendant lamp', type: 'pendant', w: 16, d: 16, h: 10, mount: 63, color: 0x2b2b2b, color2: 0xf3efe6},
+    dShelf:    {name: 'Wall shelf', type: 'box', w: 47, d: 8, h: 1.6, mount: 54, color: 0x7a5638},
+    dBench:    {name: 'Hall bench', type: 'bench', w: 32, d: 12, h: 18, color: 0x7a5638, color2: 0x8f9f8a},
+    dMirrorH:  {name: 'Hall mirror', type: 'art', w: 26, d: 1.5, h: 38, mount: 42, print: 'mirror', color: 0x7a5638},
+    dBed:      {name: 'Bed', type: 'upBed', w: 55, d: 82, h: 22, hb: 38, headStyle: 'panel', color: 0xcfc3ad, color2: 0x9aab97},
+    dDesk:     {name: 'Desk', type: 'writingDesk', w: 41.3, d: 19.7, h: 29.5, color: 0x7a5638},
+    dDeskCh:   {name: 'Desk chair', type: 'windsor', w: 18, d: 18, h: 34, color: 0x7a5638},
+    dDeskSh:   {name: 'Desk shelf', type: 'box', w: 41, d: 8, h: 1.6, mount: 52, color: 0x7a5638},
+    dBook:     {name: 'Tall bookcase', type: 'bookshelf', w: 20, d: 11, h: 72, color: 0x7a5638},
+    dBedShelf: {name: 'Bedside shelf', type: 'box', w: 14, d: 9, h: 3, mount: 21, color: 0x7a5638},
+    dBedRug:   {name: 'Bedroom runner', type: 'rug', w: 20, d: 64, color: 0xd9ccb4, color2: 0xb9a98e},
     bedBed:    {name: 'Bed', type: 'upBed', w: 55, d: 82, h: 24, hb: 41, color: 0xb08c9b, color2: 0xe3dccf},
     bedDesk:   {name: 'Desk', type: 'writingDesk', w: 41.3, d: 19.7, h: 29.5, color: 0x231a16},
     bedChair:  {name: 'Folding chair', type: 'foldChair', w: 15, d: 15, h: 31, color: 0xe8dcc6, color2: 0xb8bcc0},
@@ -337,7 +361,24 @@ var CONFIG = {
              rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270],
              bedBed: [28.2, 167.8, 180], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0], bedPouf: [65, 201, 180],
              leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180],
-             spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], deskW: [9.85, 96.5, 270], chairW: [30.5, 96.5, 90]}}
+             spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], deskW: [9.85, 96.5, 270], chairW: [30.5, 96.5, 90]}},
+    {name: 'Full refresh', note: 'A full refresh in walnut, sage and oat linen, laid over the light oak floor. Living room: a low sofa along the west wall (still 60 cm clear to the bedroom door), a floating TV unit so the floor stays open, a rug with a round table and two stools instead of a second sofa. Second workplace: a walnut table for work and meals against the blank wall behind the TV, with a pendant above it and the dining table gone, so the middle of the kitchen is free; the first workplace stays in the bedroom behind the sliding door. Bedroom: a plain headboard, a desk with a shelf, a tall slim bookcase in the corner instead of the lamp and pouf. Hall: a bench with baskets and a mirror in place of the shoe rack. Built-ins (kitchen units, hall wardrobe, bathroom) stay.',
+     place: {tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0], floorK: [227, 65.5, 0], tower: [268, 12, 90],
+             base: [268, 64.5, 90], corner: [267, 118, 90], leg2: [229.5, 118, 180], wall: [273, 77.5, 90], wall2: [235.5, 124, 180], mirror: [279.25, 77.5, 90],
+             mirror2: [242.5, 130.25, 180], fridge: [191, 119, 180], radK: [190, 2.5, 0], hallWard: [112, 180, 270], wardDoor1: [123.75, 146.65, 270], wardDoor2: [123.75, 180, 270],
+             wardMirror: [123.75, 213.35, 270], endcap: [113, 122, 180], doorFront: [150, 232.5, 180], doorInner: [178.5, 174, 90], bathFloor: [231, 185.5, 0], bathRug: [213, 185, 0],
+             narrowCab: [187, 146, 0], vanity: [210.5, 148, 0], mirrorBody: [210.5, 142, 0], mirrorL: [202.75, 145.5, 0], mirrorR: [218.25, 145.5, 0], lampBar: [210.5, 140.5, 0],
+             toilet: [263, 149.5, 0], towelRail: [278.5, 163, 90], bathtub: [251, 211, 180], washer: [209, 223.5, 180], basket: [189.5, 223.5, 180], rodMain: [72.5, 3, 0],
+             lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0],
+             spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0],
+             spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270],
+             tileW2: [182.3, 210, 270], leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180], spotBd1: [30, 139, 0],
+             spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], dSofa: [17.5, 52, 270], dRug: [70, 52, 0], dCoffee: [66, 52, 0], dStool1: [92, 36, 0],
+             dStool2: [92, 68, 0], dTvUnit: [138, 35, 90], dPlant: [137.5, 15, 0], dArt1: [0.75, 30, 270], dArt2: [0.75, 54, 270], dArt3: [0.75, 78, 270],
+             dTable: [164, 35, 90], dChair1: [188, 24, 90], dChair2: [188, 46, 90], dPendant: [164, 35, 0], dShelf: [154, 35, 90], dBench: [171, 203, 90],
+             dMirrorH: [176.25, 203, 90], dBed: [28.2, 167.8, 180], dDesk: [86.15, 141.7, 90], dDeskCh: [66.5, 141.7, 270], dDeskSh: [92, 141.7, 90], dBook: [86, 203.5, 180],
+             dBedShelf: [67, 204.5, 180], dBedRug: [67, 172, 0]},
+     colors: {curL: 0xd9ccb4, curR: 0xd9ccb4, bathRug: [0xcfc3ad, 0xa8a08c], basket: 0xd9ccb4}}
   ],
   PHOTOS: [
     {src: 'photos/p1.jpg', label: 'Main room · toward the window', at: [141, 127], h: 64, yaw: 318.6, pitch: -8, roll: 0, fov: 102.7},
@@ -426,7 +467,7 @@ var FIXED = (R.fixed || []).map(function(f, i){ var r = f.rot || 0; return {f: f
 
 /* ---------- items and options ---------- */
 var TYPES = {bed: {side: 20}, crib: {side: 0}, dresser: {front: 36}, wardrobe: {front: 36}, desk: {front: 30}, bookshelf: {front: 24},
-  sofa: {front: 14}, armchair: {front: 16}, lounge: {front: 16}, floorlamp: {}, floorplant: {}, art: {}, nightstand: {}, chair: {}, table: {}, rug: {}, box: {}, media: {}, ottoman: {}, stands: {}, petbed: {}, fireplace: {}, bathtub: {}, washer: {}, toilet: {}, sinkUnit: {}, towelRail: {}, fridge: {}, cabinet: {}, ovenTower: {}, radiator: {}, curtain: {}, basket: {}, windsor: {}, tvStand: {}, doorLeaf: {}, slidePanel: {}, curvedShelf: {}, shoeRack: {}, spot: {}, rod: {}, tilePanel: {}, upBed: {}, writingDesk: {}, foldChair: {}, torchiere: {}, slideLeaf: {}, sofaSection: {}, sofaBed: {}};
+  sofa: {front: 14}, armchair: {front: 16}, lounge: {front: 16}, floorlamp: {}, floorplant: {}, art: {}, nightstand: {}, chair: {}, table: {}, rug: {}, box: {}, media: {}, ottoman: {}, stands: {}, petbed: {}, fireplace: {}, bathtub: {}, washer: {}, toilet: {}, sinkUnit: {}, towelRail: {}, fridge: {}, cabinet: {}, ovenTower: {}, radiator: {}, curtain: {}, basket: {}, windsor: {}, tvStand: {}, doorLeaf: {}, slidePanel: {}, curvedShelf: {}, shoeRack: {}, spot: {}, rod: {}, tilePanel: {}, upBed: {}, writingDesk: {}, foldChair: {}, torchiere: {}, slideLeaf: {}, sofaSection: {}, sofaBed: {}, bench: {}, pendant: {}};
 /* a piece's variants swap its size or type per option (the configurator's "style"); the first is the piece as given */
 var BASEIT = C.ITEMS;
 function specOf(k, L){ var l = L || LAYOUTS && LAYOUTS[cur]; return BASEIT[k] || (l && l.added || {})[k]; }   /* a piece's spec: configured, or added from the library in that option */
@@ -457,13 +498,13 @@ function nameOf(k){ return ITEMS[k].name; }
 var TYPE_COLORS = {bed: [0xf2efe8, 0xa9b9c9], crib: [0xf2efe8, 0xece5d8], dresser: [0xcfae86], nightstand: [0xcfae86], wardrobe: [0xf2efe8],
   desk: [0xf2efe8, 0xcfae86], table: [0xcfae86], chair: [0xcfae86], bookshelf: [0xcfae86], sofa: [0xb9b3a7, 0xcac4b8], armchair: [0xb9b3a7, 0xcac4b8], rug: [0xe6dccb], box: [0xdedede],
   media: [0xa86a3c], lounge: [0xdcc09a, 0xd2a050], floorlamp: [0x8a6443, 0xf3f0ea], floorplant: [0xb8704a], art: [0x2b2d31, 0x6f7f96], ottoman: [0xd8d0c2, 0x8a6443], stands: [0xf2efe8, 0xc07a4f], petbed: [0x9a9ea3, 0xc9ccd0], fireplace: [0xc08a55, 0x2a2a2a],
-  bathtub: [0xf6f6f6], washer: [0xf6f6f6, 0xd9dcdf], toilet: [0xf6f6f6, 0xb8bcc0], sinkUnit: [0xf6f6f6, 0xb8bcc0], towelRail: [0xb8bcc0, 0xa8a49c], fridge: [0x16161a, 0xb8bcc0], cabinet: [0xf2f2f0, 0xb8bcc0], ovenTower: [0xe4e4e2, 0xb8bcc0], radiator: [0xf4f1ea], curtain: [0x2a9bb0], basket: [0xe9dfcc, 0xe9dfcc], windsor: [0x1b1b1d], tvStand: [0x1b1b1d, 0xb8bcc0], doorLeaf: [0x7a4a2c, 0xb8bcc0], slidePanel: [0x1b1412, 0x8a7456], curvedShelf: [0x3a2a24], shoeRack: [0x4a2f22], spot: [0xcfd2d4, 0xcfd2d4], rod: [0x2b2b2b], tilePanel: [0x4a3a30, 0x8a7456], upBed: [0xb08c9b, 0xb08c9b], writingDesk: [0x231a16], foldChair: [0xe8dcc6, 0xb8bcc0], torchiere: [0x1b1b1b, 0xb8bcc0], slideLeaf: [0xe6dcc6, 0x8c7b68], sofaSection: [0xb9b3a7, 0xcac4b8], sofaBed: [0xb9b3a7, 0xcac4b8]};
-var SECOND = {lounge: 'Cushion', floorlamp: 'Shade', art: 'Print', bed: 'Bedding', crib: 'Mattress', desk: 'Legs', table: 'Legs', sofa: 'Cushions', armchair: 'Cushion', rug: 'Border', ottoman: 'Legs', stands: 'Pots', petbed: 'Cushion', fireplace: 'Firebox face', washer: 'Door rim', toilet: 'Fittings', sinkUnit: 'Handles and tap', towelRail: 'Towel', fridge: 'Handles', cabinet: 'Handles', ovenTower: 'Appliance frames', basket: 'Lid', tvStand: 'Feet', doorLeaf: 'Handle', slidePanel: 'Bronze bands', tilePanel: 'Border and mosaic', foldChair: 'Chrome', torchiere: 'Stem', slideLeaf: 'Bronze bands', sofaSection: 'Cushions', sofaBed: 'Cushions'};
+  bathtub: [0xf6f6f6], washer: [0xf6f6f6, 0xd9dcdf], toilet: [0xf6f6f6, 0xb8bcc0], sinkUnit: [0xf6f6f6, 0xb8bcc0], towelRail: [0xb8bcc0, 0xa8a49c], fridge: [0x16161a, 0xb8bcc0], cabinet: [0xf2f2f0, 0xb8bcc0], ovenTower: [0xe4e4e2, 0xb8bcc0], radiator: [0xf4f1ea], curtain: [0x2a9bb0], basket: [0xe9dfcc, 0xe9dfcc], windsor: [0x1b1b1d], tvStand: [0x1b1b1d, 0xb8bcc0], doorLeaf: [0x7a4a2c, 0xb8bcc0], slidePanel: [0x1b1412, 0x8a7456], curvedShelf: [0x3a2a24], shoeRack: [0x4a2f22], spot: [0xcfd2d4, 0xcfd2d4], rod: [0x2b2b2b], tilePanel: [0x4a3a30, 0x8a7456], upBed: [0xb08c9b, 0xb08c9b], writingDesk: [0x231a16], foldChair: [0xe8dcc6, 0xb8bcc0], torchiere: [0x1b1b1b, 0xb8bcc0], slideLeaf: [0xe6dcc6, 0x8c7b68], sofaSection: [0xb9b3a7, 0xcac4b8], sofaBed: [0xb9b3a7, 0xcac4b8], bench: [0x8a6443, 0x93a39e], pendant: [0x2b2b2b, 0xf3efe6]};
+var SECOND = {lounge: 'Cushion', floorlamp: 'Shade', art: 'Print', bed: 'Bedding', crib: 'Mattress', desk: 'Legs', table: 'Legs', sofa: 'Cushions', armchair: 'Cushion', rug: 'Border', ottoman: 'Legs', stands: 'Pots', petbed: 'Cushion', fireplace: 'Firebox face', washer: 'Door rim', toilet: 'Fittings', sinkUnit: 'Handles and tap', towelRail: 'Towel', fridge: 'Handles', cabinet: 'Handles', ovenTower: 'Appliance frames', basket: 'Lid', tvStand: 'Feet', doorLeaf: 'Handle', slidePanel: 'Bronze bands', tilePanel: 'Border and mosaic', foldChair: 'Chrome', torchiere: 'Stem', slideLeaf: 'Bronze bands', sofaSection: 'Cushions', sofaBed: 'Cushions', bench: 'Cushion', pendant: 'Shade'};
 /* which swatch groups each finish offers when PALETTE is split into groups (paint, wood, fabric, ...) */
 var KINDS = {lounge: [['wood', 'paint'], ['fabric']], floorlamp: [['wood', 'paint'], ['fabric']], floorplant: [['clay', 'paint']], art: [['wood', 'paint'], ['fabric', 'paint']], sofa: [['fabric'], ['fabric']], armchair: [['fabric'], ['fabric']], ottoman: [['fabric'], ['wood', 'paint']], petbed: [['fabric'], ['fabric']], rug: [['fabric'], ['fabric']],
   bed: [['wood', 'paint'], ['fabric']], crib: [['wood', 'paint'], ['fabric']], stands: [['paint', 'wood'], ['clay', 'paint']], fireplace: [['wood', 'paint'], ['paint']],
   walls: [['paint']], trim: [['paint']], floor: [['wood']], paneling: [['wood', 'paint']],
-  bathtub: [['paint']], washer: [['paint'], ['paint']], toilet: [['paint'], ['paint']], sinkUnit: [['paint'], ['paint']], towelRail: [['paint'], ['fabric']], fridge: [['paint', 'wood'], ['paint']], cabinet: [['paint', 'wood'], ['paint']], ovenTower: [['paint'], ['paint']], radiator: [['paint']], curtain: [['fabric']], basket: [['paint', 'fabric'], ['paint', 'fabric']], windsor: [['wood', 'paint']], tvStand: [['paint'], ['paint']], doorLeaf: [['wood', 'paint'], ['paint']], slidePanel: [['paint'], ['paint']], curvedShelf: [['wood', 'paint']], shoeRack: [['wood', 'paint']], spot: [['paint']], rod: [['paint']], tilePanel: [['paint'], ['paint']], upBed: [['fabric'], ['fabric']], writingDesk: [['wood', 'paint']], foldChair: [['paint'], ['paint']], torchiere: [['paint'], ['paint']], slideLeaf: [['paint'], ['paint']], sofaSection: [['fabric'], ['fabric']], sofaBed: [['fabric'], ['fabric']]};
+  bathtub: [['paint']], washer: [['paint'], ['paint']], toilet: [['paint'], ['paint']], sinkUnit: [['paint'], ['paint']], towelRail: [['paint'], ['fabric']], fridge: [['paint', 'wood'], ['paint']], cabinet: [['paint', 'wood'], ['paint']], ovenTower: [['paint'], ['paint']], radiator: [['paint']], curtain: [['fabric']], basket: [['paint', 'fabric'], ['paint', 'fabric']], windsor: [['wood', 'paint']], tvStand: [['paint'], ['paint']], doorLeaf: [['wood', 'paint'], ['paint']], slidePanel: [['paint'], ['paint']], curvedShelf: [['wood', 'paint']], shoeRack: [['wood', 'paint']], spot: [['paint']], rod: [['paint']], tilePanel: [['paint'], ['paint']], upBed: [['fabric'], ['fabric']], writingDesk: [['wood', 'paint']], foldChair: [['paint'], ['paint']], torchiere: [['paint'], ['paint']], slideLeaf: [['paint'], ['paint']], sofaSection: [['fabric'], ['fabric']], sofaBed: [['fabric'], ['fabric']], bench: [['wood', 'paint'], ['fabric']], pendant: [['paint'], ['fabric', 'paint']]};
 var SOFT = 0xf3f0ea, DARK = 0x1d1d1f, LEGC = 0x5a3f2c, BOOKS = [0x9db2c4, 0xc9a24f, 0x7f8c63, 0xe8cfc4, 0x3e3f3d, 0xece5d8, 0x8a6443, 0xd6aa98];
 function colorsOf(id, it){ var v = LAYOUTS[cur].colors[id], d = TYPE_COLORS[it.type] || TYPE_COLORS.box, a = Array.isArray(v) ? v : [v], c1 = pick(a[0], it.color, d[0]);
   return [c1, pick(a[1], it.color2, d[1], c1)]; }
@@ -789,7 +830,7 @@ if (HASH.test) addEventListener('load', function(){ /* test.py: the page's load 
 var SURF = {lounge: ['wood', 'fabric'], floorlamp: ['wood', 'shade'], floorplant: ['clay'], art: ['wood', 'print'], sofa: ['fabric', 'fabric'], armchair: ['fabric', 'fabric'], ottoman: ['fabric', 'wood'], petbed: ['fabric', 'fabric'], bed: ['wood', 'fabric'], crib: ['paint', 'fabric'],
   dresser: ['wood'], nightstand: ['wood'], wardrobe: ['paint'], desk: ['wood', 'wood'], table: ['wood', 'wood'], chair: ['wood'], bookshelf: ['wood'], media: ['wood'],
   stands: ['metal', 'clay'], fireplace: ['wood', 'brick'], box: ['paint'],
-  bathtub: ['stone'], washer: ['stone', 'stone'], toilet: ['stone', 'metal'], sinkUnit: ['stone', 'metal'], towelRail: ['metal', 'fabric'], fridge: ['dark', 'metal'], cabinet: ['stone', 'metal'], ovenTower: ['stone', 'metal'], radiator: ['paint'], curtain: ['fabric'], basket: ['paint', 'paint'], windsor: ['wood'], tvStand: ['dark', 'metal'], doorLeaf: ['wood', 'metal'], slidePanel: ['dark', 'metal'], curvedShelf: ['wood'], shoeRack: ['wood'], spot: ['metal', 'paint'], rod: ['paint'], tilePanel: ['stone', 'metal'], upBed: ['fabric', 'fabric'], writingDesk: ['dark'], foldChair: ['paint', 'metal'], torchiere: ['metal', 'metal'], slideLeaf: ['paint', 'metal'], sofaSection: ['fabric', 'fabric'], sofaBed: ['fabric', 'fabric']};
+  bathtub: ['stone'], washer: ['stone', 'stone'], toilet: ['stone', 'metal'], sinkUnit: ['stone', 'metal'], towelRail: ['metal', 'fabric'], fridge: ['dark', 'metal'], cabinet: ['stone', 'metal'], ovenTower: ['stone', 'metal'], radiator: ['paint'], curtain: ['fabric'], basket: ['paint', 'paint'], windsor: ['wood'], tvStand: ['dark', 'metal'], doorLeaf: ['wood', 'metal'], slidePanel: ['dark', 'metal'], curvedShelf: ['wood'], shoeRack: ['wood'], spot: ['metal', 'paint'], rod: ['paint'], tilePanel: ['stone', 'metal'], upBed: ['fabric', 'fabric'], writingDesk: ['dark'], foldChair: ['paint', 'metal'], torchiere: ['metal', 'metal'], slideLeaf: ['paint', 'metal'], sofaSection: ['fabric', 'fabric'], sofaBed: ['fabric', 'fabric'], bench: ['wood', 'fabric'], pendant: ['metal', 'shade']};
 function inPal(group, h){ return !!(PALG[group] || []).some(function(p){ return hex(p[1]) === h; }); }
 function kindFor(type, role, h, over){ if (over) return over;
   var k = {3: 'soft', 4: 'books', 5: 'dark', 6: 'wood', 7: 'leaf', 8: 'brass', 9: 'soil'}[role] || (SURF[type] || ['paint', 'paint'])[role - 1] || 'paint';
@@ -1188,13 +1229,19 @@ BUILD.upBed = function(g, it){ var w = it.w, d = it.d, h = it.h || 24, fh = 14, 
     for (j = -(xb - xa); j < zz - za; j += sp){ var a1 = clipSeg(xa, za + j, xb, za + j + (xb - xa), xa, xb, za, zz); if (a1) pts.push(V(a1[0], y, a1[1]), V(a1[2], y, a1[3])); }
     for (j = 0; j < zz - za + (xb - xa); j += sp){ var a2 = clipSeg(xa, za + j, xb, za + j - (xb - xa), xa, xb, za, zz); if (a2) pts.push(V(a2[0], y, a2[1]), V(a2[2], y, a2[3])); }
     g.add(detail(pts, 0.28)); }
+  if (it.headStyle === 'panel'){ var ph = hbh - 6, hs = new T.Shape(), rr = 4; hs.moveTo(-hw, 0); hs.lineTo(hw, 0); hs.lineTo(hw, ph - rr); hs.quadraticCurveTo(hw, ph, hw - rr, ph); hs.lineTo(-hw + rr, ph); hs.quadraticCurveTo(-hw, ph, -hw, ph - rr); hs.lineTo(-hw, 0);
+    var hp = new T.Mesh(new T.ExtrudeGeometry(hs, {depth: 3, bevelEnabled: true, bevelSize: 0.6, bevelThickness: 0.6, bevelSegments: 2, curveSegments: 10}), WM); hp.position.set(0, 6, zb + 0.7); hp.castShadow = hp.receiveShadow = true; hp.userData.role = 1; g.add(hp);
+    var cl = []; [-1, 0, 1].forEach(function(k){ if (k) cl.push(V(k * w * 0.17, 12, zb + 4.4), V(k * w * 0.17, ph + 1, zb + 4.4)); }); g.add(detail(cl, 0.35));   /* two vertical channels */
+  } else {
   var s = new T.Shape(); s.moveTo(-hw, 0); s.lineTo(hw, 0); s.lineTo(hw, 22);                                                  /* the headboard: straight sides, a scalloped crown */
-  s.quadraticCurveTo(hw, hbh - 7, hw * 0.55, hbh - 5.5); s.quadraticCurveTo(hw * 0.28, hbh - 4.5, hw * 0.2, hbh - 2.2); s.quadraticCurveTo(hw * 0.12, hbh, 0, hbh);
-  s.quadraticCurveTo(-hw * 0.12, hbh, -hw * 0.2, hbh - 2.2); s.quadraticCurveTo(-hw * 0.28, hbh - 4.5, -hw * 0.55, hbh - 5.5); s.quadraticCurveTo(-hw, hbh - 7, -hw, 22); s.lineTo(-hw, 0);
-  var hm = new T.Mesh(new T.ExtrudeGeometry(s, {depth: t, bevelEnabled: true, bevelSize: 0.7, bevelThickness: 0.7, bevelSegments: 2, curveSegments: 14}), WM);
-  hm.position.set(0, 0, zb + 0.7); hm.castShadow = hm.receiveShadow = true; hm.userData.role = 1; g.add(hm);
-  var cols = 7, rows = [[17, 0], [24.5, 1], [32, 0]];                                                                          /* tufting buttons, staggered; the top row only where the crown is high enough */
-  rows.forEach(function(r){ for (i = 0; i < cols; i++){ var x = -hw + 5 + (w - 10) * (i + (r[1] ? 0.5 : 0)) / (cols - 1); if (x > hw - 4 || (r[0] > 30 && Math.abs(x) > hw * 0.42)) continue; disc(g, 0.55, 0.5, x, r[0], zb + t + 1.2, 3, {edge: false, noShadow: true}); } });
+    s.quadraticCurveTo(hw, hbh - 7, hw * 0.55, hbh - 5.5); s.quadraticCurveTo(hw * 0.28, hbh - 4.5, hw * 0.2, hbh - 2.2); s.quadraticCurveTo(hw * 0.12, hbh, 0, hbh);
+    s.quadraticCurveTo(-hw * 0.12, hbh, -hw * 0.2, hbh - 2.2); s.quadraticCurveTo(-hw * 0.28, hbh - 4.5, -hw * 0.55, hbh - 5.5); s.quadraticCurveTo(-hw, hbh - 7, -hw, 22); s.lineTo(-hw, 0);
+    var hm = new T.Mesh(new T.ExtrudeGeometry(s, {depth: t, bevelEnabled: true, bevelSize: 0.7, bevelThickness: 0.7, bevelSegments: 2, curveSegments: 14}), WM);
+    hm.position.set(0, 0, zb + 0.7); hm.castShadow = hm.receiveShadow = true; hm.userData.role = 1; g.add(hm);
+    var cols = 7, rows = [[17, 0], [24.5, 1], [32, 0]];                                                                          /* tufting buttons, staggered; the top row only where the crown is high enough */
+    rows.forEach(function(r){ for (i = 0; i < cols; i++){ var x = -hw + 5 + (w - 10) * (i + (r[1] ? 0.5 : 0)) / (cols - 1); if (x > hw - 4 || (r[0] > 30 && Math.abs(x) > hw * 0.42)) continue; disc(g, 0.55, 0.5, x, r[0], zb + t + 1.2, 3, {edge: false, noShadow: true}); } });
+  
+  }
   var pz = zb + t;                                                                                                             /* the pillows: two upright against the headboard, side by side, and a small cushion centred in front */
   if (dressed){ var zf0 = pz + 19, zf1 = zb + t + 0.2 + ml + 2.2, zc = (zf0 + zf1) / 2, dl = zf1 - zf0, dy = h + 0.05;
     part(g, mw + 0.6, 3, dl, 0, dy, zc, 2, {r: 1.5});                                                                          /* the duvet over the mattress */
@@ -1239,6 +1286,16 @@ BUILD.sofaBed = function(g, it){ var w = it.w, d = it.d, h = it.h || 32, sd = it
 GLYPH.sofaSection = GLYPH.sofa;
 GLYPH.sofaBed = function(g, w, d, it){ var sd = it.sofaDepth || 35; if (it.open){ g.rect(-w / 2 + 5, -d / 2 + 1, w - 10, d - 2); g.moveTo(-w / 2 + 5, -d / 2 + 14); g.lineTo(w / 2 - 5, -d / 2 + 14); }
   else { g.rect(-w / 2 + 1, -d / 2 + 1, w - 2, sd - 1); g.moveTo(-w / 2 + 6, -d / 2 + 11); g.lineTo(w / 2 - 6, -d / 2 + 11); } };
+
+/* ---- hall bench and a pendant lamp ---- */
+BUILD.bench = function(g, it){ var w = it.w, d = it.d, h = it.h || 18, tt = 1.6;   /* a slim bench: a wooden top, a seat cushion, an open shelf below with two baskets */
+  part(g, w, tt, d, 0, h - tt - 2.4, 0, 1, {r: 0.3}); part(g, w - 1.5, 2.4, d - 1, 0, h - 2.4, 0, 2, {r: 1.1});
+  [-1, 1].forEach(function(sx){ part(g, 1.4, h - tt - 2.4, d - 1, sx * (w / 2 - 1), 0, 0, 1, {edge: 0.3}); });
+  part(g, w - 2.6, 0.9, d - 1.4, 0, 5.4, 0, 1, {edge: 0.3});
+  [-1, 1].forEach(function(sx){ part(g, w * 0.3, 6.6, d - 3, sx * w * 0.21, 6.3, 0.2, 2, {r: 1.3, edge: false}); }); };
+BUILD.pendant = function(g, it){ var r = (it.w || 16) / 2, y0 = it.mount || 62, top = 97, hh = it.shadeH || 7;   /* a cord from the ceiling and a dome shade with a warm bulb inside; mount = the shade's bottom edge */
+  cyl(g, 0.3, 0.3, top - (y0 + hh), 0, y0 + hh, 0, 2, {kind: 'metal', edge: false, noShadow: true}); cyl(g, 1.6, 1.6, 0.7, 0, top - 0.1, 0, 2, {kind: 'metal', edge: false});
+  cyl(g, r * 0.22, r, hh, 0, y0, 0, 3, {seg: 32, kind: 'shade', edge: false, noShadow: true}); };
 function build(it){ var g = new T.Group(); (BUILD[it.type] || BUILD.box)(g, it); mergeBooks(g); g.userData.it = it; return g; }
 function frameFor(it){ /* the selection outline on the floor, drawn in colour mode where a blue fill would hide the finishes */
   var g = new T.Group(), m = new T.MeshBasicMaterial({color: ACCENT, toneMapped: false}), o = 2.5, w = it.w + 2 * o, d = it.d + 2 * o;
@@ -1549,7 +1606,7 @@ function swatchesFor(kinds){ if (PALG.all) return PALG.all; var out = [];
   (kinds || []).forEach(function(g){ (PALG[g] || []).forEach(function(p){ if (!out.some(function(q){ return hex(q[1]) === hex(p[1]); })) out.push(p); }); }); return out.length ? out : ALLPAL; }
 function kindsOf(type, i){ var k = KINDS[type]; return k ? k[Math.min(i, k.length - 1)] : ['wood', 'paint']; }
 function colorName(h){ var n = null; ALLPAL.some(function(p){ if (hex(p[1]) === h){ n = p[0]; return true; } return false; }); return n || css(h); }
-var MAIN = {lounge: 'Frame', floorlamp: 'Stand', floorplant: 'Pot', art: 'Frame', bed: 'Frame', crib: 'Frame', sofa: 'Upholstery', armchair: 'Upholstery', ottoman: 'Upholstery', petbed: 'Fabric', rug: 'Field', desk: 'Top', table: 'Top', stands: 'Stands', fireplace: 'Surround', media: 'Wood', bathtub: 'Porcelain', washer: 'Body', toilet: 'Porcelain', sinkUnit: 'Basin and top', towelRail: 'Chrome', fridge: 'Body', cabinet: 'Fronts', ovenTower: 'Cabinet', radiator: 'Paint', curtain: 'Fabric', basket: 'Basket', windsor: 'Wood', tvStand: 'Glass', doorLeaf: 'Door', slidePanel: 'Door', curvedShelf: 'Wood', shoeRack: 'Wood', spot: 'Ring', rod: 'Rod', tilePanel: 'Tiles', upBed: 'Upholstery', writingDesk: 'Top and drawers', foldChair: 'Seat', torchiere: 'Stem', slideLeaf: 'Panels', sofaSection: 'Upholstery', sofaBed: 'Upholstery'};
+var MAIN = {lounge: 'Frame', floorlamp: 'Stand', floorplant: 'Pot', art: 'Frame', bed: 'Frame', crib: 'Frame', sofa: 'Upholstery', armchair: 'Upholstery', ottoman: 'Upholstery', petbed: 'Fabric', rug: 'Field', desk: 'Top', table: 'Top', stands: 'Stands', fireplace: 'Surround', media: 'Wood', bathtub: 'Porcelain', washer: 'Body', toilet: 'Porcelain', sinkUnit: 'Basin and top', towelRail: 'Chrome', fridge: 'Body', cabinet: 'Fronts', ovenTower: 'Cabinet', radiator: 'Paint', curtain: 'Fabric', basket: 'Basket', windsor: 'Wood', tvStand: 'Glass', doorLeaf: 'Door', slidePanel: 'Door', curvedShelf: 'Wood', shoeRack: 'Wood', spot: 'Ring', rod: 'Rod', tilePanel: 'Tiles', upBed: 'Upholstery', writingDesk: 'Top and drawers', foldChair: 'Seat', torchiere: 'Stem', slideLeaf: 'Panels', sofaSection: 'Upholstery', sofaBed: 'Upholstery', bench: 'Wood', pendant: 'Fixture'};
 function swatchRow(label, cur0, list, apply){ var row = el('div', 'sw'), head = el('div', 'swh'), fv = el('span', 'fv', colorName(cur0)), box = el('div', 'swl'), known = false;
   head.appendChild(el('span', '', label)); head.appendChild(fv); row.appendChild(head); row.appendChild(box);
   list.forEach(function(p){ var h = hex(p[1]), b = el('button', 'swc' + (h === cur0 ? ' on' : '')); if (h === cur0) known = true;
