@@ -205,7 +205,7 @@ var CONFIG = {
       'The wall between the counter and the wall cabinets is mirrored: drawn as plain silvered mirrors 18″ high, without the smoked-bronze tint and diamond pattern. Counter top, hob, handles and the cat are not drawn; the dark floor band is a flat brown patch',
       'Left out in the main room: ceiling spot lights, the wardrobe at the left edge of photo 1, bags, laptop, sheer curtain. Curtains and radiators are plain boxes',
       'Hall (from five photos, no camera solve, ±15 %): 47″ clear width between x 125″ and 172″, about 10 ft from the gap between the rooms to the front door. Its length and the position of the interior door at y 225″ are guesses; which room that door leads to is unknown',
-      'Hall furniture: sliding wardrobe 100″ × 24″ × 94″ with the curved open shelves at its near end drawn as a square 24″ × 16″ unit; front door 36″ and interior door 28″ drawn as closed flat panels; the shoe rack. The mirror inserts, ceiling lights and the intercom are not modelled',
+      'Hall furniture: sliding wardrobe 100″ × 24″ × 94″ with three doors, the one nearest the front door a mirror (the bronze mirror bands on the other two are not drawn), and the curved open shelves at its near end drawn as a square 24″ × 16″ unit; front door 36″ and interior door 28″ drawn as closed flat panels; the shoe rack. The mirror inserts, ceiling lights and the intercom are not modelled',
       'Wall colour is one textured-wallpaper beige for both rooms; the kitchen’s black-flecked cork wallpaper is not modelled'
     ]
   },
@@ -233,11 +233,14 @@ var CONFIG = {
     ch2:    {name: 'Chair 2', type: 'chair', w: 18, d: 18, h: 34, color: 0x1b1b1d},
     ch3:    {name: 'Chair 3', type: 'chair', w: 18, d: 18, h: 34, color: 0x1b1b1d},
     ch4:    {name: 'Chair 4', type: 'chair', w: 18, d: 18, h: 34, color: 0x1b1b1d},
-    hallWard: {name: 'Hall wardrobe', type: 'wardrobe', w: 100, d: 24, h: 94, color: 0x2a1f1c},
+    hallWard: {name: 'Hall wardrobe', type: 'wardrobe', w: 100, d: 22, h: 94, color: 0x2a1f1c},
+    wardDoor1: {name: 'Wardrobe door 1', type: 'box', w: 33.3, d: 1.5, h: 92, color: 0x1b1412},
+    wardDoor2: {name: 'Wardrobe door 2', type: 'box', w: 33.3, d: 1.5, h: 92, color: 0x1b1412},
+    wardMirror: {name: 'Wardrobe mirror door', type: 'art', w: 33.4, d: 1.5, h: 90, mount: 2, print: 'mirror', color: 0x1b1412},
     endcap:   {name: 'Wardrobe end shelves', type: 'bookshelf', w: 24, d: 16, h: 94, color: 0x3a2a24},
     doorFront: {name: 'Front door', type: 'box', w: 36, d: 2, h: 80, color: 0x7a4a2c},
     doorInner: {name: 'Hall door', type: 'box', w: 28, d: 2, h: 80, color: 0x8b7358},
-    shoes:    {name: 'Shoe rack', type: 'box', w: 14, d: 18, h: 26, color: 0x4a2f22},
+    shoes:    {name: 'Shoe rack', type: 'box', w: 14, d: 10, h: 26, color: 0x4a2f22},
     radK:   {name: 'Kitchen radiator', type: 'box', w: 24, d: 4, h: 24, color: 0xf4f1ea}
   },
   LAYOUTS: [
@@ -245,12 +248,14 @@ var CONFIG = {
      place: {sofa: [19, 62, 270], pouf: [75, 36, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
              floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 77.5, 90], wall2: [229.5, 150, 180], mirror: [279.25, 77.5, 90], mirror2: [229.5, 156.25, 180], sink: [273, 144, 90], fridge: [191, 145, 180],
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
-             hallWard: [113, 231, 270], endcap: [113, 173, 180], doorFront: [150, 284, 180], doorInner: [176, 225, 90], shoes: [168, 268, 90]}},
+             hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
+             endcap: [113, 173, 180], doorFront: [150, 284, 180], doorInner: [176, 225, 90], shoes: [172, 268, 90]}},
     {name: 'Sofa under the window', note: 'The sofa moves to the window wall and the pouf becomes a coffee table. It opens the left wall, but the sofa back covers the radiator.',
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
              floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 77.5, 90], wall2: [229.5, 150, 180], mirror: [279.25, 77.5, 90], mirror2: [229.5, 156.25, 180], sink: [273, 144, 90], fridge: [191, 145, 180],
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
-             hallWard: [113, 231, 270], endcap: [113, 173, 180], doorFront: [150, 284, 180], doorInner: [176, 225, 90], shoes: [168, 268, 90]}}
+             hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
+             endcap: [113, 173, 180], doorFront: [150, 284, 180], doorInner: [176, 225, 90], shoes: [172, 268, 90]}}
   ],
   PHOTOS: [
     {src: 'photos/p1.jpg', label: 'Main room · toward the window', at: [141, 127], h: 64, yaw: 318.6, pitch: -8, roll: 0, fov: 102.7},
