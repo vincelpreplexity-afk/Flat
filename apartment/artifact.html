@@ -189,7 +189,7 @@ var CONFIG = {
       {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1},
       {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1}
     ],
-    fixed: [],
+    fixed: [{id: 'between', name: 'Space between kitchen and bathroom', type: 'box', c: [231, 175.5], w: 96, d: 27, h: 40, rot: 0, color: 0xd8d2c6}],   /* no photo shows it: a plain block so the plan has no hole */
     verify: [
       'Ceiling height 98″ (2.5 m): assumed. The kitchen has a stepped, wavy suspended ceiling with spot lights that is not modelled',
       'Main room 145″ wide (3.7 m): solved from two photos, ±6″. Its depth, 165″, is a placeholder: the near wall is in no photo',
@@ -204,7 +204,7 @@ var CONFIG = {
       'Hall furniture: sliding wardrobe 100″ × 24″ × 94″ with three doors, the one nearest the front door a mirror (the bronze mirror bands on the other two are not drawn), and the curved open shelves at its near end drawn as a square 24″ × 16″ unit; front door 36″ and interior door 28″ drawn as closed flat panels; the shoe rack. The mirror inserts, ceiling lights and the intercom are not modelled',
       'Bathroom (from six photos, no camera solve, ±15 %): 98″ × 93″ (2.5 × 2.4 m), its east wall in line with the kitchen’s and its south wall with the hall’s. The 28″ doorway is on the hall’s east wall at y 211″–239″, drawn open without the door leaf (the leaf opens into the bathroom, seen open in the photos)',
       'Bathroom fittings: vanity 33″ with a 32″ mirror cabinet (dark body, two mirror doors, a lamp on top), a 10″ cabinet beside it, wall-hung toilet on the east wall, heated towel rail, corner bath 58″ × 42″ drawn as a plain box (not curved), washing machine 24″, laundry basket, rug. Cream and brown tiles are not modelled: the walls are the same beige and the floor a flat brown patch. The cat litter tray, in-wall cistern and shower fittings are left out',
-      'Between the kitchen and the bathroom there is a 29″ strip (y 161″–190″) that no photo shows: it is drawn as empty, not as solid wall',
+      'Between the kitchen and the bathroom there is a 29″ strip (y 161″–190″) that no photo shows: it is drawn as a plain 40″ high block, not as a room',
       'Wall colour is one textured-wallpaper beige for both rooms; the kitchen’s black-flecked cork wallpaper is not modelled'
     ]
   },
@@ -278,7 +278,7 @@ var CONFIG = {
     {src: 'photos/h1.jpg', label: 'Hall · toward the front door', at: [147, 178], h: 58, yaw: 180, pitch: -3, roll: 0, fov: 100},
     {src: 'photos/h4.jpg', label: 'Hall · toward the rooms', at: [150, 268], h: 58, yaw: 0, pitch: 0, roll: 0, fov: 100},
     {src: 'photos/b1.jpg', label: 'Bathroom · from the doorway', at: [183, 225], h: 55, yaw: 90, pitch: -5, roll: 0, fov: 72},
-    {src: 'photos/b2.jpg', label: 'Bathroom · toward the door', at: [270, 262], h: 58, yaw: 270, pitch: -3, roll: 0, fov: 100},
+    {src: 'photos/b2.jpg', label: 'Bathroom · toward the door', at: [258, 226], h: 58, yaw: 270, pitch: -3, roll: 0, fov: 100},
     {src: 'photos/k2.jpg', label: 'Kitchen · toward the window', at: [205, 148], h: 55, yaw: 0, pitch: -8, roll: 0, fov: 90}
   ]
 };
