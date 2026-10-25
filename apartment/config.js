@@ -1,7 +1,7 @@
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall and bathroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-v3',
+  storageKey: 'flat-main-room-kitchen-hall-bath-v4',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
