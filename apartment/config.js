@@ -6,7 +6,7 @@ var CONFIG = {
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
   PALETTE: {
-    paint: [['Textured wallpaper', 0xd8d2c6], ['Warm white', 0xf4f1ea], ['Pale sage', 0xdfe4d8], ['Dusty blue', 0x9db2c4], ['Charcoal', 0x3e3f3d], ['Gloss white', 0xf2f2f0], ['Gloss black', 0x16161a]],
+    paint: [['Textured wallpaper', 0xf0ece3], ['Warm white', 0xf4f1ea], ['Pale sage', 0xdfe4d8], ['Dusty blue', 0x9db2c4], ['Charcoal', 0x3e3f3d], ['Gloss white', 0xf2f2f0], ['Gloss black', 0x16161a]],
     wood: [['Light oak laminate', 0xd3b184], ['Dark brown laminate', 0x5b3b2a], ['Pale oak', 0xd8bb93], ['Walnut', 0x8a6443], ['Black gloss', 0x1b1b1d]],
     fabric: [['Sage grey', 0x93a39e], ['Charcoal waffle', 0x4a4c55], ['Teal', 0x2a9bb0], ['Linen', 0xe9dfcc], ['Terracotta', 0xd6aa98]]
   },
@@ -23,7 +23,7 @@ var CONFIG = {
        The bathroom lies east of the hall: its door is the 5″ channel (177,211)-(182,211)-(182,239)-(177,239), 28″ wide. */
     outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 157], [207, 157], [207, 161], [177, 161], [177, 211], [182, 211], [182, 190], [280, 190], [280, 283], [182, 283], [182, 239], [177, 239], [177, 285], [101, 285], [101, 165], [0, 165]],
     height: 98, wall: 5,
-    walls: 0xd8d2c6, floor: 0xd3b184, trim: 0xd9c7ab,
+    walls: 0xf0ece3, floor: 0xd3b184, trim: 0xe2d6c0,
     boards: 7, boardsDir: 'y',
     openings: [
       /* main room: window, then a glazed balcony door shown closed (the engine's door is always an open solid leaf, so it is a floor-to-head glazed opening) */
@@ -33,7 +33,7 @@ var CONFIG = {
       {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1},
       {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1}
     ],
-    fixed: [{id: 'between', name: 'Space between kitchen and bathroom', type: 'box', c: [231, 175.5], w: 96, d: 27, h: 40, rot: 0, color: 0xd8d2c6}],   /* no photo shows it: a plain block so the plan has no hole */
+    fixed: [{id: 'between', name: 'Space between kitchen and bathroom', type: 'box', c: [231, 175.5], w: 96, d: 27, h: 40, rot: 0, color: 0xf0ece3}],   /* no photo shows it: a plain block so the plan has no hole */
     verify: [
       'Ceiling height 98″ (2.5 m): assumed. The kitchen has a stepped, wavy suspended ceiling with spot lights that is not modelled',
       'Main room 145″ wide (3.7 m): solved from two photos, ±6″. Its depth, 165″, is a placeholder: the near wall is in no photo',
@@ -46,15 +46,15 @@ var CONFIG = {
       'Left out in the main room: ceiling spot lights, the wardrobe at the left edge of photo 1, bags, laptop, sheer curtain. Curtains and radiators are plain boxes',
       'Hall (from five photos, no camera solve, ±15 %): 47″ clear width between x 125″ and 172″, about 10 ft from the gap between the rooms to the front door. Its length and the position of the interior door at y 225″ are guesses; which room that door leads to is unknown',
       'Hall furniture: sliding wardrobe 100″ × 24″ × 94″ with three doors, the one nearest the front door a mirror (the bronze mirror bands on the other two are not drawn), and the curved open shelves at its near end drawn as a square 24″ × 16″ unit; front door 36″ and interior door 28″ drawn as closed flat panels; the shoe rack. The mirror inserts, ceiling lights and the intercom are not modelled',
-      'Bathroom (from six photos, no camera solve, ±15 %): 98″ × 93″ (2.5 × 2.4 m), its east wall in line with the kitchen’s and its south wall with the hall’s. The 28″ doorway is on the hall’s east wall at y 211″–239″, drawn open without the door leaf (the leaf opens into the bathroom, seen open in the photos)',
+      'Bathroom (from six photos, no camera solve, ±15 %): 98″ × 93″ (2.5 × 2.4 m), its east wall in line with the kitchen’s and its south wall with the hall’s. The 28″ door is on the hall’s east wall at y 211″–239″, drawn closed as in the hall photos (it opens into the bathroom and stands open in the bathroom photos); delete “Bathroom door” to see the room open',
       'Bathroom fittings: vanity 33″ with a 32″ mirror cabinet (dark body, two mirror doors, a lamp on top), a 10″ cabinet beside it, wall-hung toilet on the east wall, heated towel rail, corner bath 58″ × 42″ drawn as a plain box (not curved), washing machine 24″, laundry basket, rug. Cream and brown tiles are not modelled: the walls are the same beige and the floor a flat brown patch. The cat litter tray, in-wall cistern and shower fittings are left out',
       'Between the kitchen and the bathroom there is a 29″ strip (y 161″–190″) that no photo shows: it is drawn as a plain 40″ high block, not as a room',
       'Wall colour is one textured-wallpaper beige for both rooms; the kitchen’s black-flecked cork wallpaper is not modelled'
     ]
   },
   ITEMS: {
-    sofa:   {name: 'Sofa', type: 'sofa', w: 88, d: 38, h: 32, color: 0x93a39e, color2: 0x4a4c55},
-    pouf:   {name: 'Pouf', type: 'ottoman', w: 44, d: 30, h: 17, color: 0x9fb0ac, color2: 0xd8bb93},
+    sofa:   {name: 'Sofa', type: 'sofa', w: 76, d: 36, h: 29, color: 0x93a39e, color2: 0x4a4c55},
+    pouf:   {name: 'Pouf', type: 'ottoman', w: 40, d: 28, h: 16, color: 0x9fb0ac, color2: 0xd8bb93},
     stand:  {name: 'TV unit', type: 'tvStand', w: 52, d: 17, h: 19, color: 0x1b1b1d, color2: 0xb8bcc0},
     tv:     {name: 'TV 50″', type: 'media', w: 44, d: 3, h: 25, tv: 50, mount: 28, color: 0x1b1b1d},
     curL:   {name: 'Curtain left', type: 'curtain', w: 30, d: 3, h: 96, color: 0x2a9bb0},
@@ -81,6 +81,7 @@ var CONFIG = {
     wardMirror: {name: 'Wardrobe mirror door', type: 'art', w: 33.4, d: 1.5, h: 90, mount: 2, print: 'mirror', color: 0x1b1412},
     endcap:   {name: 'Wardrobe end shelves', type: 'curvedShelf', w: 24, d: 16, h: 94, color: 0x3a2a24},
     doorFront: {name: 'Front door', type: 'doorLeaf', w: 36, d: 3, h: 80, color: 0x7a4a2c, color2: 0xb8bcc0},
+    doorInner: {name: 'Bathroom door', type: 'doorLeaf', w: 28, d: 3, h: 80, color: 0x8b7358, color2: 0xb8bcc0},
     shoes:    {name: 'Shoe rack', type: 'shoeRack', w: 14, d: 10, h: 26, color: 0x4a2f22},
     bathFloor: {name: 'Bathroom floor tiles', type: 'rug', w: 98, d: 93, color: 0x4a3328, color2: 0x4a3328},
     bathRug:   {name: 'Bath rug', type: 'rug', w: 40, d: 22, color: 0x9a8274, color2: 0x8a7264},
@@ -119,20 +120,20 @@ var CONFIG = {
   },
   LAYOUTS: [
     {name: 'As photographed', note: 'The flat as it is: sofa along the left wall facing the TV, a pouf in front of the window, the kitchen beyond the 84″ opening.',
-     place: {sofa: [19, 62, 270], pouf: [75, 36, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
+     place: {sofa: [18, 56, 270], pouf: [73, 38, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
              floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 90.5, 90], wall2: [235.5, 150, 180], mirror: [279.25, 90.5, 90], mirror2: [242.5, 156.25, 180], fridge: [191, 145, 180],
-             table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
+             table: [191, 52, 0], ch1: [167, 28, 311], ch2: [222, 52, 90], ch3: [191, 85, 180], ch4: [160, 56, 270], radK: [190, 2.5, 0],
              hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
-             endcap: [113, 173, 180], doorFront: [150, 283.5, 180], shoes: [172, 268, 90],
+             endcap: [113, 173, 180], doorFront: [150, 283.5, 180], shoes: [172, 268, 90], doorInner: [178.5, 225, 90],
              bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorBody: [210.5, 193, 0], mirrorL: [202.75, 196.5, 0], mirrorR: [218.25, 196.5, 0], lampBar: [210.5, 191.5, 0], toilet: [269.5, 212, 90],
              towelRail: [278.5, 234, 90], bathtub: [251, 262, 180], washer: [209, 274.5, 180], basket: [189.5, 274.5, 180],
              rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 186, 0], spotH2: [160, 206, 0], spotH3: [140, 226, 0], spotH4: [160, 246, 0], spotH5: [142, 266, 0], spotB1: [214, 214, 0], spotB2: [252, 262, 0], tileN: [231, 190.3, 0], tileE: [279.7, 236.5, 90], tileS: [231, 282.7, 180], tileW1: [182.3, 200.5, 270], tileW2: [182.3, 261, 270]}},
     {name: 'Sofa under the window', note: 'The sofa moves to the window wall and the pouf becomes a coffee table. It opens the left wall, but the sofa back covers the radiator.',
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
              floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 90.5, 90], wall2: [235.5, 150, 180], mirror: [279.25, 90.5, 90], mirror2: [242.5, 156.25, 180], fridge: [191, 145, 180],
-             table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
+             table: [191, 52, 0], ch1: [167, 28, 311], ch2: [222, 52, 90], ch3: [191, 85, 180], ch4: [160, 56, 270], radK: [190, 2.5, 0],
              hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
-             endcap: [113, 173, 180], doorFront: [150, 283.5, 180], shoes: [172, 268, 90],
+             endcap: [113, 173, 180], doorFront: [150, 283.5, 180], shoes: [172, 268, 90], doorInner: [178.5, 225, 90],
              bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorBody: [210.5, 193, 0], mirrorL: [202.75, 196.5, 0], mirrorR: [218.25, 196.5, 0], lampBar: [210.5, 191.5, 0], toilet: [269.5, 212, 90],
              towelRail: [278.5, 234, 90], bathtub: [251, 262, 180], washer: [209, 274.5, 180], basket: [189.5, 274.5, 180],
              rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 186, 0], spotH2: [160, 206, 0], spotH3: [140, 226, 0], spotH4: [160, 246, 0], spotH5: [142, 266, 0], spotB1: [214, 214, 0], spotB2: [252, 262, 0], tileN: [231, 190.3, 0], tileE: [279.7, 236.5, 90], tileS: [231, 282.7, 180], tileW1: [182.3, 200.5, 270], tileW2: [182.3, 261, 270]}}
