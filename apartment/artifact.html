@@ -32,6 +32,8 @@ header .sub{font-size:12.5px;color:var(--ink-2)}
 .ctl.tr{right:12px;top:10px}.ctl.br{right:12px;bottom:12px}
 .ctl.tl{left:12px;top:10px;align-items:center;background:var(--paper);border:1px solid var(--rule);padding:4px 4px 4px 9px;border-radius:2px;font-size:12px;gap:8px}
 .ctl.tl input{width:90px;accent-color:var(--ink)}
+.ctl.tl b{font-weight:600}.wkh{color:var(--ink-2);max-width:420px;line-height:1.3}
+@media (max-width:760px){.wkh{display:none}}
 .seg{display:flex;gap:0}.seg button{border-radius:0;margin-left:-1px;padding:0 9px}.seg button:first-child{border-radius:2px 0 0 2px;margin-left:0}.seg button:last-child{border-radius:0 2px 2px 0}
 #photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
 .panel{overflow-y:auto;padding:4px 16px 24px;min-width:0}
@@ -123,6 +125,7 @@ dialog textarea{width:min(520px,84vw);height:200px;font:12px var(--mono);border:
     <div class="ctl bl seg" id="lookCtl"><button data-l="colour">Colour</button><button data-l="white">White model</button></div>
     <div class="ctl br" id="zoomCtl"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="fit">Fit</button></div>
     <div class="ctl tl" id="photoBar" hidden><span id="phName"></span><input type="range" id="phOp" min="0" max="1" step="0.05" value="0.5" aria-label="Photo overlay"><button id="phExit">Back to model</button></div>
+    <div class="ctl tl" id="walkBar" hidden><b>Walking</b><span class="wkh" id="wkHint"></span><button id="wkExit">Leave</button></div>
   </div>
   <aside class="panel">
     <section><div class="opth"><h2 id="optH"></h2><button id="reset" hidden></button></div><p id="note"></p><ul class="checks" id="checks"></ul><div class="metric" id="metric"></div></section>
@@ -157,7 +160,7 @@ import {RectAreaLightUniformsLib} from 'https://cdn.jsdelivr.net/npm/three@0.162
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v8',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v9',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -241,7 +244,7 @@ var CONFIG = {
     wardMirror: {name: 'Wardrobe mirror door', type: 'art', w: 33.4, d: 1.5, h: 90, mount: 2, print: 'mirror', color: 0x1b1412},
     endcap:   {name: 'Wardrobe end shelves', type: 'curvedShelf', w: 24, d: 16, h: 94, color: 0x3a2a24},
     doorFront: {name: 'Front door', type: 'doorLeaf', w: 36, d: 3, h: 80, color: 0x7a4a2c, color2: 0xb8bcc0},
-    doorInner: {name: 'Bathroom door', type: 'doorLeaf', w: 28, d: 3, h: 80, color: 0x8b7358, color2: 0xb8bcc0},
+    doorInner: {name: 'Bathroom door', type: 'doorLeaf', w: 28, d: 3, h: 80, color: 0x8b7358, color2: 0xb8bcc0, walkHide: true},   /* shown open (hidden) while walking */
     shoes:    {name: 'Shoe rack', type: 'shoeRack', w: 14, d: 10, h: 26, color: 0x4a2f22},
     bathFloor: {name: 'Bathroom floor tiles', type: 'rug', w: 98, d: 93, color: 0x4a3328, color2: 0x4a3328},
     bathRug:   {name: 'Bath rug', type: 'rug', w: 40, d: 22, color: 0x9a8274, color2: 0x8a7264},
@@ -609,6 +612,9 @@ function drawPlan(){ var s = PV.s, L = LAYOUTS[cur], pl = L.place, ev = EVAL[cur
     px.beginPath(); px.moveTo(c[0], c[1]); px.arc(c[0], c[1], r, a - hf, a + hf); px.closePath(); px.fillStyle = on ? 'rgba(31,79,216,.10)' : 'rgba(20,20,20,.04)'; px.fill();
     px.strokeStyle = on ? css(ACCENT) : 'rgba(20,20,20,.35)'; px.lineWidth = 1; px.stroke();
     px.beginPath(); px.arc(c[0], c[1], 8, 0, 2 * Math.PI); px.fillStyle = on ? css(ACCENT) : '#141414'; px.fill(); tag(String(i + 1), c[0], c[1] + 0.5, {mono: true, size: 10, color: '#fff'}); });
+  if (WK.on){ var wc = P2([WK.x, WK.y]), wa = WK.yaw * Math.PI / 180 - Math.PI / 2, wh = Math.atan(Math.tan(WK.fov * Math.PI / 360) * (MV.w / MV.h || 1));   /* the walker: a dot and a view cone */
+    px.beginPath(); px.moveTo(wc[0], wc[1]); px.arc(wc[0], wc[1], 64, wa - wh, wa + wh); px.closePath(); px.fillStyle = 'rgba(31,79,216,.14)'; px.fill(); px.strokeStyle = css(ACCENT); px.lineWidth = 1; px.stroke();
+    px.beginPath(); px.arc(wc[0], wc[1], 6, 0, 2 * Math.PI); px.fillStyle = css(ACCENT); px.fill(); }
   if (sel && pl[sel]){ var G = wallGaps(sel); Object.keys(G).forEach(function(k){ var g = gap(G[k]); if (g.d > 0.5 && g.d < 1e4) dimLine(g.a, g.b, fmt(g.d)); }); } }
 function hitItem(p){ var ids = placed(LAYOUTS[cur]), solid = ids.filter(function(k){ return !ITEMS[k].floor; }), rugs = ids.filter(function(k){ return ITEMS[k].floor; });
   if (sel && solid.indexOf(sel) >= 0 && inPoly(p, itemPoly(sel, place()[sel]))) return sel;
@@ -1359,7 +1365,8 @@ mc.addEventListener('pointerup', endM); mc.addEventListener('pointercancel', end
 mc.addEventListener('wheel', function(e){ if (mode === 'photo') return; e.preventDefault(); zoomAt(e, Math.exp(e.deltaY * (e.ctrlKey ? 0.01 : 0.0015))); }, {passive: false});
 $('#zin').onclick = function(){ zoomAt(null, 0.8); }; $('#zout').onclick = function(){ zoomAt(null, 1.25); }; $('#fit').onclick = function(){ goView(curView || C.view || 'se'); };
 function renderViews(){ var box = $('#views'); box.textContent = ''; [['se', 'SE'], ['sw', 'SW'], ['nw', 'NW'], ['ne', 'NE'], ['top', 'Top']].forEach(function(v){
-  var b = el('button', v[0] === curView ? 'on' : '', v[1]); b.title = v[0] === 'top' ? 'From above' : 'Look from the ' + v[1] + ' corner'; b.onclick = function(){ goView(v[0]); }; box.appendChild(b); }); }
+  var b = el('button', v[0] === curView ? 'on' : '', v[1]); b.title = v[0] === 'top' ? 'From above' : 'Look from the ' + v[1] + ' corner'; b.onclick = function(){ goView(v[0]); }; box.appendChild(b); });
+  var wb = el('button', '', 'Walk'); wb.title = 'Walk through the flat in first person'; wb.onclick = function(){ enterWalk(); }; box.appendChild(wb); }
 
 /* photo match: a perspective camera where the phone stood, the photo laid over the model */
 var PH = C.PHOTOS || [], TUNE = [['x', 'at', 0], ['y', 'at', 1], ['h', 'h'], ['yaw', 'yaw'], ['pitch', 'pitch'], ['roll', 'roll'], ['fov', 'fov']];
@@ -1372,6 +1379,49 @@ function enterPhoto(i){ var ph = PH[i], img = $('#photo'); mode = 'photo'; CEIL.
   if (img.getAttribute('src') !== ph.src){ img.onload = go; afterLoad(function(){ img.src = ph.src; }); } else go(); renderPhotos(); }
 function exitPhoto(){ mode = 'model'; CEIL.visible = false; photoIdx = -1; planDirty = true; attachGizmo(); $('#photo').hidden = true; $('#photoBar').hidden = true; $('#views').hidden = false; $('#zoomCtl').hidden = false; cutTargets(); dirty3 = true; renderPhotos(); }
 $('#phExit').onclick = exitPhoto; $('#phOp').oninput = function(){ $('#photo').style.opacity = this.value; };
+
+/* ---------- walk: a first-person camera at eye height, moved with the keys, a drag or two touch zones; walls and furniture stop it ---------- */
+var WK = {on: false, x: 148, y: 205, yaw: 0, pitch: 0, h: 63, r: 6, fov: 72, keys: {}, ptr: {}, polys: [], hidden: [], cur: -1, last: 0, changed: false};
+function walkSolids(){ WK.cur = cur; WK.polys = []; WK.hidden = []; var pl = place();
+  Object.keys(pl).forEach(function(k){ var it = ITEMS[k]; if (!it) return; if (it.walkHide){ WK.hidden.push(k); return; } if (it.floor || it.walk === false) return;
+    var P = itemPoly(k, pl[k]); WK.polys.push({P: P, b: bboxOf(P)}); }); }
+function walkFree(x, y){ var r = WK.r, pts = [[x, y]], i, a, q, b; for (i = 0; i < 8; i++){ a = i * Math.PI / 4; pts.push([x + Math.cos(a) * r, y + Math.sin(a) * r]); }
+  for (i = 0; i < pts.length; i++) if (!inPoly(pts[i], OUT)) return false;
+  for (i = 0; i < WK.polys.length; i++){ q = WK.polys[i]; b = q.b; if (x < b[0] - r || x > b[2] + r || y < b[1] - r || y > b[3] + r) continue;
+    for (a = 0; a < pts.length; a++) if (inPoly(pts[a], q.P)) return false;
+    for (a = 0; a < q.P.length; a++) if (Math.hypot(q.P[a][0] - x, q.P[a][1] - y) < r) return false; }
+  return true; }
+function walkPlace(x, y){ if (walkFree(x, y)){ WK.x = x; WK.y = y; return true; }
+  for (var d = 4; d <= 40; d += 4) for (var a = 0; a < 12; a++){ var nx = x + Math.cos(a * Math.PI / 6) * d, ny = y + Math.sin(a * Math.PI / 6) * d; if (walkFree(nx, ny)){ WK.x = nx; WK.y = ny; return true; } }
+  return false; }
+function walkApplyCam(){ photoAspect = (MV.w / MV.h) || 1; photoCam({at: [WK.x, WK.y], h: WK.h, yaw: WK.yaw, pitch: WK.pitch, roll: 0, fov: WK.fov}); }
+function walkTick(now){ var dt = Math.min(0.05, (now - WK.last) / 1000 || 0.016); WK.last = now;
+  if (WK.cur !== cur) walkSolids(); WK.hidden.forEach(function(k){ if (OBJ[k]) OBJ[k].visible = false; });   /* a closed door you can walk through is shown open: hidden */
+  if (Math.abs(photoAspect - MV.w / MV.h) > 1e-3) WK.changed = true;
+  var K = WK.keys, f = (K.w || K.ArrowUp ? 1 : 0) - (K.s || K.ArrowDown ? 1 : 0), sd = (K.d ? 1 : 0) - (K.a ? 1 : 0), t = (K.ArrowRight ? 1 : 0) - (K.ArrowLeft ? 1 : 0) + ((K.e ? 1 : 0) - (K.q ? 1 : 0));
+  Object.keys(WK.ptr).forEach(function(id){ var p = WK.ptr[id]; if (p.move){ f += -p.jy; sd += p.jx; } });
+  if (f || sd || t){ WK.yaw += t * 110 * dt; var sp = (K.shift ? 120 : 56) * dt, y = WK.yaw * Math.PI / 180, dx = Math.sin(y) * f + Math.cos(y) * sd, dy = -Math.cos(y) * f + Math.sin(y) * sd, l = Math.hypot(dx, dy);
+    if (l > 1){ dx /= l; dy /= l; } var nx = WK.x + dx * sp, ny = WK.y + dy * sp;
+    if (walkFree(nx, ny)){ WK.x = nx; WK.y = ny; } else if (walkFree(nx, WK.y)) WK.x = nx; else if (walkFree(WK.x, ny)) WK.y = ny; WK.changed = true; }
+  if (!WK.changed) return false; WK.changed = false; walkApplyCam(); dirty3 = true; planDirty = true; return true; }
+function enterWalk(x, y, yaw){ if (WK.on) return; if (mode === 'photo') exitPhoto(); select(null); mode = 'photo'; photoIdx = -2; WK.on = true; CEIL.visible = true; planDirty = true;
+  $('#walkBar').hidden = false; $('#views').hidden = true; $('#zoomCtl').hidden = true; $('#photo').hidden = true; $('#photoBar').hidden = true; mc.style.cursor = 'grab'; attachGizmo();
+  $('#wkHint').textContent = matchMedia('(pointer: coarse)').matches ? 'Left thumb moves, the rest of the screen looks. Tap the plan to jump.' : 'W A S D or the arrows move, drag to look, Shift runs, click the plan to jump, Esc leaves.';
+  walkSolids(); WK.keys = {}; WK.ptr = {}; WK.pitch = 0; WK.yaw = yaw == null || isNaN(yaw) ? 0 : yaw; walkPlace(x == null || isNaN(x) ? 148 : x, y == null || isNaN(y) ? 205 : y);
+  WK.last = performance.now(); cutTargets(); SEG.forEach(function(sg){ sg.cut = sg.target; applyCut(sg); }); WK.changed = true; shadowsDirty = dirty3 = true; renderPhotos(); }
+function exitWalk(){ WK.on = false; WK.hidden.forEach(function(k){ if (OBJ[k]) OBJ[k].visible = true; }); mode = 'model'; CEIL.visible = false; photoIdx = -1; planDirty = true; attachGizmo(); $('#walkBar').hidden = true; $('#views').hidden = false; $('#zoomCtl').hidden = false; mc.style.cursor = ''; cutTargets(); dirty3 = true; renderPhotos(); }
+$('#wkExit').onclick = exitWalk;
+window.addEventListener('keydown', function(e){ if (!WK.on || /INPUT|TEXTAREA/.test(document.activeElement.tagName)) return; var k = e.key.length === 1 ? e.key.toLowerCase() : (e.key === 'Shift' ? 'shift' : e.key);
+  if (/^(w|a|s|d|q|e|shift|ArrowUp|ArrowDown|ArrowLeft|ArrowRight)$/.test(k)){ WK.keys[k] = true; if (k.indexOf('Arrow') === 0) e.preventDefault(); } });
+window.addEventListener('keyup', function(e){ var k = e.key.length === 1 ? e.key.toLowerCase() : (e.key === 'Shift' ? 'shift' : e.key); delete WK.keys[k]; });
+window.addEventListener('blur', function(){ WK.keys = {}; });
+mc.addEventListener('pointerdown', function(e){ if (!WK.on) return; mc.setPointerCapture(e.pointerId); var r = mc.getBoundingClientRect();
+  WK.ptr[e.pointerId] = {x: e.clientX, y: e.clientY, move: e.pointerType === 'touch' && e.clientX - r.left < r.width * 0.4, jx: 0, jy: 0}; mc.style.cursor = 'grabbing'; e.preventDefault(); });
+mc.addEventListener('pointermove', function(e){ var p = WK.on && WK.ptr[e.pointerId]; if (!p) return; var dx = e.clientX - p.x, dy = e.clientY - p.y;
+  if (p.move){ p.jx = Math.max(-1, Math.min(1, dx / 50)); p.jy = Math.max(-1, Math.min(1, dy / 50)); }
+  else { WK.yaw += dx * 0.25; WK.pitch = Math.max(-70, Math.min(70, WK.pitch - dy * 0.2)); p.x = e.clientX; p.y = e.clientY; WK.changed = true; } });
+function walkUp(e){ delete WK.ptr[e.pointerId]; if (WK.on) mc.style.cursor = 'grab'; } mc.addEventListener('pointerup', walkUp); mc.addEventListener('pointercancel', walkUp);
+pc.addEventListener('pointerdown', function(e){ if (!WK.on) return; e.stopImmediatePropagation(); e.preventDefault(); var p = toPlan(e); if (walkPlace(p[0], p[1])) WK.changed = true; }, true);   /* a click on the plan jumps there */
 function renderPhotos(){ $('#photosS').hidden = !PH.length; var box = $('#thumbs'); box.textContent = '';
   PH.forEach(function(ph, i){ var b = el('button', i === photoIdx ? 'on' : ''), im = el('img');
     im.onload = function(){ ph._aspect = im.naturalWidth / im.naturalHeight; planDirty = true; }; afterLoad(function(){ im.src = ph.src; }); im.alt = ''; b.appendChild(im); b.appendChild(el('span', '', ph.label || 'Photo ' + (i + 1)));
@@ -1421,7 +1471,7 @@ pc.addEventListener('pointermove', function(e){ var p = toPlan(e); if (pdrag) mo
 function endP(){ pdrag = null; pc.style.cursor = 'default'; } pc.addEventListener('pointerup', endP); pc.addEventListener('pointercancel', endP);
 pc.addEventListener('dblclick', function(e){ var k = hitItem(toPlan(e)); if (k) turn(k, 90); });
 window.addEventListener('keydown', function(e){ if (/INPUT|TEXTAREA/.test(document.activeElement.tagName) || $('#lib').open) return;
-  if (e.key === 'Escape'){ if (mode === 'photo') exitPhoto(); else select(null); return; }
+  if (e.key === 'Escape'){ if (mode === 'photo'){ if (WK.on) exitWalk(); else exitPhoto(); } else select(null); return; }
   if (/^[1-9]$/.test(e.key) && LAYOUTS[+e.key - 1]){ setLayout(+e.key - 1); return; }
   if (!sel || !place()[sel]) return; var q = place()[sel], st = e.shiftKey ? 12 : 1;
   if (e.key === 'r' || e.key === 'R'){ turn(sel, e.shiftKey ? -90 : 90); e.preventDefault(); }
@@ -1593,6 +1643,7 @@ var lastR = 0, slow = 0;   /* a slow GPU drops the ambient-occlusion pass while 
 function loop(now){ requestAnimationFrame(loop); var active = false; if (LIT.mode !== mode || LIT.look !== LOOK) applyLight(); if (shadowsDirty && !envDirty) envDirty = 1;   /* a change from outside the loop (a piece moved, a colour, a look) also re-lights the room, once it settles */
   if (tw){ if (tw.t0 == null) tw.t0 = now; var k = Math.min(1, (now - tw.t0) / tw.dur); tw.fn(easeIO(k)); if (k >= 1) tw = null; active = true; }
   SEG.forEach(function(sg){ if (sg.cut !== sg.target){ sg.cut += (sg.target - sg.cut) * (reduce ? 1 : 0.2); if (Math.abs(sg.cut - sg.target) < 0.3) sg.cut = sg.target; applyCut(sg); shadowsDirty = true; active = true; } });
+  if (WK.on && walkTick(now)) active = true;
   var moving = active || mdrag || gdrag; if (!moving && !gtao.enabled){ gtao.enabled = true; dirty3 = true; } if (!moving && envDirty) dirty3 = true;
   if (active || dirty3){ if (lastR && now - lastR < 120) slow = slow * 0.8 + (now - lastR > 26 ? 0.2 : 0); lastR = now; gtao.enabled = !(moving && slow > 0.5);
     if (shadowsDirty){ renderer.shadowMap.needsUpdate = true; shadowsDirty = false; } if (envDirty && !moving) captureEnv(); render3d(); dirty3 = false; }
@@ -1604,6 +1655,7 @@ goView(HASH.view && VIEWS[HASH.view] != null ? HASH.view : (C.view || 'se'), tru
 if (HASH.sel && place()[HASH.sel]) select(HASH.sel);
 if (HASH.pane) $('#paneToggle').onclick({target: {dataset: {p: HASH.pane}}});
 renderTabs(); renderInsp(); renderPhotos(); if (HASH.photo && PH[+HASH.photo - 1]) enterPhoto(+HASH.photo - 1);
+if (HASH.walk){ var wv = String(HASH.walk).split(',').map(Number); enterWalk(wv[0], wv[1], wv[2]); if (wv[3] != null && !isNaN(wv[3])) WK.pitch = wv[3]; }
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ planDirty = true; });
 if (HASH.debug){ if (HASH.ao != null) gtao.output = +HASH.ao;
   var tuned = Object.keys(LIGHT).filter(function(k){ if (HASH[k] == null) return false; LIGHT[k] = +HASH[k]; return true; }); if (tuned.length) paintRoom();   /* light tuning from the hash: exp, sun, win (window light), sky (the view's brightness), lamp (glow), vig */

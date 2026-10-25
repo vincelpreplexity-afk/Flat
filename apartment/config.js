@@ -1,7 +1,7 @@
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v8',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v9',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -85,7 +85,7 @@ var CONFIG = {
     wardMirror: {name: 'Wardrobe mirror door', type: 'art', w: 33.4, d: 1.5, h: 90, mount: 2, print: 'mirror', color: 0x1b1412},
     endcap:   {name: 'Wardrobe end shelves', type: 'curvedShelf', w: 24, d: 16, h: 94, color: 0x3a2a24},
     doorFront: {name: 'Front door', type: 'doorLeaf', w: 36, d: 3, h: 80, color: 0x7a4a2c, color2: 0xb8bcc0},
-    doorInner: {name: 'Bathroom door', type: 'doorLeaf', w: 28, d: 3, h: 80, color: 0x8b7358, color2: 0xb8bcc0},
+    doorInner: {name: 'Bathroom door', type: 'doorLeaf', w: 28, d: 3, h: 80, color: 0x8b7358, color2: 0xb8bcc0, walkHide: true},   /* shown open (hidden) while walking */
     shoes:    {name: 'Shoe rack', type: 'shoeRack', w: 14, d: 10, h: 26, color: 0x4a2f22},
     bathFloor: {name: 'Bathroom floor tiles', type: 'rug', w: 98, d: 93, color: 0x4a3328, color2: 0x4a3328},
     bathRug:   {name: 'Bath rug', type: 'rug', w: 40, d: 22, color: 0x9a8274, color2: 0x8a7264},
