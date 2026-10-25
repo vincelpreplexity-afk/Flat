@@ -162,7 +162,7 @@ var CONFIG = {
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
   PALETTE: {
-    paint: [['Textured wallpaper', 0xf0ece3], ['Warm white', 0xf4f1ea], ['Pale sage', 0xdfe4d8], ['Dusty blue', 0x9db2c4], ['Charcoal', 0x3e3f3d], ['Gloss white', 0xf2f2f0], ['Gloss black', 0x16161a]],
+    paint: [['Textured wallpaper', 0xf7f3ea], ['Warm white', 0xf4f1ea], ['Pale sage', 0xdfe4d8], ['Dusty blue', 0x9db2c4], ['Charcoal', 0x3e3f3d], ['Gloss white', 0xf2f2f0], ['Gloss black', 0x16161a]],
     wood: [['Light oak laminate', 0xd3b184], ['Dark brown laminate', 0x5b3b2a], ['Pale oak', 0xd8bb93], ['Walnut', 0x8a6443], ['Black gloss', 0x1b1b1d]],
     fabric: [['Sage grey', 0x93a39e], ['Charcoal waffle', 0x4a4c55], ['Teal', 0x2a9bb0], ['Linen', 0xe9dfcc], ['Terracotta', 0xd6aa98]]
   },
@@ -179,7 +179,7 @@ var CONFIG = {
        The bathroom lies east of the hall: its door is the 5″ channel (177,211)-(182,211)-(182,239)-(177,239), 28″ wide. */
     outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 157], [207, 157], [207, 161], [177, 161], [177, 211], [182, 211], [182, 190], [280, 190], [280, 283], [182, 283], [182, 239], [177, 239], [177, 285], [101, 285], [101, 165], [0, 165]],
     height: 98, wall: 5,
-    walls: 0xf0ece3, floor: 0xd3b184, trim: 0xe2d6c0,
+    walls: 0xf7f3ea, floor: 0xd3b184, trim: 0xe2d6c0,
     boards: 7, boardsDir: 'y',
     openings: [
       /* main room: window, then a glazed balcony door shown closed (the engine's door is always an open solid leaf, so it is a floor-to-head glazed opening) */
@@ -189,7 +189,7 @@ var CONFIG = {
       {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1},
       {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1}
     ],
-    fixed: [{id: 'between', name: 'Space between kitchen and bathroom', type: 'box', c: [231, 175.5], w: 96, d: 27, h: 40, rot: 0, color: 0xf0ece3}],   /* no photo shows it: a plain block so the plan has no hole */
+    fixed: [{id: 'between', name: 'Space between kitchen and bathroom', type: 'box', c: [231, 175.5], w: 96, d: 27, h: 40, rot: 0, color: 0xf7f3ea}],   /* no photo shows it: a plain block so the plan has no hole */
     verify: [
       'Ceiling height 98″ (2.5 m): assumed. The kitchen has a stepped, wavy suspended ceiling with spot lights that is not modelled',
       'Main room 145″ wide (3.7 m): solved from two photos, ±6″. Its depth, 165″, is a placeholder: the near wall is in no photo',
@@ -267,11 +267,11 @@ var CONFIG = {
     spotH5: {name: 'Ceiling light', type: 'spot', w: 4.5, d: 4.5, h: 1, mount: 97, color: 0xcfd2d4},
     spotB1: {name: 'Ceiling light', type: 'spot', w: 4.5, d: 4.5, h: 1, mount: 97, color: 0xcfd2d4},
     spotB2: {name: 'Ceiling light', type: 'spot', w: 4.5, d: 4.5, h: 1, mount: 97, color: 0xcfd2d4},
-    tileN: {name: 'Bathroom tiles N', type: 'tilePanel', w: 98, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x8a7456},
-    tileE: {name: 'Bathroom tiles E', type: 'tilePanel', w: 93, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x8a7456},
-    tileS: {name: 'Bathroom tiles S', type: 'tilePanel', w: 98, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x8a7456},
-    tileW1: {name: 'Bathroom tiles W1', type: 'tilePanel', w: 21, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x8a7456},
-    tileW2: {name: 'Bathroom tiles W2', type: 'tilePanel', w: 44, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x8a7456},
+    tileN: {name: 'Bathroom tiles N', type: 'tilePanel', w: 98, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
+    tileE: {name: 'Bathroom tiles E', type: 'tilePanel', w: 93, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
+    tileS: {name: 'Bathroom tiles S', type: 'tilePanel', w: 98, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
+    tileW1: {name: 'Bathroom tiles W1', type: 'tilePanel', w: 21, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
+    tileW2: {name: 'Bathroom tiles W2', type: 'tilePanel', w: 44, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
     radK:   {name: 'Kitchen radiator', type: 'radiator', w: 24, d: 4, h: 24, mount: 3, color: 0xf4f1ea}
   },
   LAYOUTS: [
