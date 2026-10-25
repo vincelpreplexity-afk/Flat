@@ -1,7 +1,7 @@
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v5',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v6',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -20,9 +20,9 @@ var CONFIG = {
        The notch (145,0)-(145,73)-(150,73)-(150,0) is the 5″ wall between the main room and the kitchen: the TV hangs on its left face.
        The recess (177,157)-(177,161)-(207,161)-(207,157) is the fridge niche: the fridge stands in line with the units along the south wall, at their end nearest the entrance.
        The hall runs south from the gap between the two rooms: its east wall is x 177, the sliding wardrobe stands on its west side (x 101-125) and the front door is in the south wall.
-       The bedroom lies south of the main room, west of the hall: its entrance is the 76″ gap (2″–78″) in the main room’s south wall, closed by a three-leaf sliding door; its interior is x 0–96, y 170–265.
+       The bedroom lies south of the main room, west of the hall: its entrance is the 76″ gap (2″–78″) in the main room’s south wall, closed by a three-leaf sliding door; its interior is x 0–96, y 170–260.
        The bathroom lies east of the hall: its door is the 5″ channel (177,211)-(182,211)-(182,239)-(177,239), 28″ wide. */
-    outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 157], [207, 157], [207, 161], [177, 161], [177, 211], [182, 211], [182, 190], [280, 190], [280, 283], [182, 283], [182, 239], [177, 239], [177, 285], [101, 285], [101, 165], [78, 165], [78, 170], [96, 170], [96, 265], [0, 265], [0, 170], [2, 170], [2, 165], [0, 165]],
+    outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 157], [207, 157], [207, 161], [177, 161], [177, 211], [182, 211], [182, 190], [280, 190], [280, 283], [182, 283], [182, 239], [177, 239], [177, 285], [101, 285], [101, 165], [78, 165], [78, 170], [96, 170], [96, 260], [0, 260], [0, 170], [2, 170], [2, 165], [0, 165]],
     height: 98, wall: 5,
     walls: 0xf7f3ea, floor: 0xd3b184, trim: 0xe2d6c0,
     boards: 7, boardsDir: 'y',
@@ -50,8 +50,8 @@ var CONFIG = {
       'Bathroom (from six photos, no camera solve, ±15 %): 98″ × 93″ (2.5 × 2.4 m), its east wall in line with the kitchen’s and its south wall with the hall’s. The 28″ door is on the hall’s east wall at y 211″–239″, drawn closed as in the hall photos (it opens into the bathroom and stands open in the bathroom photos); delete “Bathroom door” to see the room open',
       'Bathroom fittings: vanity 33″ with a 32″ mirror cabinet (dark body, two mirror doors, a lamp on top), a 10″ cabinet beside it, wall-hung toilet on the north wall, nearer the east wall than the vanity (position as described by the owner, ±6″), heated towel rail on the east wall near the north-east corner, corner bath 58″ × 42″ drawn as a plain box (not curved), washing machine 24″, laundry basket, rug. Cream and brown tiles are not modelled: the walls are the same beige and the floor a flat brown patch. The cat litter tray, in-wall cistern and shower fittings are left out',
       'Between the kitchen and the bathroom there is a 29″ strip (y 161″–190″) that no photo shows: it is drawn as a plain 40″ high block, not as a room',
-      'Bedroom (from seven photos, no camera solve, ±15 %): 96″ × 95″ (2.4 × 2.4 m). The size comes from the bed (a double, 55″ × 82″, about 140 × 200 cm) and the 19.5″ desk; the length is the least certain number. It has no window. The three-leaf sliding door is 76″ wide and floor to ceiling, 28″ leaves, drawn as photographed: two leaves closed, the third behind them, the left (east) quarter open',
-      'Bedroom furniture: upholstered bed with a tufted scalloped headboard and a quilted mattress, a 55″ desk with a drawer unit at its north end, a folding chair, a floor lamp with two shades, a pink bedside pouf. Pillows are three simple blocks; the duvet, cables, laptop and objects on the desk are not drawn',
+      'Bedroom (from seven photos, no camera solve, ±15 %): 96″ × 90″ (2.4 × 2.3 m). The size comes from the bed (a double, 55″ × 82″, about 140 × 200 cm), the 24″ aisle and a 41″ IKEA Micke desk (105 × 50 cm); the length is the least certain number. The foot of the bed stands about 8″ from the door wall. It has no window. The three-leaf sliding door is 76″ wide and floor to ceiling, 28″ leaves, drawn as photographed: two leaves closed, the third behind them, the left (east) quarter open',
+      'Bedroom furniture: upholstered bed with a tufted scalloped headboard, made up with a plain duvet (the photos show a bare quilted mattress), two pillows and a small cushion; a 41″ desk with a drawer unit at its north end, a folding chair, a floor lamp with two shades, a pink bedside pouf. Cables, a laptop, the throw on the chair and the objects on the desk are not drawn',
       'Together the rooms come to about 48 m² against the 45 m² you named: the room sizes here run a few percent large, mostly the main room’s depth and the bedroom’s length',
       'Wall colour is one textured-wallpaper beige for both rooms; the kitchen’s black-flecked cork wallpaper is not modelled'
     ]
@@ -120,14 +120,14 @@ var CONFIG = {
     tileS: {name: 'Bathroom tiles S', type: 'tilePanel', w: 98, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
     tileW1: {name: 'Bathroom tiles W1', type: 'tilePanel', w: 21, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
     tileW2: {name: 'Bathroom tiles W2', type: 'tilePanel', w: 44, d: 0.6, h: 62, mount: 0.01, color: 0x4a3a30, color2: 0x6b5d4f},
-    bedBed:    {name: 'Bed', type: 'upBed', w: 55, d: 82, h: 24, hb: 41, color: 0xb08c9b, color2: 0xb08c9b},
-    bedDesk:   {name: 'Desk', type: 'writingDesk', w: 55, d: 19.5, h: 29.5, color: 0x231a16},
+    bedBed:    {name: 'Bed', type: 'upBed', w: 55, d: 82, h: 24, hb: 41, color: 0xb08c9b, color2: 0xe3dccf},
+    bedDesk:   {name: 'Desk', type: 'writingDesk', w: 41.3, d: 19.7, h: 29.5, color: 0x231a16},
     bedChair:  {name: 'Folding chair', type: 'foldChair', w: 15, d: 15, h: 31, color: 0xe8dcc6, color2: 0xb8bcc0},
     bedLamp:   {name: 'Floor lamp', type: 'torchiere', w: 12, d: 12, h: 66, color: 0x1b1b1b, color2: 0xf4f4f0},
     bedPouf:   {name: 'Bedside pouf', type: 'ottoman', w: 14, d: 14, h: 16, color: 0xc4a2b0, color2: 0x8a6443},
-    leafA:     {name: 'Door leaf 1', type: 'slideLeaf', w: 28, d: 1.3, h: 94, color: 0xe6dcc6, color2: 0x8c7b68},
-    leafB:     {name: 'Door leaf 2', type: 'slideLeaf', w: 28, d: 1.3, h: 94, color: 0xe6dcc6, color2: 0x8c7b68},
-    leafC:     {name: 'Door leaf 3', type: 'slideLeaf', w: 28, d: 1.3, h: 94, color: 0xe6dcc6, color2: 0x8c7b68},
+    leafA:     {name: 'Door leaf 1', type: 'slideLeaf', w: 28, d: 1.3, h: 94, color: 0xf0e8d6, color2: 0x8c7b68},
+    leafB:     {name: 'Door leaf 2', type: 'slideLeaf', w: 28, d: 1.3, h: 94, color: 0xf0e8d6, color2: 0x8c7b68},
+    leafC:     {name: 'Door leaf 3', type: 'slideLeaf', w: 28, d: 1.3, h: 94, color: 0xf0e8d6, color2: 0x8c7b68},
     doorHead:  {name: 'Door track', type: 'box', w: 76, d: 5, h: 4, mount: 94, color: 0x231a16},
     spotBd1:   {name: 'Ceiling light', type: 'spot', w: 4.5, d: 4.5, h: 1, mount: 97, color: 0xcfd2d4},
     spotBd2:   {name: 'Ceiling light', type: 'spot', w: 4.5, d: 4.5, h: 1, mount: 97, color: 0xcfd2d4},
@@ -144,9 +144,9 @@ var CONFIG = {
              bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorBody: [210.5, 193, 0], mirrorL: [202.75, 196.5, 0], mirrorR: [218.25, 196.5, 0], lampBar: [210.5, 191.5, 0], toilet: [263, 200.5, 0],
              towelRail: [278.5, 214, 90], bathtub: [251, 262, 180], washer: [209, 274.5, 180], basket: [189.5, 274.5, 180],
              rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 186, 0], spotH2: [160, 206, 0], spotH3: [140, 226, 0], spotH4: [160, 246, 0], spotH5: [142, 266, 0], spotB1: [214, 214, 0], spotB2: [252, 262, 0], tileN: [231, 190.3, 0], tileE: [279.7, 236.5, 90], tileS: [231, 282.7, 180], tileW1: [182.3, 200.5, 270], tileW2: [182.3, 261, 270],
-             bedBed: [28.2, 223.8, 180], bedDesk: [86.25, 199.5, 90], bedChair: [78, 237, 270], bedLamp: [89.5, 258.5, 0], bedPouf: [65, 257, 180],
+             bedBed: [28.2, 218.8, 180], bedDesk: [86.15, 192.7, 90], bedChair: [78, 226, 270], bedLamp: [89.5, 253.5, 0], bedPouf: [65, 252, 180],
              leafA: [16, 166.2, 180], leafB: [42, 167.7, 180], leafC: [44, 169.2, 180], doorHead: [40, 167.5, 180],
-             spotBd1: [30, 190, 0], spotBd2: [75, 205, 0], spotBd3: [50, 250, 0]}},
+             spotBd1: [30, 190, 0], spotBd2: [75, 205, 0], spotBd3: [50, 245, 0]}},
     {name: 'Sofa under the window', note: 'The sofa moves to the window wall and the pouf becomes a coffee table. It opens the left wall, but the sofa back covers the radiator.',
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
              floorK: [227, 65.5, 0], tower: [268, 12, 90], base: [268, 77.5, 90], corner: [267, 144, 90], leg2: [229.5, 144, 180], wall: [273, 90.5, 90], wall2: [235.5, 150, 180], mirror: [279.25, 90.5, 90], mirror2: [242.5, 156.25, 180], fridge: [191, 145, 180],
@@ -156,9 +156,9 @@ var CONFIG = {
              bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorBody: [210.5, 193, 0], mirrorL: [202.75, 196.5, 0], mirrorR: [218.25, 196.5, 0], lampBar: [210.5, 191.5, 0], toilet: [263, 200.5, 0],
              towelRail: [278.5, 214, 90], bathtub: [251, 262, 180], washer: [209, 274.5, 180], basket: [189.5, 274.5, 180],
              rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 186, 0], spotH2: [160, 206, 0], spotH3: [140, 226, 0], spotH4: [160, 246, 0], spotH5: [142, 266, 0], spotB1: [214, 214, 0], spotB2: [252, 262, 0], tileN: [231, 190.3, 0], tileE: [279.7, 236.5, 90], tileS: [231, 282.7, 180], tileW1: [182.3, 200.5, 270], tileW2: [182.3, 261, 270],
-             bedBed: [28.2, 223.8, 180], bedDesk: [86.25, 199.5, 90], bedChair: [78, 237, 270], bedLamp: [89.5, 258.5, 0], bedPouf: [65, 257, 180],
+             bedBed: [28.2, 218.8, 180], bedDesk: [86.15, 192.7, 90], bedChair: [78, 226, 270], bedLamp: [89.5, 253.5, 0], bedPouf: [65, 252, 180],
              leafA: [16, 166.2, 180], leafB: [42, 167.7, 180], leafC: [44, 169.2, 180], doorHead: [40, 167.5, 180],
-             spotBd1: [30, 190, 0], spotBd2: [75, 205, 0], spotBd3: [50, 250, 0]}}
+             spotBd1: [30, 190, 0], spotBd2: [75, 205, 0], spotBd3: [50, 245, 0]}}
   ],
   PHOTOS: [
     {src: 'photos/p1.jpg', label: 'Main room · toward the window', at: [141, 127], h: 64, yaw: 318.6, pitch: -8, roll: 0, fov: 102.7},

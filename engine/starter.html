@@ -1063,10 +1063,11 @@ BUILD.upBed = function(g, it){ var w = it.w, d = it.d, h = it.h || 24, fh = 14, 
   part(g, w, fh - 2, d - t, 0, 2, t / 2, 1, {r: 2.4});                                                                       /* the upholstered base */
   [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function(c){ part(g, 1.6, 2, 1.6, c[0] * (w / 2 - 2), 0, c[1] * (d / 2 - 2), 6, {edge: false}); });
   var mw = w - 1.5, ml = d - t - 3; part(g, mw, h - fh, ml, 0, fh, t / 2 + 0.2, 3, {r: 1.6});                                 /* the mattress */
-  var xa = -mw / 2 + 1, xb = mw / 2 - 1, za = zb + t + 2.2 + 0.2, zz = zb + t + 0.2 + ml - 1.5, y = h + 0.08, sp = 8;           /* a diamond quilt: two families of diagonals, clipped to the top */
-  for (j = -(xb - xa); j < zz - za; j += sp){ var a1 = clipSeg(xa, za + j, xb, za + j + (xb - xa), xa, xb, za, zz); if (a1) pts.push(V(a1[0], y, a1[1]), V(a1[2], y, a1[3])); }
-  for (j = 0; j < zz - za + (xb - xa); j += sp){ var a2 = clipSeg(xa, za + j, xb, za + j - (xb - xa), xa, xb, za, zz); if (a2) pts.push(V(a2[0], y, a2[1]), V(a2[2], y, a2[3])); }
-  g.add(detail(pts, 0.28));
+  var dressed = it.bedding !== false;
+  if (!dressed){ var xa = -mw / 2 + 1, xb = mw / 2 - 1, za = zb + t + 2.2 + 0.2, zz = zb + t + 0.2 + ml - 1.5, y = h + 0.08, sp = 8;           /* a bare mattress: a diamond quilt, two families of diagonals clipped to the top */
+    for (j = -(xb - xa); j < zz - za; j += sp){ var a1 = clipSeg(xa, za + j, xb, za + j + (xb - xa), xa, xb, za, zz); if (a1) pts.push(V(a1[0], y, a1[1]), V(a1[2], y, a1[3])); }
+    for (j = 0; j < zz - za + (xb - xa); j += sp){ var a2 = clipSeg(xa, za + j, xb, za + j - (xb - xa), xa, xb, za, zz); if (a2) pts.push(V(a2[0], y, a2[1]), V(a2[2], y, a2[3])); }
+    g.add(detail(pts, 0.28)); }
   var s = new T.Shape(); s.moveTo(-hw, 0); s.lineTo(hw, 0); s.lineTo(hw, 22);                                                  /* the headboard: straight sides, a scalloped crown */
   s.quadraticCurveTo(hw, hbh - 7, hw * 0.55, hbh - 5.5); s.quadraticCurveTo(hw * 0.28, hbh - 4.5, hw * 0.2, hbh - 2.2); s.quadraticCurveTo(hw * 0.12, hbh, 0, hbh);
   s.quadraticCurveTo(-hw * 0.12, hbh, -hw * 0.2, hbh - 2.2); s.quadraticCurveTo(-hw * 0.28, hbh - 4.5, -hw * 0.55, hbh - 5.5); s.quadraticCurveTo(-hw, hbh - 7, -hw, 22); s.lineTo(-hw, 0);
@@ -1074,8 +1075,14 @@ BUILD.upBed = function(g, it){ var w = it.w, d = it.d, h = it.h || 24, fh = 14, 
   hm.position.set(0, 0, zb + 0.7); hm.castShadow = hm.receiveShadow = true; hm.userData.role = 1; g.add(hm);
   var cols = 7, rows = [[17, 0], [24.5, 1], [32, 0]];                                                                          /* tufting buttons, staggered; the top row only where the crown is high enough */
   rows.forEach(function(r){ for (i = 0; i < cols; i++){ var x = -hw + 5 + (w - 10) * (i + (r[1] ? 0.5 : 0)) / (cols - 1); if (x > hw - 4 || (r[0] > 30 && Math.abs(x) > hw * 0.42)) continue; disc(g, 0.55, 0.5, x, r[0], zb + t + 1.2, 3, {edge: false, noShadow: true}); } });
-  var pz = zb + t + 8; var p1 = part(g, 24, 7, 14, -8, h, pz, 3, {r: 3.2}); p1.rotation.set(-0.32, 0.08, 0.03);                      /* the pillows: one leaning on the headboard, one below it, a wedge */
-  var p2 = part(g, 22, 5, 14, -6, h + 0.2, pz + 7, 3, {r: 2.4}); p2.rotation.set(-0.06, 0.05, 0); var p3 = part(g, 17, 6, 12, 9, h, pz + 1, 3, {r: 3}); p3.rotation.set(-0.12, -0.1, -0.06); };
+  var pz = zb + t;                                                                                                             /* the pillows: two upright against the headboard, side by side, and a small cushion centred in front */
+  if (dressed){ var zf0 = pz + 19, zf1 = zb + t + 0.2 + ml + 2.2, zc = (zf0 + zf1) / 2, dl = zf1 - zf0, dy = h + 0.05;
+    part(g, mw + 0.6, 3, dl, 0, dy, zc, 2, {r: 1.5});                                                                          /* the duvet over the mattress */
+    part(g, 0.9, 9, dl, -(mw / 2 + 0.25), h - 8.2, zc, 2, {r: 0.4, edge: false}); part(g, 0.9, 9, dl, mw / 2 + 0.25, h - 8.2, zc, 2, {r: 0.4, edge: false}); part(g, mw + 1.2, 9, 0.9, 0, h - 8.2, zf1 + 0.2, 2, {r: 0.4, edge: false});   /* its drop at the sides and the foot */
+    part(g, mw + 0.9, 3.6, 6, 0, dy + 1.3, zf0 + 3.4, 3, {r: 1.4});                                                           /* the turned-down top edge, white */
+    var sm = []; [0.25, 0.5, 0.75].forEach(function(k){ var zq = zf0 + 7 + (dl - 8) * k; sm.push(V(-mw / 2 + 2, dy + 3.02, zq), V(mw / 2 - 2, dy + 3.02, zq)); }); sm.push(V(0, dy + 3.02, zf0 + 7), V(0, dy + 3.02, zf1 - 2)); g.add(detail(sm, 0.25)); }
+  [-1, 1].forEach(function(sd){ var pw = part(g, 24, 16, 6.5, sd * 13.2, h + 0.4, pz + 4.6, 3, {r: 2.8}); pw.rotation.x = -0.2; });
+  var cu = part(g, 17, 11, 4.2, 0, h + 3.2, pz + 14.2, 3, {r: 2.2}); cu.rotation.x = -0.55; };
 BUILD.writingDesk = function(g, it){ var w = it.w, d = it.d, h = it.h || 29.5, tt = 1.2, du = 15, i;   /* a flat top, a drawer unit under the left end (local -x), a black trestle under the right */
   part(g, w, tt, d, 0, h - tt, 0, 1, {r: 0.3}); part(g, du, h - tt, d - 0.6, -w / 2 + du / 2, 0, 0, 1, {edge: 0.4});
   var pts = []; for (i = 1; i < 3; i++){ var y = (h - tt) * i / 3; pts.push(V(-w / 2 + 0.4, y, d / 2 - 0.27), V(-w / 2 + du - 0.4, y, d / 2 - 0.27)); } g.add(detail(pts, 0.5));
