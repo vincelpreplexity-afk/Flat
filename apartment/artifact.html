@@ -203,7 +203,7 @@ var CONFIG = {
       'Hall (from five photos, no camera solve, ±15 %): 47″ clear width between x 125″ and 172″, about 10 ft from the gap between the rooms to the front door. Its length and the position of the interior door at y 225″ are guesses; which room that door leads to is unknown',
       'Hall furniture: sliding wardrobe 100″ × 24″ × 94″ with three doors, the one nearest the front door a mirror (the bronze mirror bands on the other two are not drawn), and the curved open shelves at its near end drawn as a square 24″ × 16″ unit; front door 36″ and interior door 28″ drawn as closed flat panels; the shoe rack. The mirror inserts, ceiling lights and the intercom are not modelled',
       'Bathroom (from six photos, no camera solve, ±15 %): 98″ × 93″ (2.5 × 2.4 m), its east wall in line with the kitchen’s and its south wall with the hall’s. The 28″ doorway is on the hall’s east wall at y 211″–239″, drawn open without the door leaf (the leaf opens into the bathroom, seen open in the photos)',
-      'Bathroom fittings: vanity 33″ with a mirror cabinet, a 10″ cabinet beside it, wall-hung toilet on the east wall, heated towel rail, corner bath 58″ × 42″ drawn as a plain box (not curved), washing machine 24″, laundry basket, rug. Cream and brown tiles are not modelled: the walls are the same beige and the floor a flat brown patch. The cat litter tray, in-wall cistern and shower fittings are left out',
+      'Bathroom fittings: vanity 33″ with a 32″ mirror cabinet (dark body, two mirror doors, a lamp on top), a 10″ cabinet beside it, wall-hung toilet on the east wall, heated towel rail, corner bath 58″ × 42″ drawn as a plain box (not curved), washing machine 24″, laundry basket, rug. Cream and brown tiles are not modelled: the walls are the same beige and the floor a flat brown patch. The cat litter tray, in-wall cistern and shower fittings are left out',
       'Between the kitchen and the bathroom there is a 29″ strip (y 161″–190″) that no photo shows: it is drawn as empty, not as solid wall',
       'Wall colour is one textured-wallpaper beige for both rooms; the kitchen’s black-flecked cork wallpaper is not modelled'
     ]
@@ -244,7 +244,10 @@ var CONFIG = {
     bathRug:   {name: 'Bath rug', type: 'rug', w: 40, d: 22, color: 0x9a8274, color2: 0x8a7264},
     narrowCab: {name: 'Narrow cabinet', type: 'box', w: 10, d: 14, h: 34, color: 0xf2f2f0},
     vanity:    {name: 'Sink vanity', type: 'dresser', w: 33, d: 18, h: 34, front: 0, color: 0x16161a},
-    mirrorCab: {name: 'Mirror cabinet', type: 'art', w: 32, d: 1.5, h: 24, mount: 50, print: 'mirror', color: 0x1b1b1b},
+    mirrorBody: {name: 'Mirror cabinet', type: 'box', w: 32, d: 6, h: 27, mount: 48, color: 0x16161a},
+    mirrorL:   {name: 'Cabinet mirror door left', type: 'art', w: 15.5, d: 1, h: 23, mount: 50, print: 'mirror', color: 0x16161a},
+    mirrorR:   {name: 'Cabinet mirror door right', type: 'art', w: 15.5, d: 1, h: 23, mount: 50, print: 'mirror', color: 0x16161a},
+    lampBar:   {name: 'Cabinet lamp', type: 'box', w: 20, d: 3, h: 1.5, mount: 76, color: 0xb8bcc0},
     toilet:    {name: 'Wall-hung toilet', type: 'box', w: 15, d: 21, h: 16, color: 0xf4f4f4},
     towelRail: {name: 'Towel rail', type: 'box', w: 20, d: 3, h: 24, mount: 40, color: 0xb8bcc0},
     bathtub:   {name: 'Corner bath', type: 'box', w: 58, d: 42, h: 22, color: 0xf6f6f6},
@@ -259,7 +262,7 @@ var CONFIG = {
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
              hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
              endcap: [113, 173, 180], doorFront: [150, 284, 180], shoes: [172, 268, 90],
-             bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorCab: [210.5, 190.75, 0], toilet: [269.5, 212, 90],
+             bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorBody: [210.5, 193, 0], mirrorL: [202.75, 196.5, 0], mirrorR: [218.25, 196.5, 0], lampBar: [210.5, 191.5, 0], toilet: [269.5, 212, 90],
              towelRail: [278.5, 234, 90], bathtub: [251, 262, 180], washer: [209, 274.5, 180], basket: [189.5, 274.5, 180]}},
     {name: 'Sofa under the window', note: 'The sofa moves to the window wall and the pouf becomes a coffee table. It opens the left wall, but the sofa back covers the radiator.',
      place: {sofa: [75, 19.5, 0], pouf: [75, 62, 0], stand: [136.5, 34, 90], tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0],
@@ -267,7 +270,7 @@ var CONFIG = {
              table: [190, 62, 0], ch1: [164, 39, 311], ch2: [222, 62, 90], ch3: [190, 94, 180], ch4: [160, 70, 270], radK: [190, 2.5, 0],
              hallWard: [112, 231, 270], wardDoor1: [123.75, 197.65, 270], wardDoor2: [123.75, 231, 270], wardMirror: [123.75, 264.35, 270],
              endcap: [113, 173, 180], doorFront: [150, 284, 180], shoes: [172, 268, 90],
-             bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorCab: [210.5, 190.75, 0], toilet: [269.5, 212, 90],
+             bathFloor: [231, 236.5, 0], bathRug: [213, 236, 0], narrowCab: [187, 197, 0], vanity: [210.5, 199, 0], mirrorBody: [210.5, 193, 0], mirrorL: [202.75, 196.5, 0], mirrorR: [218.25, 196.5, 0], lampBar: [210.5, 191.5, 0], toilet: [269.5, 212, 90],
              towelRail: [278.5, 234, 90], bathtub: [251, 262, 180], washer: [209, 274.5, 180], basket: [189.5, 274.5, 180]}}
   ],
   PHOTOS: [
