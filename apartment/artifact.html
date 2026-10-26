@@ -163,7 +163,7 @@ import {RectAreaLightUniformsLib} from 'https://cdn.jsdelivr.net/npm/three@0.162
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v13',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v14',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -184,17 +184,18 @@ var CONFIG = {
        The hall runs south from the gap between the two rooms: its east wall is x 177, the sliding wardrobe stands on its west side (x 101-125) and the front door is in the south wall.
        The bedroom lies south of the main room, west of the hall: its entrance is the 76″ gap (2″–78″) in the main room’s south wall, closed by a three-leaf sliding door; its interior is x 0–96, y 170–260.
        The bathroom lies east of the hall: its door is the 5″ channel (177,211)-(182,211)-(182,239)-(177,239), 28″ wide. */
-    outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 131], [207, 131], [207, 135], [177, 135], [177, 160], [182, 160], [182, 139], [280, 139], [280, 232], [182, 232], [182, 188], [177, 188], [177, 234], [101, 234], [101, 114], [78, 114], [78, 119], [96, 119], [96, 209], [0, 209], [0, 119], [2, 119], [2, 114], [0, 114]],
+    outline: [[0, 0], [101, 0], [101, -10], [0, -10], [0, -89], [280, -89], [280, -10], [131, -10], [131, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 131], [207, 131], [207, 135], [177, 135], [177, 160], [182, 160], [182, 139], [280, 139], [280, 232], [182, 232], [182, 188], [177, 188], [177, 234], [101, 234], [101, 114], [78, 114], [78, 119], [96, 119], [96, 209], [0, 209], [0, 119], [2, 119], [2, 114], [0, 114]],
     height: 98, wall: 5,
+    brick: [2, 3, 4, 5, 6],   /* the loggia's brick walls: its south side (two edges), west end, north side, east end */
     walls: 0xf7f3ea, floor: 0xd3b184, trim: 0xe2d6c0,
     boards: 7, boardsDir: 'y',
     openings: [
-      /* main room: window, then a glazed balcony door shown closed (the engine's door is always an open solid leaf, so it is a floor-to-head glazed opening) */
-      {type: 'window', c: [68, 0], width: 60, sill: 30, head: 88, panes: 2},
-      {type: 'window', c: [116, 0], width: 30, sill: 0, head: 80, panes: 1},
-      /* kitchen: window and glazed balcony door on the same wall */
-      {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1},
-      {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1}
+      /* the three glazed units on the flat's north wall now face the loggia, not the sky; the balcony door of the main room is an open doorway (x 101-131, see the outline) */
+      {type: 'window', c: [68, 0], width: 60, sill: 30, head: 88, panes: 2, white: true, noSky: true},
+      {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1, white: true, noSky: true},
+      {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1, white: true, noSky: true},
+      /* the loggia's own glazing: white frames along the whole north side, starting at chest height (42″) */
+      {type: 'window', c: [140, -89], width: 264, sill: 42, head: 91, panes: 10, white: true}
     ],
     fixed: [],
     verify: [
@@ -202,8 +203,9 @@ var CONFIG = {
       'Main room 145″ wide (3.7 m), solved from two photos, ±6″, and 114″ deep (2.9 m): the depth rests on the owner’s remark that the sofa’s south end is about 0.5 m (20″) from the bedroom door, because no photo shows that wall',
       'Wall between the main room and the kitchen: 73″ long, 5″ thick; the opening from 73″ to 157″ is 84″ wide',
       'Kitchen about 135″ × 131″ (3.4 × 3.3 m): read from photos with no camera solve, ±15 %, and shortened from 157″ to fit under the main room’s new depth; its far wall at x 280″ is the least certain number here',
-      'Main room window 60″ wide, glazed balcony door 30″ beside it (hinges on the right seen from the room, opens inward; drawn closed)',
-      'Kitchen window 30″ and glazed balcony door 28″: the balcony is shared with the main room, so they sit on the same wall (guess)',
+      'Loggia (no photos, from the owner’s description): the whole length from the main room to the kitchen (280″, 7.1 m), about 79″ (2 m) deep, 98″ high like the flat, brick walls, one run of white windows (264″ long, sill at chest height 42″, head 91″, ten sashes) along the north side, not heated. The 10″ wall between it and the flat is a guess',
+    'Main room window 60″ wide, 30″ doorway beside it to the loggia: drawn as an open doorway, with no door leaf (the real door is glazed, hinged on the right seen from the room, opens inward)',
+      'Kitchen window 30″ and glazed loggia door 28″: both face the loggia; the door is drawn as a closed glazed opening, so you can step onto the loggia only through the main room’s doorway',
       'Kitchen units form an L (checked against the owner’s corrections and three photos, ±10″): along the east wall an oven and microwave tower 24″ and base units 81″; a 26″ corner unit with the sink in the south-east corner; a 49″ run along the south wall; wall cabinets 107″ (east wall, round the corner) and 61″ (south wall) hung at 54″, mirror splash-backs along both walls, round the corner. The 28″ × 28″ × 76″ fridge stands in line with the south run, on its end nearest the entrance, facing north, in a 4″ recess in the wall',
       'The wall between the counter and the wall cabinets is mirrored: drawn as plain silvered mirrors 18″ high, without the smoked-bronze tint and diamond pattern. Counter top, hob, sink, handles and the appliances are drawn simply; the dark floor band is a flat brown patch',
       'Left out in the main room: ceiling spot lights, the wardrobe at the left edge of photo 1, bags, laptop, sheer curtain. Curtains and radiators are plain boxes',
@@ -312,6 +314,7 @@ var CONFIG = {
     dBook:     {name: 'Tall bookcase', type: 'bookshelf', w: 20, d: 11, h: 72, color: 0x7a5638},
     dBedShelf: {name: 'Bedside shelf', type: 'box', w: 14, d: 9, h: 3, mount: 21, color: 0x7a5638},
     dBedRug:   {name: 'Bedroom runner', type: 'rug', w: 20, d: 64, color: 0xd9ccb4, color2: 0xb9a98e},
+    loggiaFloor: {name: 'Loggia floor', type: 'box', w: 280, d: 79, h: 0.6, mount: 0.01, color: 0x8f8f8a},
     bedBed:    {name: 'Bed', type: 'upBed', w: 55, d: 82, h: 24, hb: 41, color: 0xb08c9b, color2: 0xe3dccf},
     bedDesk:   {name: 'Desk', type: 'writingDesk', w: 41.3, d: 19.7, h: 29.5, color: 0x231a16},
     bedChair:  {name: 'Folding chair', type: 'foldChair', w: 15, d: 15, h: 31, color: 0xe8dcc6, color2: 0xb8bcc0},
@@ -394,7 +397,7 @@ var CONFIG = {
              endcap: [113, 122, 180], doorFront: [150, 232.5, 180], shoes: [172, 217, 90], doorInner: [178.5, 174, 90],
              bathFloor: [231, 185.5, 0], bathRug: [213, 185, 0], narrowCab: [187, 146, 0], vanity: [210.5, 148, 0], mirrorBody: [210.5, 142, 0], mirrorL: [202.75, 145.5, 0], mirrorR: [218.25, 145.5, 0], lampBar: [210.5, 140.5, 0], toilet: [263, 149.5, 0],
              towelRail: [278.5, 163, 90], bathtub: [251, 211, 180], washer: [209, 223.5, 180], basket: [189.5, 223.5, 180],
-             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270],
+             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0],
              bedBed: [28.2, 167.8, 180], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0], bedPouf: [65, 201, 180],
              leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180],
              spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0]}},
@@ -409,7 +412,7 @@ var CONFIG = {
              basket: [189.5, 223.5, 180], rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0],
              spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0],
              spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90],
-             tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0],
+             tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0],
              bedPouf: [65, 201, 180], leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180], spotBd1: [30, 139, 0],
              spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], cornerN: [47, 22.5, 0], cornerW: [18.5, 55.5, 270], sofaBed: [27.5, 169.5, 270]}},
     {name: 'Second desk by the bedroom door', note: 'The sofa moves up against the window wall, which frees about 90 cm between it and the bedroom door. A compact desk (85 × 50 cm) stands there along the west wall, the chair on its east side. Tight: the chair sits 25 cm from the sofa end and the desk is small.',
@@ -420,7 +423,7 @@ var CONFIG = {
              endcap: [113, 122, 180], doorFront: [150, 232.5, 180], shoes: [172, 217, 90], doorInner: [178.5, 174, 90],
              bathFloor: [231, 185.5, 0], bathRug: [213, 185, 0], narrowCab: [187, 146, 0], vanity: [210.5, 148, 0], mirrorBody: [210.5, 142, 0], mirrorL: [202.75, 145.5, 0], mirrorR: [218.25, 145.5, 0], lampBar: [210.5, 140.5, 0], toilet: [263, 149.5, 0],
              towelRail: [278.5, 163, 90], bathtub: [251, 211, 180], washer: [209, 223.5, 180], basket: [189.5, 223.5, 180],
-             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270],
+             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0],
              bedBed: [28.2, 167.8, 180], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0], bedPouf: [65, 201, 180],
              leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180],
              spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], deskW: [9.85, 96.5, 270], chairW: [30.5, 96.5, 90]}},
@@ -434,7 +437,7 @@ var CONFIG = {
              lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0],
              spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0],
              spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270],
-             tileW2: [182.3, 210, 270], leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180], spotBd1: [30, 139, 0],
+             tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0], leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180], spotBd1: [30, 139, 0],
              spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], dSofa: [17.5, 52, 270], dRug: [70, 52, 0], dCoffee: [66, 52, 0], dStool1: [92, 36, 0],
              dStool2: [92, 68, 0], dTvUnit: [138, 35, 90], dPlant: [137.5, 15, 0], dArt1: [0.75, 30, 270], dArt2: [0.75, 54, 270], dArt3: [0.75, 78, 270],
              dTable: [164, 35, 90], dChair1: [188, 24, 90], dChair2: [188, 46, 90], dPendant: [164, 35, 0], dShelf: [154, 35, 90], dBench: [171, 203, 90],
@@ -936,9 +939,11 @@ function part(g, w, h, d, x, y, z, role, o){ o = o || {}; var r = o.r ? Math.min
   m.position.set(x, y + h / 2, z); m.userData.role = role || 1; if (o.kind) m.userData.kind = o.kind; g.add(m); return m; }
 function cyl(g, rb, rt, h, x, y, z, role, o){ o = o || {}; var m = new T.Mesh(new T.CylinderGeometry(rt, rb, h, o.seg || 16), WM); m.position.set(x, y + h / 2, z);
   m.castShadow = !o.noShadow; m.receiveShadow = true; m.userData.role = role || 1; if (o.kind) m.userData.kind = o.kind; g.add(m); return m; }
+var TRIMM0 = null;
+var BRICKW = stdMat({map: BRICK, normalMap: BRICKN, roughness: 0.86}), WHITEFM = stdMat({color: 0xffffff, roughness: 0.38}, 0.7);   /* brick walls (R.brick lists the wall indexes) and white window frames (a window with white: true) */
 var WM = stdMat({roughness: 0.9}), PM = new T.MeshBasicMaterial({color: POCHE}), WALLM = stdMat({roughness: 0.92, envMapIntensity: 1}, 0.7), TRIMM = stdMat({roughness: 0.4, envMapIntensity: 1}, 0.7),   /* paint takes 70 % of the room's own bounce: the floor and paneling would tan an off-white wall the photos show near white */
   FLOORM = physMat({roughness: 0.5, clearcoat: 0.35, clearcoatRoughness: 0.28}), GLASSM = physMat({color: 0xeef3f8, transparent: true, opacity: 0.16, roughness: 0.04, depthWrite: false}),
-  SKYM = new T.MeshBasicMaterial({map: SKY}), BEYONDM = stdMat({color: 0xd6d2ca, roughness: 1, envMapIntensity: 0.85}), BOOKM = newMat('books'), BOOKW = newMat('white'), PLINES = [], NBOOKS = [], PANELS = [], ROOMEDGES = [];
+  SKYM = new T.MeshBasicMaterial({map: SKY}), BEYONDM = stdMat({color: 0xd6d2ca, roughness: 1, envMapIntensity: 0.85}), BOOKM = newMat('books'), BOOKW = newMat('white'), PLINES = [], NBOOKS = [], PANELS = [], ROOMEDGES = []; TRIMM0 = TRIMM;
 var FLOORT = R.boards ? floorTex(R.boards) : null; if (FLOORT && R.boardsDir !== 'y'){ FLOORT.center.set(0.5, 0.5); FLOORT.rotation = Math.PI / 2; }
 
 /* floor slab with a cut edge; a one-foot grid for the white model */
@@ -954,6 +959,7 @@ var GRID;
 var CEIL = (function(){ var sh = new T.Shape(); OUTER.forEach(function(p, i){ if (i) sh.lineTo(p[0], p[1]); else sh.moveTo(p[0], p[1]); });   /* the ceiling: shown only when looking through a photo's camera */
   var g = new T.ShapeGeometry(sh); g.rotateX(Math.PI / 2); var m = new T.Mesh(g, stdMat({color: 0xf4f2ee, roughness: 1, envMapIntensity: 1.2, emissive: 0x615f5b})); m.position.y = RH;   /* no sun reaches it: bounce light, faked */ m.visible = false; world.add(m); return m; })();
 function paintRoom(){ var col = LOOK === 'colour';
+  tint(BRICKW, col ? hex(R.brickColor || 0xb0654d) : WHITE); if ((BRICKW.map !== null) !== col){ BRICKW.map = col ? BRICK : null; BRICKW.normalMap = col ? BRICKN : null; BRICKW.needsUpdate = true; }
   WALLM.color.setHex(col ? roomColor('walls') : WHITE); TRIMM.color.setHex(col ? roomColor('trim') : WHITE); WM.color.setHex(col ? 0xf1efea : WHITE);
   setMap(FLOORM, col ? FLOORT : null); PM.color.setHex(POCHE); PANELS.forEach(function(m){ setMap(m, col ? m.userData.tex : null); });
   PLINES.forEach(function(l){ l.visible = !col; }); ROOMEDGES.forEach(function(l){ l.visible = !col; }); NBOOKS.forEach(function(m){ m.material = col ? BOOKM : BOOKW; });
@@ -988,7 +994,8 @@ function slab(seg, s0, s1, y0, y1, n0, n1, mats, edge){ var w = seg.w, L = s1 - 
   m.userData = {y0: y0, y1: y1, sm: (s0 + s1) / 2}; slabUV(m, y1); m.scale.y = y1 - y0; world.add(m); seg.pieces.push(m); return m; }
 function piece(seg, s0, s1, y0, y1, kind){ var w = seg.w;
   if (kind === 'glass'){ var gl = slab(seg, s0, s1, y0, y1, TW / 2 - 0.15, TW / 2 + 0.15, GLASSM, false); if (gl){ gl.castShadow = false; gl.userData.noAO = true; } return; }
-  var rs = dot([-w.d[1], w.d[0]], w.n) > 0 ? 5 : 4, ms = [TRIMM, TRIMM, WM, WM, WM, WM]; ms[rs] = seg.panel ? seg.panelM : WALLM;   /* the room-side face takes paint or paneling; the box's local +z is (-dy, dx) in plan */
+  var rs = dot([-w.d[1], w.d[0]], w.n) > 0 ? 5 : 4, ms = [TRIMM, TRIMM, WM, WM, WM, WM]; ms[rs] = seg.panel ? seg.panelM : WALLM; if (R.brick && R.brick.indexOf(w.i) >= 0){ ms[0] = ms[1] = ms[4] = ms[5] = BRICKW; }   /* brick walls are brick on both faces and at their ends */
+  /* the room-side face takes paint or paneling; the box's local +z is (-dy, dx) in plan */
   var m = slab(seg, s0, s1, y0, y1, 0, TW, ms); if (!m || !seg.panel) return;
   var pts = [], z = (rs === 5 ? -1 : 1) * (TW / 2 + 0.06), mid = (s0 + s1) / 2;   /* plank grooves for the white model, scaled with the piece so a cut clips them */
   seg.grooves.forEach(function(g){ if (g > s0 + 0.6 && g < s1 - 0.6) pts.push(V(g - mid, 0, z), V(g - mid, 1, z)); });
@@ -1007,7 +1014,7 @@ function niche(seg, o){ var h = o.head - o.sill, n = Math.max(2, Math.round(h / 
       geos.push(colorGeo(wallBox(seg, x, x + bw, y, bh, 0.9, TW - 1.1), BOOKS[geos.length % BOOKS.length], 0.8 + r() * 0.3)); x += bw + 0.05; }
     if (geos.length){ var mg = mergeGeometries(geos), m = new T.Mesh(mg, BOOKM); m.castShadow = m.receiveShadow = true; var e = edgesOf(mg, 0.3); m.add(e); ROOMEDGES.push(e);
       m.userData = {y0: y, y1: y + top, whole: true}; world.add(m); seg.pieces.push(m); NBOOKS.push(m); geos.forEach(function(q){ q.dispose(); }); } } }
-function trim(seg, o){ /* casings, a window's stool, apron, sash frame and mullions, and daylight behind the glass */
+function trim(seg, o){ var TRIMM = o.white ? WHITEFM : TRIMM0; /* casings, a window's stool, apron, sash frame and mullions, and daylight behind the glass */
   if (o.type === 'niche') return; var cw = 3.5, ct = 0.75, s0 = o.s0, s1 = o.s1, win = o.type === 'window', top = o.head + cw, e = 0.3;
   slab(seg, s0 - cw, s0, win ? o.sill : 0, top, -ct, 0, TRIMM, e); slab(seg, s1, s1 + cw, win ? o.sill : 0, top, -ct, 0, TRIMM, e); slab(seg, s0, s1, o.head, top, -ct, 0, TRIMM, e);
   slab(seg, s0, s0 + 0.75, win ? o.sill : 0, o.head, 0, TW, TRIMM, false); slab(seg, s1 - 0.75, s1, win ? o.sill : 0, o.head, 0, TW, TRIMM, false); slab(seg, s0, s1, o.head - 0.75, o.head, 0, TW, TRIMM, false);   /* jamb liners */
@@ -1019,7 +1026,7 @@ function trim(seg, o){ /* casings, a window's stool, apron, sash frame and mulli
   slab(seg, s0, s0 + fw, o.sill, o.head, f0, f1, TRIMM, e); slab(seg, s1 - fw, s1, o.sill, o.head, f0, f1, TRIMM, e);
   slab(seg, s0, s1, o.sill, o.sill + fw * 1.4, f0, f1, TRIMM, e); slab(seg, s0, s1, o.head - fw, o.head, f0, f1, TRIMM, e);
   for (var i = 1; i < np; i++){ var sm = s0 + (s1 - s0) * i / np; slab(seg, sm - fw * 0.7, sm + fw * 0.7, o.sill, o.head, f0, f1, TRIMM, e); }
-  var sky = slab(seg, s0, s1, o.sill, o.head, TW + 0.1, TW + 0.3, SKYM, false);   /* daylight on the wall's outer face: every ray through the opening lands on it, and from outside it hides in the wall */
+  var sky = o.noSky ? null : slab(seg, s0, s1, o.sill, o.head, TW + 0.1, TW + 0.3, SKYM, false);   /* daylight on the wall's outer face: every ray through the opening lands on it, and from outside it hides in the wall */
   if (sky){ sky.castShadow = sky.receiveShadow = false; sky.userData.whole = true; sky.userData.noAO = true; sky.userData.sm = null; var su = sky.geometry.attributes.uv, sp = sky.geometry.attributes.position;
     for (var j = 0; j < su.count; j++) su.setXY(j, (sp.getX(j) + (s0 + s1) / 2 + seg.w.i * 97) / 240, sp.getY(j)); su.needsUpdate = true; } }   /* the view spans the glass bottom to top, and runs on along the wall */
 SEG.forEach(function(seg, i){ var w = seg.w, s = 0;
@@ -1032,7 +1039,7 @@ SEG.forEach(function(seg, i){ var w = seg.w, s = 0;
     s = o.s1; });
   piece(seg, s, w.L + (CONVEX[i] ? TW : 0), 0, RH);
   var b0 = 0; OPEN.filter(function(o){ return o.w === w && !o.sill; }).sort(function(a, b){ return a.s0 - b.s0; }).concat([{s0: w.L + 3.5, s1: w.L}]).forEach(function(o){   /* baseboard, broken at doors and openings */
-    var s0 = b0, s1 = o.s0 - 3.5; if (s1 - s0 > 1){ var geo = new T.BoxGeometry(s1 - s0, 4.5, 0.75), m = new T.Mesh(geo, TRIMM), c = add(add(w.a, mul(w.d, (s0 + s1) / 2)), mul(w.n, -0.375));
+    var s0 = b0, s1 = o.s0 - 3.5; if (s1 - s0 > 1 && !(R.brick && R.brick.indexOf(w.i) >= 0)){ var geo = new T.BoxGeometry(s1 - s0, 4.5, 0.75), m = new T.Mesh(geo, TRIMM), c = add(add(w.a, mul(w.d, (s0 + s1) / 2)), mul(w.n, -0.375));
       m.receiveShadow = m.castShadow = true; var e = edgesOf(geo, 0.3); m.add(e); ROOMEDGES.push(e); m.position.set(c[0], 2.25, c[1]); m.rotation.y = -Math.atan2(w.d[1], w.d[0]); world.add(m); } b0 = o.s1 + 3.5; }); });
 function applyCut(seg){ seg.pieces.forEach(function(m){ var u = m.userData, top = Math.min(u.y1, seg.cut);
   if (u.whole){ m.visible = seg.cut >= u.y1 - 0.2; return; }

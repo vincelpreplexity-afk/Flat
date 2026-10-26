@@ -1,7 +1,7 @@
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v13',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v14',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -22,17 +22,18 @@ var CONFIG = {
        The hall runs south from the gap between the two rooms: its east wall is x 177, the sliding wardrobe stands on its west side (x 101-125) and the front door is in the south wall.
        The bedroom lies south of the main room, west of the hall: its entrance is the 76″ gap (2″–78″) in the main room’s south wall, closed by a three-leaf sliding door; its interior is x 0–96, y 170–260.
        The bathroom lies east of the hall: its door is the 5″ channel (177,211)-(182,211)-(182,239)-(177,239), 28″ wide. */
-    outline: [[0, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 131], [207, 131], [207, 135], [177, 135], [177, 160], [182, 160], [182, 139], [280, 139], [280, 232], [182, 232], [182, 188], [177, 188], [177, 234], [101, 234], [101, 114], [78, 114], [78, 119], [96, 119], [96, 209], [0, 209], [0, 119], [2, 119], [2, 114], [0, 114]],
+    outline: [[0, 0], [101, 0], [101, -10], [0, -10], [0, -89], [280, -89], [280, -10], [131, -10], [131, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 131], [207, 131], [207, 135], [177, 135], [177, 160], [182, 160], [182, 139], [280, 139], [280, 232], [182, 232], [182, 188], [177, 188], [177, 234], [101, 234], [101, 114], [78, 114], [78, 119], [96, 119], [96, 209], [0, 209], [0, 119], [2, 119], [2, 114], [0, 114]],
     height: 98, wall: 5,
+    brick: [2, 3, 4, 5, 6],   /* the loggia's brick walls: its south side (two edges), west end, north side, east end */
     walls: 0xf7f3ea, floor: 0xd3b184, trim: 0xe2d6c0,
     boards: 7, boardsDir: 'y',
     openings: [
-      /* main room: window, then a glazed balcony door shown closed (the engine's door is always an open solid leaf, so it is a floor-to-head glazed opening) */
-      {type: 'window', c: [68, 0], width: 60, sill: 30, head: 88, panes: 2},
-      {type: 'window', c: [116, 0], width: 30, sill: 0, head: 80, panes: 1},
-      /* kitchen: window and glazed balcony door on the same wall */
-      {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1},
-      {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1}
+      /* the three glazed units on the flat's north wall now face the loggia, not the sky; the balcony door of the main room is an open doorway (x 101-131, see the outline) */
+      {type: 'window', c: [68, 0], width: 60, sill: 30, head: 88, panes: 2, white: true, noSky: true},
+      {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1, white: true, noSky: true},
+      {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1, white: true, noSky: true},
+      /* the loggia's own glazing: white frames along the whole north side, starting at chest height (42″) */
+      {type: 'window', c: [140, -89], width: 264, sill: 42, head: 91, panes: 10, white: true}
     ],
     fixed: [],
     verify: [
@@ -40,8 +41,9 @@ var CONFIG = {
       'Main room 145″ wide (3.7 m), solved from two photos, ±6″, and 114″ deep (2.9 m): the depth rests on the owner’s remark that the sofa’s south end is about 0.5 m (20″) from the bedroom door, because no photo shows that wall',
       'Wall between the main room and the kitchen: 73″ long, 5″ thick; the opening from 73″ to 157″ is 84″ wide',
       'Kitchen about 135″ × 131″ (3.4 × 3.3 m): read from photos with no camera solve, ±15 %, and shortened from 157″ to fit under the main room’s new depth; its far wall at x 280″ is the least certain number here',
-      'Main room window 60″ wide, glazed balcony door 30″ beside it (hinges on the right seen from the room, opens inward; drawn closed)',
-      'Kitchen window 30″ and glazed balcony door 28″: the balcony is shared with the main room, so they sit on the same wall (guess)',
+      'Loggia (no photos, from the owner’s description): the whole length from the main room to the kitchen (280″, 7.1 m), about 79″ (2 m) deep, 98″ high like the flat, brick walls, one run of white windows (264″ long, sill at chest height 42″, head 91″, ten sashes) along the north side, not heated. The 10″ wall between it and the flat is a guess',
+    'Main room window 60″ wide, 30″ doorway beside it to the loggia: drawn as an open doorway, with no door leaf (the real door is glazed, hinged on the right seen from the room, opens inward)',
+      'Kitchen window 30″ and glazed loggia door 28″: both face the loggia; the door is drawn as a closed glazed opening, so you can step onto the loggia only through the main room’s doorway',
       'Kitchen units form an L (checked against the owner’s corrections and three photos, ±10″): along the east wall an oven and microwave tower 24″ and base units 81″; a 26″ corner unit with the sink in the south-east corner; a 49″ run along the south wall; wall cabinets 107″ (east wall, round the corner) and 61″ (south wall) hung at 54″, mirror splash-backs along both walls, round the corner. The 28″ × 28″ × 76″ fridge stands in line with the south run, on its end nearest the entrance, facing north, in a 4″ recess in the wall',
       'The wall between the counter and the wall cabinets is mirrored: drawn as plain silvered mirrors 18″ high, without the smoked-bronze tint and diamond pattern. Counter top, hob, sink, handles and the appliances are drawn simply; the dark floor band is a flat brown patch',
       'Left out in the main room: ceiling spot lights, the wardrobe at the left edge of photo 1, bags, laptop, sheer curtain. Curtains and radiators are plain boxes',
@@ -150,6 +152,7 @@ var CONFIG = {
     dBook:     {name: 'Tall bookcase', type: 'bookshelf', w: 20, d: 11, h: 72, color: 0x7a5638},
     dBedShelf: {name: 'Bedside shelf', type: 'box', w: 14, d: 9, h: 3, mount: 21, color: 0x7a5638},
     dBedRug:   {name: 'Bedroom runner', type: 'rug', w: 20, d: 64, color: 0xd9ccb4, color2: 0xb9a98e},
+    loggiaFloor: {name: 'Loggia floor', type: 'box', w: 280, d: 79, h: 0.6, mount: 0.01, color: 0x8f8f8a},
     bedBed:    {name: 'Bed', type: 'upBed', w: 55, d: 82, h: 24, hb: 41, color: 0xb08c9b, color2: 0xe3dccf},
     bedDesk:   {name: 'Desk', type: 'writingDesk', w: 41.3, d: 19.7, h: 29.5, color: 0x231a16},
     bedChair:  {name: 'Folding chair', type: 'foldChair', w: 15, d: 15, h: 31, color: 0xe8dcc6, color2: 0xb8bcc0},
@@ -232,7 +235,7 @@ var CONFIG = {
              endcap: [113, 122, 180], doorFront: [150, 232.5, 180], shoes: [172, 217, 90], doorInner: [178.5, 174, 90],
              bathFloor: [231, 185.5, 0], bathRug: [213, 185, 0], narrowCab: [187, 146, 0], vanity: [210.5, 148, 0], mirrorBody: [210.5, 142, 0], mirrorL: [202.75, 145.5, 0], mirrorR: [218.25, 145.5, 0], lampBar: [210.5, 140.5, 0], toilet: [263, 149.5, 0],
              towelRail: [278.5, 163, 90], bathtub: [251, 211, 180], washer: [209, 223.5, 180], basket: [189.5, 223.5, 180],
-             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270],
+             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0],
              bedBed: [28.2, 167.8, 180], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0], bedPouf: [65, 201, 180],
              leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180],
              spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0]}},
@@ -247,7 +250,7 @@ var CONFIG = {
              basket: [189.5, 223.5, 180], rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0],
              spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0],
              spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90],
-             tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0],
+             tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0],
              bedPouf: [65, 201, 180], leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180], spotBd1: [30, 139, 0],
              spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], cornerN: [47, 22.5, 0], cornerW: [18.5, 55.5, 270], sofaBed: [27.5, 169.5, 270]}},
     {name: 'Second desk by the bedroom door', note: 'The sofa moves up against the window wall, which frees about 90 cm between it and the bedroom door. A compact desk (85 × 50 cm) stands there along the west wall, the chair on its east side. Tight: the chair sits 25 cm from the sofa end and the desk is small.',
@@ -258,7 +261,7 @@ var CONFIG = {
              endcap: [113, 122, 180], doorFront: [150, 232.5, 180], shoes: [172, 217, 90], doorInner: [178.5, 174, 90],
              bathFloor: [231, 185.5, 0], bathRug: [213, 185, 0], narrowCab: [187, 146, 0], vanity: [210.5, 148, 0], mirrorBody: [210.5, 142, 0], mirrorL: [202.75, 145.5, 0], mirrorR: [218.25, 145.5, 0], lampBar: [210.5, 140.5, 0], toilet: [263, 149.5, 0],
              towelRail: [278.5, 163, 90], bathtub: [251, 211, 180], washer: [209, 223.5, 180], basket: [189.5, 223.5, 180],
-             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270],
+             rodMain: [72.5, 3, 0], lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0], spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0], spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270], tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0],
              bedBed: [28.2, 167.8, 180], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0], bedPouf: [65, 201, 180],
              leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180],
              spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], deskW: [9.85, 96.5, 270], chairW: [30.5, 96.5, 90]}},
@@ -272,7 +275,7 @@ var CONFIG = {
              lampMain: [100, 63, 0], spotK1: [160, 130, 0], spotK2: [190, 108, 0], spotK3: [214, 86, 0], spotK4: [236, 64, 0], spotK5: [254, 42, 0],
              spotK6: [265, 22, 0], spotH1: [140, 135, 0], spotH2: [160, 155, 0], spotH3: [140, 175, 0], spotH4: [160, 195, 0], spotH5: [142, 215, 0],
              spotB1: [214, 163, 0], spotB2: [252, 211, 0], tileN: [231, 139.3, 0], tileE: [279.7, 185.5, 90], tileS: [231, 231.7, 180], tileW1: [182.3, 149.5, 270],
-             tileW2: [182.3, 210, 270], leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180], spotBd1: [30, 139, 0],
+             tileW2: [182.3, 210, 270], loggiaFloor: [140, -49.5, 0], leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180], spotBd1: [30, 139, 0],
              spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], dSofa: [17.5, 52, 270], dRug: [70, 52, 0], dCoffee: [66, 52, 0], dStool1: [92, 36, 0],
              dStool2: [92, 68, 0], dTvUnit: [138, 35, 90], dPlant: [137.5, 15, 0], dArt1: [0.75, 30, 270], dArt2: [0.75, 54, 270], dArt3: [0.75, 78, 270],
              dTable: [164, 35, 90], dChair1: [188, 24, 90], dChair2: [188, 46, 90], dPendant: [164, 35, 0], dShelf: [154, 35, 90], dBench: [171, 203, 90],
