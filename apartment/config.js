@@ -1,7 +1,7 @@
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v14',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v15',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -33,9 +33,11 @@ var CONFIG = {
       {type: 'window', c: [68, 0], width: 60, sill: 30, head: 88, panes: 2, white: true, noSky: true},
       {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1, white: true, noSky: true},
       {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1, white: true, noSky: true},
+      {type: 'window', c: [233, -10], width: 28, sill: 0, head: 80, panes: 1, white: true, noSky: true},   /* the same door seen from the loggia side */
       /* the loggia's own glazing: white frames along the whole north side, starting at chest height (42″) */
       {type: 'window', c: [140, -89], width: 264, sill: 42, head: 91, panes: 10, white: true}
     ],
+    gates: [[219, -11, 247, 1]],   /* the kitchen's glazed door to the loggia: walkable through the wall strip */
     fixed: [],
     verify: [
       'Ceiling height 98″ (2.5 m): assumed. The kitchen has a stepped, wavy suspended ceiling with spot lights that is not modelled',
@@ -154,6 +156,25 @@ var CONFIG = {
     dBedShelf: {name: 'Bedside shelf', type: 'box', w: 14, d: 9, h: 3, mount: 21, color: 0x7a5638},
     dBedRug:   {name: 'Bedroom runner', type: 'rug', w: 20, d: 64, color: 0xd9ccb4, color2: 0xb9a98e},
     loggiaFloor: {name: 'Loggia floor', type: 'box', w: 280, d: 79, h: 0.6, mount: 0.01, color: 0x8f8f8a},
+    lgWood:    {name: 'Loggia wood floor', type: 'floorPatch', w: 144, d: 79, h: 0.5, mount: 0.6, color: 0xcdb089},
+    lgRadW:    {name: 'Loggia radiator', type: 'radiator', w: 40, d: 4, h: 21, mount: 3, color: 0xf4f1ea},
+    lgRadE:    {name: 'Loggia radiator', type: 'radiator', w: 50, d: 4, h: 21, mount: 3, color: 0xf4f1ea},
+    lgWard:    {name: 'Loggia wardrobe', type: 'slideWardrobe', w: 52, d: 22, h: 94, doors: 2, color: 0xece7dc, color2: 0xd8d2c6},
+    lgCubes:   {name: 'Loggia cube shelf', type: 'cubeShelf', w: 58, d: 15, h: 30, cols: 4, rows: 2, color: 0xece7dc, color2: 0x93a39e},
+    lgTrolley: {name: 'Loggia trolley', type: 'trolley', w: 14, d: 17, h: 31, color: 0xece7dc, color2: 0xb8bcc0},
+    lgBench:   {name: 'Loggia bench with baskets', type: 'bench', w: 40, d: 12, h: 18, color: 0x7a5638, color2: 0xd9ccb4},
+    lgBook:    {name: 'Loggia bookcase', type: 'bookshelf', w: 20, d: 11, h: 72, color: 0xece7dc},
+    lgSofa:    {name: 'Loggia sofa', type: 'sofa', w: 60, d: 26, h: 29, color: 0x8f9f8a, color2: 0xe6dfcf},
+    lgTable:   {name: 'Loggia side table', type: 'table', w: 14, d: 14, h: 20, round: true, color: 0x7a5638, color2: 0x1b1b1d},
+    lgRug:     {name: 'Loggia rug', type: 'rug', w: 64, d: 40, color: 0xd9ccb4, color2: 0xb9a98e},
+    lgBar:     {name: 'Loggia bar', type: 'table', w: 62, d: 14, h: 40, color: 0x7a5638, color2: 0x1b1b1d},
+    lgStool1:  {name: 'Bar stool', type: 'barStool', w: 14, d: 14, h: 28, color: 0xd3b184, color2: 0x1b1b1b},
+    lgStool2:  {name: 'Bar stool', type: 'barStool', w: 14, d: 14, h: 28, color: 0xd3b184, color2: 0x1b1b1b},
+    lgPend1:   {name: 'Globe pendant', type: 'pendant', globe: true, w: 16, d: 16, h: 16, mount: 62, color: 0x2b2b2b, color2: 0xf3efe6},
+    lgPend2:   {name: 'Globe pendant', type: 'pendant', globe: true, w: 16, d: 16, h: 16, mount: 62, color: 0x2b2b2b, color2: 0xf3efe6},
+    lgLamp:    {name: 'Floor lamp', type: 'torchiere', w: 12, d: 12, h: 66, color: 0x1b1b1b, color2: 0xf4f4f0},
+    lgPlant1:  {name: 'Plant', type: 'floorplant', w: 14, h: 52, heads: 3, color: 0xc2775a},
+    lgPlant2:  {name: 'Plant', type: 'floorplant', w: 14, h: 40, heads: 2, color: 0xd9ccb4},
     bedBed:    {name: 'Bed', type: 'upBed', w: 55, d: 82, h: 24, hb: 41, color: 0xb08c9b, color2: 0xe3dccf},
     bedDesk:   {name: 'Desk', type: 'writingDesk', w: 41.3, d: 19.7, h: 29.5, color: 0x231a16},
     bedChair:  {name: 'Folding chair', type: 'foldChair', w: 15, d: 15, h: 31, color: 0xe8dcc6, color2: 0xb8bcc0},
@@ -266,7 +287,7 @@ var CONFIG = {
              bedBed: [28.2, 167.8, 180], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0], bedPouf: [65, 201, 180],
              leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180],
              spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], deskW: [9.85, 96.5, 270], chairW: [30.5, 96.5, 90]}},
-    {name: 'Full refresh', note: 'A full refresh in walnut, sage and oat linen, laid over the light oak floor. Living room: a low sofa along the west wall (still 60 cm clear to the bedroom door), a floating TV unit so the floor stays open, a rug with a round table and two stools instead of a second sofa. Second workplace: a walnut table for work and meals against the blank wall behind the TV, with a pendant above it and the dining table gone, so the middle of the kitchen is free; the first workplace stays in the bedroom behind the sliding door. Bedroom: a plain headboard, a desk with a shelf, a tall slim bookcase in the corner instead of the lamp and pouf. Hall: a bench with baskets and a mirror in place of the shoe rack. Built-ins (kitchen units, hall wardrobe, bathroom) stay.',
+    {name: 'Full refresh', note: 'The loggia is insulated and plastered in warm off-white (my guess, no photos): radiators under the window, wood floor in the lived-in half by the kitchen with a small sofa, rug, bar counter at the window and two stools; the half toward the living room is storage (sliding wardrobe, cube shelves, trolley, bench with baskets, bookcase). A full refresh in walnut, sage and oat linen, laid over the light oak floor. Living room: a low sofa along the west wall (still 60 cm clear to the bedroom door), a floating TV unit so the floor stays open, a rug with a round table and two stools instead of a second sofa. Second workplace: a walnut table for work and meals against the blank wall behind the TV, with a pendant above it and the dining table gone, so the middle of the kitchen is free; the first workplace stays in the bedroom behind the sliding door. Bedroom: a plain headboard, a desk with a shelf, a tall slim bookcase in the corner instead of the lamp and pouf. Hall: a bench with baskets and a mirror in place of the shoe rack. Built-ins (kitchen units, hall wardrobe, bathroom) stay.',
      place: {tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0], floorK: [227, 65.5, 0], tower: [268, 12, 90],
              base: [268, 64.5, 90], corner: [267, 118, 90], leg2: [229.5, 118, 180], wall: [273, 77.5, 90], wall2: [235.5, 124, 180], mirror: [279.25, 77.5, 90],
              mirror2: [242.5, 130.25, 180], fridge: [191, 119, 180], radK: [190, 2.5, 0], hallWard: [112, 180, 270], wardDoor1: [123.75, 146.65, 270], wardDoor2: [123.75, 180, 270],
@@ -281,8 +302,11 @@ var CONFIG = {
              dStool2: [92, 68, 0], dTvUnit: [138, 35, 90], dPlant: [137.5, 15, 0], dArt1: [0.75, 30, 270], dArt2: [0.75, 54, 270], dArt3: [0.75, 78, 270],
              dTable: [164, 35, 90], dChair1: [188, 24, 90], dChair2: [188, 46, 90], dPendant: [164, 35, 0], dShelf: [154, 35, 90], dBench: [171, 203, 90],
              dMirrorH: [176.25, 203, 90], dBed: [28.2, 167.8, 180], dDesk: [86.15, 141.7, 90], dDeskCh: [66.5, 141.7, 270], dDeskSh: [92, 141.7, 90], dBook: [86, 203.5, 180],
-             dBedShelf: [67, 204.5, 180], dBedRug: [67, 172, 0]},
-     colors: {curL: 0xd9ccb4, curR: 0xd9ccb4, bathRug: [0xcfc3ad, 0xa8a08c], basket: 0xd9ccb4}}
+             dBedShelf: [67, 204.5, 180], dBedRug: [67, 172, 0],
+             lgWood: [208.5, -49.5, 0], lgRadW: [45, -86.5, 0], lgRadE: [205, -86.5, 0], lgWard: [11.5, -50, 270], lgCubes: [60, -81.5, 0], lgTrolley: [93.5, -80, 0],
+             lgBench: [50, -16, 180], lgBook: [84, -15.5, 180], lgSofa: [177, -23, 180], lgTable: [140, -18, 0], lgRug: [177, -52, 0], lgBar: [246, -82, 0],
+             lgStool1: [232, -64, 0], lgStool2: [260, -64, 0], lgPend1: [232, -80, 0], lgPend2: [260, -80, 0], lgLamp: [213, -18, 0], lgPlant1: [271, -19, 0], lgPlant2: [140, -80, 0]},
+     colors: {curL: 0xd9ccb4, curR: 0xd9ccb4, bathRug: [0xcfc3ad, 0xa8a08c], basket: 0xd9ccb4, loggiaWalls: 0xe9e2d3}}
   ],
   PHOTOS: [
     {src: 'photos/p1.jpg', label: 'Main room · toward the window', at: [141, 127], h: 64, yaw: 318.6, pitch: -8, roll: 0, fov: 102.7},
