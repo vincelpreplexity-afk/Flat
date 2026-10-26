@@ -168,7 +168,7 @@ import {RectAreaLightUniformsLib} from 'https://cdn.jsdelivr.net/npm/three@0.162
 var CONFIG = {
   title: 'Flat 3D',
   subtitle: 'Main room, kitchen, hall, bathroom and bedroom, built from phone photos · sizes estimated, see “Estimates”',
-  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v15',
+  storageKey: 'flat-main-room-kitchen-hall-bath-bed-v16',
   accent: 0x1f4fd8, fill: 0xa6c0f6,
   view: 'se', look: 'colour',
   TEXTURES: 'textures/',
@@ -199,6 +199,8 @@ var CONFIG = {
       /* the three glazed units on the flat's north wall now face the loggia, not the sky; the balcony door of the main room is an open doorway (x 101-131, see the outline) */
       {type: 'window', c: [68, 0], width: 60, sill: 30, head: 88, panes: 2, white: true, noSky: true},
       {type: 'window', c: [201, 0], width: 30, sill: 33, head: 80, panes: 1, white: true, noSky: true},
+      {type: 'window', c: [68, -10], width: 60, sill: 30, head: 88, panes: 2, white: true, noSky: true},   /* the same two windows seen from the loggia side */
+      {type: 'window', c: [201, -10], width: 30, sill: 33, head: 80, panes: 1, white: true, noSky: true},
       {type: 'window', c: [233, 0], width: 28, sill: 0, head: 80, panes: 1, white: true, noSky: true},
       {type: 'window', c: [233, -10], width: 28, sill: 0, head: 80, panes: 1, white: true, noSky: true},   /* the same door seen from the loggia side */
       /* the loggia's own glazing: white frames along the whole north side, starting at chest height (42″) */
@@ -454,7 +456,7 @@ var CONFIG = {
              bedBed: [28.2, 167.8, 180], bedDesk: [86.15, 141.7, 90], bedChair: [78, 175, 270], bedLamp: [89.5, 202.5, 0], bedPouf: [65, 201, 180],
              leafA: [16, 115.2, 180], leafB: [42, 116.7, 180], leafC: [44, 118.2, 180], doorHead: [40, 116.5, 180],
              spotBd1: [30, 139, 0], spotBd2: [75, 154, 0], spotBd3: [50, 194, 0], deskW: [9.85, 96.5, 270], chairW: [30.5, 96.5, 90]}},
-    {name: 'Full refresh', note: 'The loggia is insulated and plastered in warm off-white (my guess, no photos): radiators under the window, wood floor in the lived-in half by the kitchen with a small sofa, rug, bar counter at the window and two stools; the half toward the living room is storage (sliding wardrobe, cube shelves, trolley, bench with baskets, bookcase). A full refresh in walnut, sage and oat linen, laid over the light oak floor. Living room: a low sofa along the west wall (still 60 cm clear to the bedroom door), a floating TV unit so the floor stays open, a rug with a round table and two stools instead of a second sofa. Second workplace: a walnut table for work and meals against the blank wall behind the TV, with a pendant above it and the dining table gone, so the middle of the kitchen is free; the first workplace stays in the bedroom behind the sliding door. Bedroom: a plain headboard, a desk with a shelf, a tall slim bookcase in the corner instead of the lamp and pouf. Hall: a bench with baskets and a mirror in place of the shoe rack. Built-ins (kitchen units, hall wardrobe, bathroom) stay.',
+    {name: 'Full refresh', note: 'The loggia is insulated and plastered in warm off-white (my guess, no photos): radiators under the window, wood floor in the lived-in half by the kitchen with a small sofa, rug, bar counter at the window and two stools; the half toward the living room is storage (sliding wardrobe, cube shelves, trolley, bench with baskets). A full refresh in walnut, sage and oat linen, laid over the light oak floor. Living room: a low sofa along the west wall (still 60 cm clear to the bedroom door), a floating TV unit so the floor stays open, a rug with a round table and two stools instead of a second sofa. Second workplace: a walnut table for work and meals against the blank wall behind the TV, with a pendant above it and the dining table gone, so the middle of the kitchen is free; the first workplace stays in the bedroom behind the sliding door. Bedroom: a plain headboard, a desk with a shelf, a tall slim bookcase in the corner instead of the lamp and pouf. Hall: a bench with baskets and a mirror in place of the shoe rack. Built-ins (kitchen units, hall wardrobe, bathroom) stay.',
      place: {tv: [143.5, 35, 90], curL: [15, 2, 0], curR: [130, 2, 0], rad: [65, 2.5, 0], floorK: [227, 65.5, 0], tower: [268, 12, 90],
              base: [268, 64.5, 90], corner: [267, 118, 90], leg2: [229.5, 118, 180], wall: [273, 77.5, 90], wall2: [235.5, 124, 180], mirror: [279.25, 77.5, 90],
              mirror2: [242.5, 130.25, 180], fridge: [191, 119, 180], radK: [190, 2.5, 0], hallWard: [112, 180, 270], wardDoor1: [123.75, 146.65, 270], wardDoor2: [123.75, 180, 270],
@@ -471,8 +473,8 @@ var CONFIG = {
              dMirrorH: [176.25, 203, 90], dBed: [28.2, 167.8, 180], dDesk: [86.15, 141.7, 90], dDeskCh: [66.5, 141.7, 270], dDeskSh: [92, 141.7, 90], dBook: [86, 203.5, 180],
              dBedShelf: [67, 204.5, 180], dBedRug: [67, 172, 0],
              lgWood: [208.5, -49.5, 0], lgRadW: [45, -86.5, 0], lgRadE: [205, -86.5, 0], lgWard: [11.5, -50, 270], lgCubes: [60, -81.5, 0], lgTrolley: [98, -80, 0],
-             lgBench: [50, -16, 180], lgBook: [84, -15.5, 180], lgSofa: [177, -23, 180], lgTable: [140, -18, 0], lgRug: [177, -52, 0], lgBar: [246, -82, 0],
-             lgStool1: [232, -64, 0], lgStool2: [260, -64, 0], lgPend1: [232, -80, 0], lgPend2: [260, -80, 0], lgLamp: [213, -18, 0], lgPlant1: [271, -19, 0], lgPlant2: [140, -80, 0]},
+             lgBench: [50, -16, 180], lgSofa: [177, -23, 180], lgTable: [140, -18, 0], lgRug: [177, -52, 0], lgBar: [246, -82, 0],
+             lgStool1: [232, -64, 0], lgStool2: [260, -64, 0], lgPend1: [232, -80, 0], lgPend2: [260, -80, 0], lgLamp: [272, -42, 0], lgPlant1: [271, -19, 0], lgPlant2: [140, -80, 0]},
      colors: {curL: 0xd9ccb4, curR: 0xd9ccb4, bathRug: [0xcfc3ad, 0xa8a08c], basket: 0xd9ccb4, loggiaWalls: 0xe9e2d3}}
   ],
   PHOTOS: [
