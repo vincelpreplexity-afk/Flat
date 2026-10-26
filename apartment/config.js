@@ -303,7 +303,7 @@ var CONFIG = {
              dTable: [164, 35, 90], dChair1: [188, 24, 90], dChair2: [188, 46, 90], dPendant: [164, 35, 0], dShelf: [154, 35, 90], dBench: [171, 203, 90],
              dMirrorH: [176.25, 203, 90], dBed: [28.2, 167.8, 180], dDesk: [86.15, 141.7, 90], dDeskCh: [66.5, 141.7, 270], dDeskSh: [92, 141.7, 90], dBook: [86, 203.5, 180],
              dBedShelf: [67, 204.5, 180], dBedRug: [67, 172, 0],
-             lgWood: [208.5, -49.5, 0], lgRadW: [45, -86.5, 0], lgRadE: [205, -86.5, 0], lgWard: [11.5, -50, 270], lgCubes: [60, -81.5, 0], lgTrolley: [93.5, -80, 0],
+             lgWood: [208.5, -49.5, 0], lgRadW: [45, -86.5, 0], lgRadE: [205, -86.5, 0], lgWard: [11.5, -50, 270], lgCubes: [60, -81.5, 0], lgTrolley: [98, -80, 0],
              lgBench: [50, -16, 180], lgBook: [84, -15.5, 180], lgSofa: [177, -23, 180], lgTable: [140, -18, 0], lgRug: [177, -52, 0], lgBar: [246, -82, 0],
              lgStool1: [232, -64, 0], lgStool2: [260, -64, 0], lgPend1: [232, -80, 0], lgPend2: [260, -80, 0], lgLamp: [213, -18, 0], lgPlant1: [271, -19, 0], lgPlant2: [140, -80, 0]},
      colors: {curL: 0xd9ccb4, curR: 0xd9ccb4, bathRug: [0xcfc3ad, 0xa8a08c], basket: 0xd9ccb4, loggiaWalls: 0xe9e2d3}}
