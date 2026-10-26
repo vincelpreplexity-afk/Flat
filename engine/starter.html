@@ -1388,7 +1388,7 @@ function walkPlace(x, y){ if (walkFree(x, y)){ WK.x = x; WK.y = y; return true; 
   for (var d = 4; d <= 40; d += 4) for (var a = 0; a < 12; a++){ var nx = x + Math.cos(a * Math.PI / 6) * d, ny = y + Math.sin(a * Math.PI / 6) * d; if (walkFree(nx, ny)){ WK.x = nx; WK.y = ny; return true; } }
   return false; }
 function walkApplyCam(){ photoAspect = (MV.w / MV.h) || 1; photoCam({at: [WK.x, WK.y], h: WK.h, yaw: WK.yaw, pitch: WK.pitch, roll: 0, fov: WK.fov}); }
-function walkTick(now){ var dt = Math.min(0.05, (now - WK.last) / 1000 || 0.016); WK.last = now;
+function walkTick(now){ var dt = Math.max(0, Math.min(0.05, (now - WK.last) / 1000 || 0.016)); WK.last = now;
   if (WK.cur !== cur) walkSolids(); WK.hidden.forEach(function(k){ if (OBJ[k]) OBJ[k].visible = false; });   /* a closed door you can walk through is shown open: hidden */
   if (Math.abs(photoAspect - MV.w / MV.h) > 1e-3) WK.changed = true;
   var K = WK.keys, f = (K.w || K.ArrowUp ? 1 : 0) - (K.s || K.ArrowDown ? 1 : 0), sd = (K.d ? 1 : 0) - (K.a ? 1 : 0), t = (K.ArrowRight ? 1 : 0) - (K.ArrowLeft ? 1 : 0) + ((K.e ? 1 : 0) - (K.q ? 1 : 0));

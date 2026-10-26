@@ -186,6 +186,7 @@ var CONFIG = {
        The bathroom lies east of the hall: its door is the 5″ channel (177,211)-(182,211)-(182,239)-(177,239), 28″ wide. */
     outline: [[0, 0], [101, 0], [101, -10], [0, -10], [0, -89], [280, -89], [280, -10], [131, -10], [131, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 131], [207, 131], [207, 135], [177, 135], [177, 160], [182, 160], [182, 139], [280, 139], [280, 232], [182, 232], [182, 188], [177, 188], [177, 234], [101, 234], [101, 114], [78, 114], [78, 119], [96, 119], [96, 209], [0, 209], [0, 119], [2, 119], [2, 114], [0, 114]],
     height: 98, wall: 5,
+    brickColor: 0xa8695a,
     brick: [2, 3, 4, 5, 6],   /* the loggia's brick walls: its south side (two edges), west end, north side, east end */
     walls: 0xf7f3ea, floor: 0xd3b184, trim: 0xe2d6c0,
     boards: 7, boardsDir: 'y',
@@ -225,8 +226,8 @@ var CONFIG = {
     pouf:   {name: 'Pouf', type: 'ottoman', w: 40, d: 28, h: 16, color: 0x9fb0ac, color2: 0xd8bb93},
     stand:  {name: 'TV unit', type: 'tvStand', w: 52, d: 17, h: 19, color: 0x1b1b1d, color2: 0xb8bcc0},
     tv:     {name: 'TV 50″', type: 'media', w: 44, d: 3, h: 25, tv: 50, mount: 28, color: 0x1b1b1d},
-    curL:   {name: 'Curtain left', type: 'curtain', w: 30, d: 3, h: 96, color: 0x2a9bb0},
-    curR:   {name: 'Curtain right', type: 'curtain', w: 30, d: 3, h: 96, color: 0x2a9bb0},
+    curL:   {name: 'Curtain left', type: 'curtain', w: 30, d: 3, h: 96, walk: false, color: 0x2a9bb0},
+    curR:   {name: 'Curtain right', type: 'curtain', w: 30, d: 3, h: 96, walk: false, color: 0x2a9bb0},
     rad:    {name: 'Radiator', type: 'radiator', w: 50, d: 4, h: 21, mount: 3, color: 0xf4f1ea},
     floorK: {name: 'Dark floor patch', type: 'rug', w: 54, d: 131, color: 0x5b3b2a, color2: 0x5b3b2a},
     tower:  {name: 'Oven tower', type: 'ovenTower', w: 24, d: 24, h: 84, color: 0xe4e4e2},
@@ -1605,7 +1606,7 @@ function walkPlace(x, y){ if (walkFree(x, y)){ WK.x = x; WK.y = y; return true; 
   for (var d = 4; d <= 40; d += 4) for (var a = 0; a < 12; a++){ var nx = x + Math.cos(a * Math.PI / 6) * d, ny = y + Math.sin(a * Math.PI / 6) * d; if (walkFree(nx, ny)){ WK.x = nx; WK.y = ny; return true; } }
   return false; }
 function walkApplyCam(){ photoAspect = (MV.w / MV.h) || 1; photoCam({at: [WK.x, WK.y], h: WK.h, yaw: WK.yaw, pitch: WK.pitch, roll: 0, fov: WK.fov}); }
-function walkTick(now){ var dt = Math.min(0.05, (now - WK.last) / 1000 || 0.016); WK.last = now;
+function walkTick(now){ var dt = Math.max(0, Math.min(0.05, (now - WK.last) / 1000 || 0.016)); WK.last = now;
   if (WK.cur !== cur) walkSolids(); WK.hidden.forEach(function(k){ if (OBJ[k]) OBJ[k].visible = false; });   /* a closed door you can walk through is shown open: hidden */
   if (Math.abs(photoAspect - MV.w / MV.h) > 1e-3) WK.changed = true;
   var K = WK.keys, f = (K.w || K.ArrowUp ? 1 : 0) - (K.s || K.ArrowDown ? 1 : 0), sd = (K.d ? 1 : 0) - (K.a ? 1 : 0), t = (K.ArrowRight ? 1 : 0) - (K.ArrowLeft ? 1 : 0) + ((K.e ? 1 : 0) - (K.q ? 1 : 0));

@@ -24,6 +24,7 @@ var CONFIG = {
        The bathroom lies east of the hall: its door is the 5″ channel (177,211)-(182,211)-(182,239)-(177,239), 28″ wide. */
     outline: [[0, 0], [101, 0], [101, -10], [0, -10], [0, -89], [280, -89], [280, -10], [131, -10], [131, 0], [145, 0], [145, 73], [150, 73], [150, 0], [280, 0], [280, 131], [207, 131], [207, 135], [177, 135], [177, 160], [182, 160], [182, 139], [280, 139], [280, 232], [182, 232], [182, 188], [177, 188], [177, 234], [101, 234], [101, 114], [78, 114], [78, 119], [96, 119], [96, 209], [0, 209], [0, 119], [2, 119], [2, 114], [0, 114]],
     height: 98, wall: 5,
+    brickColor: 0xa8695a,
     brick: [2, 3, 4, 5, 6],   /* the loggia's brick walls: its south side (two edges), west end, north side, east end */
     walls: 0xf7f3ea, floor: 0xd3b184, trim: 0xe2d6c0,
     boards: 7, boardsDir: 'y',
@@ -63,8 +64,8 @@ var CONFIG = {
     pouf:   {name: 'Pouf', type: 'ottoman', w: 40, d: 28, h: 16, color: 0x9fb0ac, color2: 0xd8bb93},
     stand:  {name: 'TV unit', type: 'tvStand', w: 52, d: 17, h: 19, color: 0x1b1b1d, color2: 0xb8bcc0},
     tv:     {name: 'TV 50″', type: 'media', w: 44, d: 3, h: 25, tv: 50, mount: 28, color: 0x1b1b1d},
-    curL:   {name: 'Curtain left', type: 'curtain', w: 30, d: 3, h: 96, color: 0x2a9bb0},
-    curR:   {name: 'Curtain right', type: 'curtain', w: 30, d: 3, h: 96, color: 0x2a9bb0},
+    curL:   {name: 'Curtain left', type: 'curtain', w: 30, d: 3, h: 96, walk: false, color: 0x2a9bb0},
+    curR:   {name: 'Curtain right', type: 'curtain', w: 30, d: 3, h: 96, walk: false, color: 0x2a9bb0},
     rad:    {name: 'Radiator', type: 'radiator', w: 50, d: 4, h: 21, mount: 3, color: 0xf4f1ea},
     floorK: {name: 'Dark floor patch', type: 'rug', w: 54, d: 131, color: 0x5b3b2a, color2: 0x5b3b2a},
     tower:  {name: 'Oven tower', type: 'ovenTower', w: 24, d: 24, h: 84, color: 0xe4e4e2},
