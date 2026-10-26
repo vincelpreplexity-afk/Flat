@@ -519,7 +519,10 @@ function hitItem(p){ var ids = placed(LAYOUTS[cur]), solid = ids.filter(function
    MODEL (three.js, inches). Colour: physically based finishes drawn on canvas, image-based light, one sun with soft
    shadows and ambient occlusion. White model: the same geometry in matte white with ink edges.
    ====================================================================== */
-var mc = $('#model'), MV = {w: 1, h: 1}, DPR = Math.min(window.devicePixelRatio || 1, HASH.hq ? 2 : 1.5);   /* 1.5 is sharp enough and spends 44 % fewer pixels than 2; add #hq for the full ratio */
+var QK = (C.storageKey || 'room') + '-quality', QPREF = (function(){ try { return localStorage.getItem(QK); } catch (e){ return null; } })();   /* the viewer's own choice: 'lite' or 'full' */
+var AUTO_LITE = !!(matchMedia('(pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4);   /* phones, tablets and modest machines start in lite mode */
+var LITE = HASH.lite ? true : HASH.hq ? false : QPREF === 'lite' ? true : QPREF === 'full' ? false : AUTO_LITE;   /* lite: lower pixel ratio, a smaller shadow map and mirrors, no ambient occlusion */
+var mc = $('#model'), MV = {w: 1, h: 1}, DPR = Math.min(window.devicePixelRatio || 1, LITE ? 1.25 : (HASH.hq ? 2 : 1.5));   /* 1.5 is sharp enough and spends 44 % fewer pixels than 2; add #hq for the full ratio */
 var renderer = new T.WebGLRenderer({canvas: mc, antialias: true, alpha: true, preserveDrawingBuffer: true});
 renderer.setPixelRatio(DPR); renderer.setClearColor(0xffffff, 0);   /* transparent: the page's paper shows round the model */
 renderer.toneMapping = T.NeutralToneMapping; renderer.toneMappingExposure = 1;
@@ -528,7 +531,7 @@ var scene = new T.Scene(), world = new T.Group(), OVER = new T.Scene(); scene.ad
 var PMREM = new T.PMREMGenerator(renderer), ENVGEN = PMREM.fromScene(new RoomEnvironment(renderer), 0.04).texture, ENVROOM = null;   /* a generic studio for the white model and the first colour frame; the room's own light, captured from its centre, replaces it in colour */
 scene.environment = ENVGEN;
 var ENVI = 0.45;   /* how much of the studio light the finishes take in the white model; in colour every finish takes the captured room at 1, which is its real level */
-var sun = new T.DirectionalLight(0xfff3e3, 3.2); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.4; sun.shadow.radius = 9; sun.shadow.blurSamples = 16;   /* soft, window-sized shadows */
+var sun = new T.DirectionalLight(0xfff3e3, 3.2); sun.castShadow = true; sun.shadow.mapSize.set(LITE ? 1024 : 2048, LITE ? 1024 : 2048); sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.4; sun.shadow.radius = 9; sun.shadow.blurSamples = 16;   /* soft, window-sized shadows */
 scene.add(sun); scene.add(sun.target);
 /* the colour model's light, measured against the room's photos (exposure 0.82 and these levels put a photo's ceiling and walls within a few percent, a little brighter than the photo, never darker).
    The sun and the sky are cooler than they look because a phone balances the oak's warm bounce away, and so must the lights that the captured environment inherits. The white model keeps its own sun at 3.2 and exposure 1 */
@@ -1194,7 +1197,7 @@ function paintRug(g, m, cs){ var it = g.userData.it, key = cs.join(',') + ':' + 
 var MIR = {moving: false};
 function mirrorOf(n, on){ /* a mirror shows the room across from it, which no environment map can: a Reflector renders the scene from the mirrored camera (only when the page redraws) */
   var r = n.userData.refl, p = n.geometry.parameters;
-  if (!r && on){ r = n.userData.refl = new Reflector(new T.PlaneGeometry(p.width, p.height), {textureWidth: 512, textureHeight: Math.max(64, Math.round(512 * p.height / p.width)), color: 0xd4d8d7, clipBias: 0.003}); r.position.z = 0.02; n.add(r);
+  if (!r && on){ r = n.userData.refl = new Reflector(new T.PlaneGeometry(p.width, p.height), {textureWidth: LITE ? 384 : 512, textureHeight: Math.max(64, Math.round((LITE ? 384 : 512) * p.height / p.width)), color: 0xd4d8d7, clipBias: 0.003}); r.position.z = 0.02; n.add(r);
     var rb = r.onBeforeRender; r.onBeforeRender = function(rd, sc, cam){ if (sc.overrideMaterial) return;
       var now = performance.now(); if (MIR.moving && this.userData.fresh && now - this.userData.t < 450) return;   /* while the view moves a mirror refreshes about twice a second; the settled frame redraws it fully */
       this.userData.t = now; this.userData.fresh = true; rb.call(this, rd, sc, cam); }; }   /* the AO pass's normal render needs no reflection: skip it, halving the mirror's cost */
@@ -1228,7 +1231,7 @@ sun.position.set(RC[0] - 0.8 * RR, RR * 1.35, RC[1] - 0.3 * RR); sun.target.posi
 
 /* post: ambient occlusion over the colour render, then tone mapping; the gizmo draws after, on top */
 var composer = new EffectComposer(renderer, new T.WebGLRenderTarget(1, 1, {type: T.HalfFloatType, samples: 4}));
-var gtao = new GTAOPass(scene, mcam, 1, 1); composer.addPass(new RenderPass(scene, mcam)); composer.addPass(gtao); composer.addPass(new OutputPass());
+var gtao = new GTAOPass(scene, mcam, 1, 1); composer.addPass(new RenderPass(scene, mcam)); composer.addPass(gtao); composer.addPass(new OutputPass()); if (LITE) gtao.enabled = false;
 var VIG = new ShaderPass({uniforms: {tDiffuse: {value: null}, k: {value: 0.2}}, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
   fragmentShader: 'uniform sampler2D tDiffuse; uniform float k; varying vec2 vUv; void main(){ vec4 c = texture2D(tDiffuse, vUv); float d = length((vUv - 0.5) * vec2(1.0, 0.85)) * 2.0; c.rgb *= 1.0 - k * smoothstep(0.5, 1.45, d); gl_FragColor = c; }'});
 VIG.enabled = false; composer.addPass(VIG);   /* a phone lens's soft corners: only through a photo's camera, in colour */
@@ -1320,7 +1323,9 @@ $('#zin').onclick = function(){ zoomAt(null, 0.8); }; $('#zout').onclick = funct
 function renderViews(){ var box = $('#views'); box.textContent = ''; [['se', 'SE'], ['sw', 'SW'], ['nw', 'NW'], ['ne', 'NE'], ['top', 'Top']].forEach(function(v){
   var b = el('button', v[0] === curView ? 'on' : '', v[1]); b.title = v[0] === 'top' ? 'From above' : 'Look from the ' + v[1] + ' corner'; b.onclick = function(){ goView(v[0]); }; box.appendChild(b); });
   var wb = el('button', '', 'Walk'); wb.title = 'Walk through the flat in first person'; wb.onclick = function(){ enterWalk(); }; box.appendChild(wb);
-  var cb = el('button', '', 'Catalog'); cb.title = 'Browse furniture by category, add or replace pieces'; cb.onclick = function(){ openLib(); }; box.appendChild(cb); }
+  var cb = el('button', '', 'Catalog'); cb.title = 'Browse furniture by category, add or replace pieces'; cb.onclick = function(){ openLib(); }; box.appendChild(cb);
+  var qb = el('button', '', LITE ? 'Full quality' : 'Lite mode'); qb.title = LITE ? 'Sharper, with shadows in the corners; slower on modest machines' : 'Faster on phones and modest machines: lower resolution, no corner shading';
+  qb.onclick = function(){ try { localStorage.setItem(QK, LITE ? 'full' : 'lite'); } catch (e){} try { location.reload(); } catch (e){ toast('Saved. Reload the page to apply.'); } }; box.appendChild(qb); }
 
 /* photo match: a perspective camera where the phone stood, the photo laid over the model */
 var PH = C.PHOTOS || [], TUNE = [['x', 'at', 0], ['y', 'at', 1], ['h', 'h'], ['yaw', 'yaw'], ['pitch', 'pitch'], ['roll', 'roll'], ['fov', 'fov']];
@@ -1635,8 +1640,8 @@ function loop(now){ requestAnimationFrame(loop); var active = false; if (LIT.mod
   SEG.forEach(function(sg){ if (sg.cut !== sg.target){ sg.cut += (sg.target - sg.cut) * (reduce ? 1 : 0.2); if (Math.abs(sg.cut - sg.target) < 0.3) sg.cut = sg.target; applyCut(sg); shadowsDirty = true; active = true; } });
   if (WK.on && walkTick(now)) active = true;
   var moving = active || mdrag || gdrag; if (MIR.moving && !moving) dirty3 = true; MIR.moving = !!moving;   /* the frame after a move redraws the mirrors in full */
-  if (!moving && !gtao.enabled){ gtao.enabled = true; dirty3 = true; } if (!moving && envDirty) dirty3 = true;
-  if (active || dirty3){ if (lastR && now - lastR < 120) slow = slow * 0.8 + (now - lastR > 26 ? 0.2 : 0); lastR = now; gtao.enabled = !(moving && slow > 0.5);
+  if (!LITE && !moving && !gtao.enabled){ gtao.enabled = true; dirty3 = true; } if (!moving && envDirty) dirty3 = true;
+  if (active || dirty3){ if (lastR && now - lastR < 120) slow = slow * 0.8 + (now - lastR > 26 ? 0.2 : 0); lastR = now; gtao.enabled = !LITE && !(moving && slow > 0.5);
     if (shadowsDirty){ renderer.shadowMap.needsUpdate = true; shadowsDirty = false; } if (envDirty && !moving) captureEnv(); render3d(); dirty3 = false; }
   if (planDirty){ drawPlan(); planDirty = false; } if (uiDirty){ refreshPanel(); uiDirty = false; } }
 
