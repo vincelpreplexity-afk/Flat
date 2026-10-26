@@ -711,7 +711,7 @@ function hitItem(p){ var ids = placed(LAYOUTS[cur]), solid = ids.filter(function
    MODEL (three.js, inches). Colour: physically based finishes drawn on canvas, image-based light, one sun with soft
    shadows and ambient occlusion. White model: the same geometry in matte white with ink edges.
    ====================================================================== */
-var mc = $('#model'), MV = {w: 1, h: 1}, DPR = Math.min(window.devicePixelRatio || 1, 2);
+var mc = $('#model'), MV = {w: 1, h: 1}, DPR = Math.min(window.devicePixelRatio || 1, HASH.hq ? 2 : 1.5);   /* 1.5 is sharp enough and spends 44 % fewer pixels than 2; add #hq for the full ratio */
 var renderer = new T.WebGLRenderer({canvas: mc, antialias: true, alpha: true, preserveDrawingBuffer: true});
 renderer.setPixelRatio(DPR); renderer.setClearColor(0xffffff, 0);   /* transparent: the page's paper shows round the model */
 renderer.toneMapping = T.NeutralToneMapping; renderer.toneMappingExposure = 1;
@@ -1336,7 +1336,24 @@ BUILD.bench = function(g, it){ var w = it.w, d = it.d, h = it.h || 18, tt = 1.6;
 BUILD.pendant = function(g, it){ var r = (it.w || 16) / 2, y0 = it.mount || 62, top = 97, hh = it.shadeH || 7;   /* a cord from the ceiling and a dome shade with a warm bulb inside; mount = the shade's bottom edge */
   cyl(g, 0.3, 0.3, top - (y0 + hh), 0, y0 + hh, 0, 2, {kind: 'metal', edge: false, noShadow: true}); cyl(g, 1.6, 1.6, 0.7, 0, top - 0.1, 0, 2, {kind: 'metal', edge: false});
   cyl(g, r * 0.22, r, hh, 0, y0, 0, 3, {seg: 32, kind: 'shade', edge: false, noShadow: true}); };
-function build(it){ var g = new T.Group(); (BUILD[it.type] || BUILD.box)(g, it); mergeBooks(g); g.userData.it = it; return g; }
+
+/* ---- fewer draw calls: after a piece is built, the parts that share a material become one mesh, and their outlines one set of lines ---- */
+var NOMERGE = {mirror: 1, glass: 1, shade: 1, print: 1, rug: 1, leaf: 1, leafWhite: 1, books: 1, soil: 1};
+function mergeStatic(g){ g.updateMatrixWorld(true); var inv = new T.Matrix4().copy(g.matrixWorld).invert(), buckets = {}, order = [];
+  g.traverse(function(n){ if (n === g || !n.isMesh || !n.visible || Array.isArray(n.material) || !n.geometry) return; var u = n.userData, a = n.geometry.attributes;
+    if (!u.role || u.role === 4 || u.role === 7 || u.thin || u.decal || u.refl || NOMERGE[u.kind] || !a.position || !a.normal || !a.uv || Object.keys(a).length !== 3) return;
+    var key = [u.role, u.kind || '', n.castShadow ? 1 : 0, n.receiveShadow ? 1 : 0, u.noAO ? 1 : 0].join('|'); if (!buckets[key]){ buckets[key] = []; order.push(key); } buckets[key].push(n); });
+  var edgeJobs = {}, edgeOrder = [], gone = [];
+  order.forEach(function(key){ var list = buckets[key]; if (list.length < 2) return; var geos = [], ok = true;
+    list.forEach(function(n){ if (!ok) return; var q = n.geometry.index ? n.geometry.toNonIndexed() : n.geometry.clone(); q.applyMatrix4(new T.Matrix4().multiplyMatrices(inv, n.matrixWorld)); geos.push(q); });
+    var merged = ok && mergeGeometries(geos); geos.forEach(function(q){ q.dispose(); }); if (!merged) return;
+    var f = list[0], m = new T.Mesh(merged, WM); m.castShadow = f.castShadow; m.receiveShadow = f.receiveShadow; m.userData.role = f.userData.role; if (f.userData.kind) m.userData.kind = f.userData.kind; if (f.userData.noAO) m.userData.noAO = true; g.add(m);
+    list.forEach(function(n){ n.children.slice().forEach(function(c){ if (c.isLineSegments){ var jk = (c.userData.detail ? 'd' : 'e') + (c.material.userData.op || 0.5); if (!edgeJobs[jk]){ edgeJobs[jk] = []; edgeOrder.push(jk); } edgeJobs[jk].push({c: c, mat: new T.Matrix4().multiplyMatrices(inv, c.matrixWorld)}); gone.push(c); } }); gone.push(n); }); });
+  g.traverse(function(n){ if (n.isLineSegments && n.parent && !n.parent.isMesh && gone.indexOf(n) < 0){ var jk = (n.userData.detail ? 'd' : 'e') + (n.material.userData.op || 0.5); if (!edgeJobs[jk]){ edgeJobs[jk] = []; edgeOrder.push(jk); } edgeJobs[jk].push({c: n, mat: new T.Matrix4().multiplyMatrices(inv, n.matrixWorld)}); gone.push(n); } });   /* seams hung straight on the piece */
+  edgeOrder.forEach(function(jk){ var jobs = edgeJobs[jk], geos = jobs.map(function(j){ var q = j.c.geometry.clone(); q.applyMatrix4(j.mat); return q; }), merged = mergeGeometries(geos); geos.forEach(function(q){ q.dispose(); }); if (!merged) return;
+    var op = jobs[0].c.material.userData.op, lm = new T.LineBasicMaterial({color: INK, transparent: true, opacity: op}); lm.userData.op = op; var ls = new T.LineSegments(merged, lm); if (jobs[0].c.userData.detail) ls.userData.detail = true; g.add(ls); });
+  gone.forEach(function(n){ if (n.parent) n.parent.remove(n); if (n.geometry) n.geometry.dispose(); if (n.isLineSegments && n.material) n.material.dispose(); }); }
+function build(it){ var g = new T.Group(); (BUILD[it.type] || BUILD.box)(g, it); mergeBooks(g); if (!HASH.nomerge) mergeStatic(g); g.userData.it = it; return g; }   /* #nomerge keeps every part separate, for comparing */
 function frameFor(it){ /* the selection outline on the floor, drawn in colour mode where a blue fill would hide the finishes */
   var g = new T.Group(), m = new T.MeshBasicMaterial({color: ACCENT, toneMapped: false}), o = 2.5, w = it.w + 2 * o, d = it.d + 2 * o;
   [[w, 1, 0, -d / 2], [w, 1, 0, d / 2], [1, d, -w / 2, 0], [1, d, w / 2, 0]].forEach(function(s){ var b = new T.Mesh(new T.BoxGeometry(s[0], 0.3, s[1]), m); b.position.set(s[2], 0.7, s[3]); b.userData.noAO = true; g.add(b); });
@@ -1366,10 +1383,13 @@ function paintPrint(g, m, cs){ var it = g.userData.it, key = cs.join(',') + ':' 
   if (m.map) m.map.dispose(); var mm = Math.min(it.w, it.h) * (it.print === 'poster' ? 0.04 : 0.12); m.map = printTex(cs[0], cs[1], it.w - 2.4 - 2 * mm, it.h - 2.4 - 2 * mm, it.print, it.w * 3 + it.h); m.color.setHex(0xffffff); m.needsUpdate = true; g.userData.printKey = key; }
 function paintRug(g, m, cs){ var it = g.userData.it, key = cs.join(',') + ':' + it.w + 'x' + it.d; if (g.userData.rugKey === key) return;
   if (m.map) m.map.dispose(); m.map = rugTex(cs[0], cs[1], it.w, it.d); m.color.setHex(0xffffff); if (m.normalMap) m.normalMap.repeat.set(it.w / RUGIN, it.d / RUGIN); m.needsUpdate = true; g.userData.rugKey = key; }
+var MIR = {moving: false};
 function mirrorOf(n, on){ /* a mirror shows the room across from it, which no environment map can: a Reflector renders the scene from the mirrored camera (only when the page redraws) */
   var r = n.userData.refl, p = n.geometry.parameters;
-  if (!r && on){ r = n.userData.refl = new Reflector(new T.PlaneGeometry(p.width, p.height), {textureWidth: 768, textureHeight: Math.round(768 * p.height / p.width), color: 0xd4d8d7, clipBias: 0.003}); r.position.z = 0.02; n.add(r);
-    var rb = r.onBeforeRender; r.onBeforeRender = function(rd, sc, cam){ if (!sc.overrideMaterial) rb.call(this, rd, sc, cam); }; }   /* the AO pass's normal render needs no reflection: skip it, halving the mirror's cost */
+  if (!r && on){ r = n.userData.refl = new Reflector(new T.PlaneGeometry(p.width, p.height), {textureWidth: 512, textureHeight: Math.max(64, Math.round(512 * p.height / p.width)), color: 0xd4d8d7, clipBias: 0.003}); r.position.z = 0.02; n.add(r);
+    var rb = r.onBeforeRender; r.onBeforeRender = function(rd, sc, cam){ if (sc.overrideMaterial) return;
+      var now = performance.now(); if (MIR.moving && this.userData.fresh && now - this.userData.t < 450) return;   /* while the view moves a mirror refreshes about twice a second; the settled frame redraws it fully */
+      this.userData.t = now; this.userData.fresh = true; rb.call(this, rd, sc, cam); }; }   /* the AO pass's normal render needs no reflection: skip it, halving the mirror's cost */
   if (r) r.visible = !!on; }   /* the white model keeps a plain white plane */
 function lampGlow(g, type){ /* a shade with a warm bulb in it: the shade glows and pools light on the wall and ceiling; ROOM.lamps scales every lamp, an item's glow its own (0 = off) */
   var col = LOOK === 'colour', it = g.userData.it || {}, sh = g.userData.shade; if (sh === undefined){ sh = null; g.traverse(function(n){ if (!sh && n.isMesh && n.userData.kind === 'shade') sh = n; }); g.userData.shade = sh;
@@ -1806,7 +1826,8 @@ function loop(now){ requestAnimationFrame(loop); var active = false; if (LIT.mod
   if (tw){ if (tw.t0 == null) tw.t0 = now; var k = Math.min(1, (now - tw.t0) / tw.dur); tw.fn(easeIO(k)); if (k >= 1) tw = null; active = true; }
   SEG.forEach(function(sg){ if (sg.cut !== sg.target){ sg.cut += (sg.target - sg.cut) * (reduce ? 1 : 0.2); if (Math.abs(sg.cut - sg.target) < 0.3) sg.cut = sg.target; applyCut(sg); shadowsDirty = true; active = true; } });
   if (WK.on && walkTick(now)) active = true;
-  var moving = active || mdrag || gdrag; if (!moving && !gtao.enabled){ gtao.enabled = true; dirty3 = true; } if (!moving && envDirty) dirty3 = true;
+  var moving = active || mdrag || gdrag; if (MIR.moving && !moving) dirty3 = true; MIR.moving = !!moving;   /* the frame after a move redraws the mirrors in full */
+  if (!moving && !gtao.enabled){ gtao.enabled = true; dirty3 = true; } if (!moving && envDirty) dirty3 = true;
   if (active || dirty3){ if (lastR && now - lastR < 120) slow = slow * 0.8 + (now - lastR > 26 ? 0.2 : 0); lastR = now; gtao.enabled = !(moving && slow > 0.5);
     if (shadowsDirty){ renderer.shadowMap.needsUpdate = true; shadowsDirty = false; } if (envDirty && !moving) captureEnv(); render3d(); dirty3 = false; }
   if (planDirty){ drawPlan(); planDirty = false; } if (uiDirty){ refreshPanel(); uiDirty = false; } }
